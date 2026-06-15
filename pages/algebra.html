@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algebra & Functions — IBEW Aptitude Test Prep</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .math { font-family: 'Courier New', monospace; color: var(--primary); font-weight: 600; }
+    .step-list { list-style: none; padding-left: 0; }
+    .step-list li { padding: 6px 0 6px 28px; position: relative; }
+    .step-list li::before { content: '→'; position: absolute; left: 4px; color: var(--secondary); font-weight: 700; }
+    table.data-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    table.data-table th, table.data-table td { border: 1px solid var(--border); padding: 8px 12px; text-align: center; }
+    table.data-table th { background: var(--primary); color: white; font-size: 0.85rem; }
+    table.data-table tr:nth-child(even) { background: #f8f9fa; }
+    .key-point { background: #e8f5e9; border-left: 4px solid var(--success); padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 0.92rem; }
+    sup { font-size: 0.78em; }
+  </style>
+</head>
+<body>
+
+<!-- === TOP BANNER === -->
+<div class="top-banner">
+  ⚡ <strong>FREE</strong> IBEW Aptitude Test Preparation — No Sign-Up Required
+</div>
+
+<!-- === HEADER === -->
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      ⚡ IBEW<span>Prep</span>
+      <span class="sub">Aptitude Test Study Guide</span>
+    </a>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="algebra.html" class="active">Algebra</a>
+      <a href="reading.html">Reading</a>
+      <a href="practice-test.html">Practice Test</a>
+    </nav>
+  </div>
+</header>
+
+<!-- === MAIN CONTENT === -->
+<main class="lesson-page">
+<div class="container">
+
+  <!-- === PAGE HEADER === -->
+  <div class="page-header">
+    <h1>Algebra &amp; Functions — Complete Study Guide</h1>
+    <p>Everything you need to master the math portion of the IBEW Aptitude Test</p>
+  </div>
+
+  <!-- === CALCULATOR WARNING === -->
+  <div class="warning-box">
+    <strong>⚠ NO CALCULATORS ALLOWED</strong> on the actual IBEW test. All arithmetic must be done by hand. Practice without a calculator now so you're ready on test day.
+  </div>
+
+  <!-- === TABLE OF CONTENTS === -->
+  <div class="toc">
+    <h3>📑 Table of Contents</h3>
+    <ol>
+      <li><a href="#s1">Order of Operations (PEMDAS)</a></li>
+      <li><a href="#s2">Evaluating Algebraic Expressions</a></li>
+      <li><a href="#s3">Solving Linear Equations</a></li>
+      <li><a href="#s4">Systems of Equations</a></li>
+      <li><a href="#s5">Simplifying Polynomials</a></li>
+      <li><a href="#s6">Factoring Polynomials</a></li>
+      <li><a href="#s7">FOIL Method</a></li>
+      <li><a href="#s8">Functions &amp; Graphs</a></li>
+      <li><a href="#s9">Number Series</a></li>
+      <li><a href="#s10">Exponents &amp; Rational Numbers</a></li>
+      <li><a href="#s11">The Cartesian Plane</a></li>
+      <li><a href="#s12">Key Formulas Summary Sheet</a></li>
+    </ol>
+  </div>
+
+<!-- ============================================================ -->
+<!-- SECTION 1: ORDER OF OPERATIONS (PEMDAS)                       -->
+<!-- ============================================================ -->
+<section id="s1">
+  <h2>1. Order of Operations (PEMDAS)</h2>
+  <p>When an expression has more than one operation, you must follow a specific order to get the correct answer. The acronym <strong>PEMDAS</strong> helps you remember:</p>
+
+  <div class="formula-box">
+    <code>P</code> — <strong>Parentheses</strong> first<br>
+    <code>E</code> — <strong>Exponents</strong> (powers, square roots)<br>
+    <code>MD</code> — <strong>Multiplication &amp; Division</strong> (left to right)<br>
+    <code>AS</code> — <strong>Addition &amp; Subtraction</strong> (left to right)
+  </div>
+
+  <p><strong>Key rule:</strong> Multiplication and division have <em>equal priority</em> — work them left to right. Same for addition and subtraction.</p>
+
+  <div class="example-box">
+    <h4>Example: Evaluate 8 + 2 × 5</h4>
+    <p>Multiplication comes before addition:<br>
+    <span class="math">8 + 2 × 5 = 8 + 10 = 18</span></p>
+    <p class="solution"><strong>Common mistake:</strong> adding first gives 10 × 5 = 50, which is wrong.</p>
+  </div>
+
+  <div class="example-box">
+    <h4>Example: Evaluate 20 ÷ 4 × 3</h4>
+    <p>Division and multiplication have equal priority — go left to right:<br>
+    <span class="math">20 ÷ 4 × 3 = 5 × 3 = 15</span></p>
+    <p class="solution"><strong>Common mistake:</strong> multiplying first gives 20 ÷ 12 = 1.67, which is wrong.</p>
+  </div>
+
+  <!-- Practice Questions -->
+  <h3>Practice Questions</h3>
+
+  <div class="practice-question">
+    <div class="q-label">Q1 — PEMDAS</div>
+    <div class="q-text">Evaluate: 3 + 6 × (5 + 4) ÷ 3 − 7</div>
+    <div class="options">
+      <label><input type="radio" name="q1"> A) 8</label>
+      <label><input type="radio" name="q1"> B) 14</label>
+      <label><input type="radio" name="q1"> C) 11</label>
+      <label><input type="radio" name="q1"> D) 17</label>
+    </div>
+    <div class="explanation show">
+      <strong>Answer: B) 14</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Parentheses: 5 + 4 = 9 → <span class="math">3 + 6 × 9 ÷ 3 − 7</span></li>
+        <li>Multiplication &amp; Division (left to right): 6 × 9 = 54 → <span class="math">3 + 54 ÷ 3 − 7</span></li>
+        <li>54 ÷ 3 = 18 → <span class="math">3 + 18 − 7</span></li>
+        <li>Addition &amp; Subtraction (left to right): 3 + 18 = 21 → <span class="math">21 − 7 = 14</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q2 — PEMDAS</div>
+    <div class="q-text">Evaluate: (12 − 4)² ÷ 8 + 3 × 2</div>
+    <div class="options">
+      <label><input type="radio" name="q2"> A) 14</label>
+      <label><input type="radio" name="q2"> B) 10</label>
+      <label><input type="radio" name="q2"> C) 20</label>
+      <label><input type="radio" name="q2"> D) 12</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: A) 14</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Parentheses: 12 − 4 = 8 → <span class="math">8² ÷ 8 + 3 × 2</span></li>
+        <li>Exponent: 8² = 64 → <span class="math">64 ÷ 8 + 3 × 2</span></li>
+        <li>Multiplication &amp; Division (left to right): 64 ÷ 8 = 8; 3 × 2 = 6 → <span class="math">8 + 6</span></li>
+        <li>Addition: 8 + 6 = 14</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q3 — PEMDAS</div>
+    <div class="q-text">Evaluate: 48 ÷ 2(3 + 5) − 6</div>
+    <div class="options">
+      <label><input type="radio" name="q3"> A) −3</label>
+      <label><input type="radio" name="q3"> B) 18</label>
+      <label><input type="radio" name="q3"> C) 0</label>
+      <label><input type="radio" name="q3"> D) 6</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: A) −3</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Parentheses first: 3 + 5 = 8 → <span class="math">48 ÷ 2(8) − 6</span></li>
+        <li>Implicit multiplication (juxtaposition) like 2(8) has higher priority than the ÷ sign on standardized tests. Evaluate 2(8) as a unit: 2 × 8 = 16 → <span class="math">48 ÷ 16 − 6</span></li>
+        <li>Division: 48 ÷ 16 = 3 → <span class="math">3 − 6</span></li>
+        <li>Subtraction: 3 − 6 = <strong>−3</strong></li>
+      </ol>
+      <p><em>Note: On the IBEW test, expressions like a(b) are treated as a single grouped term, so 2(8) is evaluated before the division.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 2: EVALUATING ALGEBRAIC EXPRESSIONS                   -->
+<!-- ============================================================ -->
+<section id="s2">
+  <h2>2. Evaluating Algebraic Expressions</h2>
+  <p>Evaluating an expression means substituting given numbers for variables and then simplifying using PEMDAS. This is one of the most common question types on the IBEW test.</p>
+
+  <div class="example-box">
+    <h4>Example: Evaluate 3x² − 2xy + 5y when x = 2 and y = −1</h4>
+    <p><strong>Substitute:</strong> 3(2)² − 2(2)(−1) + 5(−1)</p>
+    <p class="solution">
+      = 3(4) − 2(2)(−1) + 5(−1)<br>
+      = 12 − (−4) + (−5)<br>
+      = 12 + 4 − 5<br>
+      = <strong>11</strong>
+    </p>
+  </div>
+
+  <div class="example-box">
+    <h4>Example: The formula for the area of a trapezoid is A = ½(b₁ + b₂)h. Find A when b₁ = 8, b₂ = 12, h = 5.</h4>
+    <p class="solution">
+      A = ½(8 + 12) × 5<br>
+      = ½(20) × 5<br>
+      = 10 × 5<br>
+      = <strong>50</strong>
+    </p>
+  </div>
+
+  <div class="key-point">
+    <strong>Key tip:</strong> Always use parentheses when substituting negative numbers. For example, if x = −3, write 2(−3), not 2 − 3 — they give very different results!
+  </div>
+
+  <h3>Practice Questions</h3>
+
+  <div class="practice-question">
+    <div class="q-label">Q1 — Evaluating Expressions</div>
+    <div class="q-text">Evaluate 2a² − 3b + 4c when a = 3, b = 5, c = −2</div>
+    <div class="options">
+      <label><input type="radio" name="q4"> A) −5</label>
+      <label><input type="radio" name="q4"> B) 1</label>
+      <label><input type="radio" name="q4"> C) 13</label>
+      <label><input type="radio" name="q4"> D) 25</label>
+    </div>
+    <div class="explanation show">
+      <strong>Answer: A) −5</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Substitute: 2(3)² − 3(5) + 4(−2)</li>
+        <li>Exponent: 2(9) − 3(5) + 4(−2)</li>
+        <li>Multiply: 18 − 15 − 8</li>
+        <li>Subtract left to right: 18 − 15 = 3; 3 − 8 = <strong>−5</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q2 — Formula Evaluation</div>
+    <div class="q-text">The formula C = 5/9(F − 32) converts Fahrenheit to Celsius. Find C when F = 68.</div>
+    <div class="options">
+      <label><input type="radio" name="q5"> A) 10°</label>
+      <label><input type="radio" name="q5"> B) 15°</label>
+      <label><input type="radio" name="q5"> C) 20°</label>
+      <label><input type="radio" name="q5"> D) 25°</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: C) 20°</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Substitute: C = 5/9(68 − 32)</li>
+        <li>Parentheses: 68 − 32 = 36 → C = 5/9 × 36</li>
+        <li>Multiply: 5 × 36 = 180; 180 ÷ 9 = <strong>20</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q3 — Multi-Variable Substitution</div>
+    <div class="q-text">Evaluate (x² − y²) ÷ (x + y) when x = 7 and y = 4</div>
+    <div class="options">
+      <label><input type="radio" name="q6"> A) 11</label>
+      <label><input type="radio" name="q6"> B) 3</label>
+      <label><input type="radio" name="q6"> C) 7</label>
+      <label><input type="radio" name="q6"> D) 33</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: B) 3</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Substitute: (7² − 4²) ÷ (7 + 4)</li>
+        <li>Exponents: (49 − 16) ÷ (11)</li>
+        <li>Parentheses: 33 ÷ 11 = <strong>3</strong></li>
+      </ol>
+      <p><em>Note: (x² − y²) = (x + y)(x − y), so this simplifies to x − y = 7 − 4 = 3.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 3: SOLVING LINEAR EQUATIONS                           -->
+<!-- ============================================================ -->
+<section id="s3">
+  <h2>3. Solving Linear Equations</h2>
+  <p>A linear equation in one variable can be written in the form <span class="math">ax + b = c</span>. The goal is to isolate the variable using inverse operations.</p>
+
+  <div class="formula-box">
+    <strong>Golden Rule:</strong> Whatever you do to one side of the equation, you MUST do to the other side.
+  </div>
+
+  <h3>Steps for Solving</h3>
+  <ol>
+    <li><strong>Simplify</strong> each side (distribute, combine like terms).</li>
+    <li><strong>Move variable terms</strong> to one side using addition/subtraction.</li>
+    <li><strong>Move constant terms</strong> to the other side.</li>
+    <li><strong>Divide</strong> by the coefficient of the variable.</li>
+    <li><strong>Check</strong> your answer by plugging it back in.</li>
+  </ol>
+
+  <div class="example-box">
+    <h4>Example: Solve 5x − 7 = 3x + 9</h4>
+    <p class="solution">
+      Step 1: Subtract 3x from both sides → <span class="math">2x − 7 = 9</span><br>
+      Step 2: Add 7 to both sides → <span class="math">2x = 16</span><br>
+      Step 3: Divide both sides by 2 → <span class="math">x = 8</span><br>
+      <strong>Check:</strong> 5(8) − 7 = 40 − 7 = 33 ✓ and 3(8) + 9 = 24 + 9 = 33 ✓
+    </p>
+  </div>
+
+  <h3>Practice Questions</h3>
+
+  <div class="practice-question">
+    <div class="q-label">Q1 — Two-Step Equation</div>
+    <div class="q-text">Solve for x: 4x + 11 = 35</div>
+    <div class="options">
+      <label><input type="radio" name="q7"> A) x = 11.5</label>
+      <label><input type="radio" name="q7"> B) x = 6</label>
+      <label><input type="radio" name="q7"> C) x = 8.75</label>
+      <label><input type="radio" name="q7"> D) x = 24</label>
+    </div>
+    <div class="explanation show">
+      <strong>Answer: B) x = 6</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Subtract 11 from both sides: 4x = 35 − 11 → <span class="math">4x = 24</span></li>
+        <li>Divide both sides by 4: <span class="math">x = 24 ÷ 4 = 6</span></li>
+      </ol>
+      <strong>Check:</strong> 4(6) + 11 = 24 + 11 = 35 ✓
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q2 — Variables on Both Sides</div>
+    <div class="q-text">Solve for y: 7y − 3 = 2y + 17</div>
+    <div class="options">
+      <label><input type="radio" name="q8"> A) y = 2.8</label>
+      <label><input type="radio" name="q8"> B) y = 10</label>
+      <label><input type="radio" name="q8"> C) y = 4</label>
+      <label><input type="radio" name="q8"> D) y = 20</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: C) y = 4</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Subtract 2y from both sides: 5y − 3 = 17</li>
+        <li>Add 3 to both sides: 5y = 20</li>
+        <li>Divide by 5: y = 4</li>
+      </ol>
+      <strong>Check:</strong> 7(4) − 3 = 28 − 3 = 25 ✓ and 2(4) + 17 = 8 + 17 = 25 ✓
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q3 — Multi-Step with Distribution</div>
+    <div class="q-text">Solve for x: 3(x − 4) + 2x = 18</div>
+    <div class="options">
+      <label><input type="radio" name="q9"> A) x = 2</label>
+      <label><input type="radio" name="q9"> B) x = 6</label>
+      <label><input type="radio" name="q9"> C) x = 4.4</label>
+      <label><input type="radio" name="q9"> D) x = 10</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: B) x = 6</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Distribute: 3x − 12 + 2x = 18</li>
+        <li>Combine like terms: 5x − 12 = 18</li>
+        <li>Add 12 to both sides: 5x = 30</li>
+        <li>Divide by 5: x = 6</li>
+      </ol>
+      <strong>Check:</strong> 3(6 − 4) + 2(6) = 3(2) + 12 = 6 + 12 = 18 ✓
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 4: SYSTEMS OF EQUATIONS                               -->
+<!-- ============================================================ -->
+<section id="s4">
+  <h2>4. Systems of Equations</h2>
+  <p>A system of equations is a set of two or more equations with the same variables. The IBEW test focuses on systems of two linear equations with two unknowns. There are two main methods:</p>
+
+  <h3>Method 1: Substitution</h3>
+  <p>Solve one equation for one variable, then substitute that expression into the other equation.</p>
+
+  <div class="example-box">
+    <h4>Example: Solve by substitution</h4>
+    <p><span class="math">y = 2x − 1</span><br><span class="math">3x + 2y = 12</span></p>
+    <p class="solution">
+      Substitute y into the second equation:<br>
+      3x + 2(2x − 1) = 12<br>
+      3x + 4x − 2 = 12<br>
+      7x = 14 → <strong>x = 2</strong><br>
+      Then y = 2(2) − 1 = <strong>3</strong><br>
+      <strong>Solution: (2, 3)</strong>
+    </p>
+  </div>
+
+  <h3>Method 2: Elimination (Addition)</h3>
+  <p>Add or subtract equations to eliminate one variable, then solve for the remaining variable.</p>
+
+  <div class="example-box">
+    <h4>Example: Solve by elimination</h4>
+    <p><span class="math">2x + 3y = 11</span><br><span class="math">2x − y = 7</span></p>
+    <p class="solution">
+      Subtract the second equation from the first:<br>
+      (2x + 3y) − (2x − y) = 11 − 7<br>
+      4y = 4 → <strong>y = 1</strong><br>
+      Substitute into either equation: 2x + 3(1) = 11 → 2x = 8 → <strong>x = 4</strong><br>
+      <strong>Solution: (4, 1)</strong>
+    </p>
+  </div>
+
+  <h3>Practice Questions</h3>
+
+  <div class="practice-question">
+    <div class="q-label">Q1 — Systems (Substitution)</div>
+    <div class="q-text">Solve the system:<br>y = x + 5<br>2x + y = 11</div>
+    <div class="options">
+      <label><input type="radio" name="q10"> A) (3, 8)</label>
+      <label><input type="radio" name="q10"> B) (2, 7)</label>
+      <label><input type="radio" name="q10"> C) (1, 6)</label>
+      <label><input type="radio" name="q10"> D) (4, 9)</label>
+    </div>
+    <div class="explanation show">
+      <strong>Answer: B) (2, 7)</strong><br><br>
+      <strong>Step-by-step (Substitution):</strong>
+      <ol>
+        <li>Substitute y = x + 5 into 2x + y = 11: 2x + (x + 5) = 11</li>
+        <li>Combine: 3x + 5 = 11</li>
+        <li>Subtract 5: 3x = 6 → x = 2</li>
+        <li>Then y = 2 + 5 = 7</li>
+        <li>Solution: (2, 7)</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q2 — Systems (Elimination)</div>
+    <div class="q-text">Solve the system:<br>3x + 2y = 19<br>x − 2y = −7</div>
+    <div class="options">
+      <label><input type="radio" name="q11"> A) (4, 3.5)</label>
+      <label><input type="radio" name="q11"> B) (5, 2)</label>
+      <label><input type="radio" name="q11"> C) (3, 5)</label>
+      <label><input type="radio" name="q11"> D) (6, 0.5)</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: C) (3, 5)</strong><br><br>
+      <strong>Step-by-step (Elimination):</strong>
+      <ol>
+        <li>Add the equations to eliminate y: (3x + 2y) + (x − 2y) = 19 + (−7)</li>
+        <li>4x = 12 → x = 3</li>
+        <li>Substitute into x − 2y = −7: 3 − 2y = −7</li>
+        <li>−2y = −10 → y = 5</li>
+        <li>Solution: (3, 5)</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q3 — Systems (Word Problem)</div>
+    <div class="q-text">Two numbers add to 25. Their difference is 7. Find both numbers.</div>
+    <div class="options">
+      <label><input type="radio" name="q12"> A) 18 and 7</label>
+      <label><input type="radio" name="q12"> B) 16 and 9</label>
+      <label><input type="radio" name="q12"> C) 14 and 11</label>
+      <label><input type="radio" name="q12"> D) 20 and 5</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: B) 16 and 9</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Let the numbers be x and y. Then x + y = 25 and x − y = 7.</li>
+        <li>Add the equations: (x + y) + (x − y) = 25 + 7</li>
+        <li>2x = 32 → x = 16</li>
+        <li>Then y = 25 − 16 = 9</li>
+        <li>The numbers are <strong>16 and 9</strong>. Check: 16 + 9 = 25 ✓, 16 − 9 = 7 ✓</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 5: SIMPLIFYING POLYNOMIALS                             -->
+<!-- ============================================================ -->
+<section id="s5">
+  <h2>5. Simplifying Polynomials</h2>
+  <p>A <strong>polynomial</strong> is an expression with one or more terms involving variables and exponents. Simplifying means combining like terms and applying the distributive property.</p>
+
+  <h3>Combining Like Terms</h3>
+  <p><strong>Like terms</strong> have exactly the same variable raised to exactly the same power. Combine them by adding or subtracting their coefficients.</p>
+
+  <div class="example-box">
+    <h4>Example: Simplify 5x² + 3x − 7 + 2x² − 4x + 10</h4>
+    <p class="solution">
+      Group like terms:<br>
+      x² terms: 5x² + 2x² = <strong>7x²</strong><br>
+      x terms: 3x − 4x = <strong>−x</strong><br>
+      Constants: −7 + 10 = <strong>3</strong><br>
+      <strong>Result: 7x² − x + 3</strong>
+    </p>
+  </div>
+
+  <h3>Distributive Property</h3>
+  <p>The distributive property: <span class="math">a(b + c) = ab + ac</span>. Multiply the outside term by each term inside the parentheses.</p>
+
+  <div class="example-box">
+    <h4>Example: Simplify 4(2x − 3) − 2(x + 5)</h4>
+    <p class="solution">
+      Distribute: 8x − 12 − 2x − 10<br>
+      Combine like terms: 8x − 2x = 6x; −12 − 10 = −22<br>
+      <strong>Result: 6x − 22</strong>
+    </p>
+  </div>
+
+  <h3>Practice Questions</h3>
+
+  <div class="practice-question">
+    <div class="q-label">Q1 — Combining Like Terms</div>
+    <div class="q-text">Simplify: 6a + 4b − 3a + 7b − 5</div>
+    <div class="options">
+      <label><input type="radio" name="q13"> A) 3a + 11b − 5</label>
+      <label><input type="radio" name="q13"> B) 9a + 11b − 5</label>
+      <label><input type="radio" name="q13"> C) 3a + 3b − 5</label>
+      <label><input type="radio" name="q13"> D) 3a + 11b + 5</label>
+    </div>
+    <div class="explanation show">
+      <strong>Answer: A) 3a + 11b − 5</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Group a terms: 6a − 3a = 3a</li>
+        <li>Group b terms: 4b + 7b = 11b</li>
+        <li>Constant stays: −5</li>
+        <li>Result: <strong>3a + 11b − 5</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q2 — Distributive Property</div>
+    <div class="q-text">Simplify: 5(3m − 2) + 4(2m + 1)</div>
+    <div class="options">
+      <label><input type="radio" name="q14"> A) 23m − 6</label>
+      <label><input type="radio" name="q14"> B) 23m − 14</label>
+      <label><input type="radio" name="q14"> C) 15m + 8m − 2 + 1</label>
+      <label><input type="radio" name="q14"> D) 7m − 6</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: A) 23m − 6</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Distribute: 5(3m) + 5(−2) + 4(2m) + 4(1) = 15m − 10 + 8m + 4</li>
+        <li>Combine like terms: 15m + 8m = 23m</li>
+        <li>Combine constants: −10 + 4 = −6</li>
+        <li>Result: <strong>23m − 6</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q3 — Distributive with Subtraction</div>
+    <div class="q-text">Simplify: 2(x² + 3x) − 3(x² − x + 2)</div>
+    <div class="options">
+      <label><input type="radio" name="q15"> A) −x² + 9x − 6</label>
+      <label><input type="radio" name="q15"> B) −x² + 3x − 6</label>
+      <label><input type="radio" name="q15"> C) 5x² + 9x − 6</label>
+      <label><input type="radio" name="q15"> D) −x² + 9x + 6</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: A) −x² + 9x − 6</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Distribute: 2x² + 6x − 3x² + 3x − 6<br>
+        (Careful: −3(−x) = +3x and −3(2) = −6)</li>
+        <li>Combine x² terms: 2x² − 3x² = −x²</li>
+        <li>Combine x terms: 6x + 3x = 9x</li>
+        <li>Constant: −6</li>
+        <li>Result: <strong>−x² + 9x − 6</strong></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 6: FACTORING POLYNOMIALS                               -->
+<!-- ============================================================ -->
+<section id="s6">
+  <h2>6. Factoring Polynomials</h2>
+  <p>Factoring is the reverse of multiplying — you break a polynomial into a product of simpler expressions. The IBEW test covers three main types:</p>
+
+  <h3>Type 1: Greatest Common Factor (GCF)</h3>
+  <p>Find the largest factor that divides every term, then factor it out.</p>
+
+  <div class="example-box">
+    <h4>Example: Factor 12x³ − 18x² + 6x</h4>
+    <p class="solution">
+      GCF of coefficients 12, 18, 6 is <strong>6</strong>.<br>
+      GCF of variables: the smallest power of x is <strong>x</strong>.<br>
+      GCF = 6x. Factor it out:<br>
+      <span class="math">6x(2x² − 3x + 1)</span>
+    </p>
+  </div>
+
+  <h3>Type 2: Difference of Squares</h3>
+  <div class="formula-box">
+    <code>a² − b² = (a + b)(a − b)</code>
+  </div>
+
+  <div class="example-box">
+    <h4>Example: Factor x² − 49</h4>
+    <p class="solution">
+      Recognize: x² is a perfect square, 49 = 7².<br>
+      x² − 49 = x² − 7² = <span class="math">(x + 7)(x − 7)</span>
+    </p>
+  </div>
+
+  <h3>Type 3: Factoring Quadratics (x² + Bx + C)</h3>
+  <p>Find two numbers that <strong>multiply to C</strong> and <strong>add to B</strong>.</p>
+
+  <div class="example-box">
+    <h4>Example: Factor x² + 7x + 12</h4>
+    <p class="solution">
+      Need two numbers that multiply to 12 and add to 7.<br>
+      Pairs of factors of 12: (1,12), (2,6), <strong>(3,4)</strong> — 3 + 4 = 7 ✓<br>
+      <span class="math">x² + 7x + 12 = (x + 3)(x + 4)</span>
+    </p>
+  </div>
+
+  <div class="example-box">
+    <h4>Example: Factor x² − 5x − 24</h4>
+    <p class="solution">
+      Need two numbers that multiply to −24 and add to −5.<br>
+      Factors of 24: (1,24), (2,12), <strong>(3,8)</strong>, (4,6).<br>
+      For product −24, one must be negative. Try −8 and +3: −8 × 3 = −24 ✓, −8 + 3 = −5 ✓<br>
+      <span class="math">x² − 5x − 24 = (x − 8)(x + 3)</span>
+    </p>
+  </div>
+
+  <h3>Practice Questions</h3>
+
+  <div class="practice-question">
+    <div class="q-label">Q1 — Greatest Common Factor</div>
+    <div class="q-text">Factor completely: 15x⁴ − 10x³ + 25x²</div>
+    <div class="options">
+      <label><input type="radio" name="q16"> A) 5x²(3x² − 2x + 5)</label>
+      <label><input type="radio" name="q16"> B) 5x(3x³ − 2x² + 5x)</label>
+      <label><input type="radio" name="q16"> C) x²(15x² − 10x + 25)</label>
+      <label><input type="radio" name="q16"> D) 5(3x⁴ − 2x³ + 5x²)</label>
+    </div>
+    <div class="explanation show">
+      <strong>Answer: A) 5x²(3x² − 2x + 5)</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>GCF of coefficients (15, 10, 25): 5</li>
+        <li>GCF of variables (x⁴, x³, x²): x² (smallest exponent)</li>
+        <li>GCF = 5x²</li>
+        <li>Divide each term: 15x⁴ ÷ 5x² = 3x²; −10x³ ÷ 5x² = −2x; 25x² ÷ 5x² = 5</li>
+        <li>Result: <strong>5x²(3x² − 2x + 5)</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q2 — Difference of Squares</div>
+    <div class="q-text">Factor: 4x² − 81</div>
+    <div class="options">
+      <label><input type="radio" name="q17"> A) (2x − 9)(2x + 9)</label>
+      <label><input type="radio" name="q17"> B) (4x − 9)(x + 9)</label>
+      <label><input type="radio" name="q17"> C) (2x − 9)(2x − 9)</label>
+      <label><input type="radio" name="q17"> D) (2x + 9)(2x + 9)</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: A) (2x − 9)(2x + 9)</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Recognize: 4x² = (2x)² and 81 = 9²</li>
+        <li>Apply difference of squares: a² − b² = (a − b)(a + b)</li>
+        <li>4x² − 81 = (2x)² − 9² = <strong>(2x − 9)(2x + 9)</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q3 — Factoring a Quadratic</div>
+    <div class="q-text">Factor: x² + 2x − 35</div>
+    <div class="options">
+      <label><input type="radio" name="q18"> A) (x − 5)(x + 7)</label>
+      <label><input type="radio" name="q18"> B) (x + 5)(x − 7)</label>
+      <label><input type="radio" name="q18"> C) (x − 7)(x − 5)</label>
+      <label><input type="radio" name="q18"> D) (x + 7)(x − 5)</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: D) (x + 7)(x − 5)</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Need two numbers that multiply to −35 and add to +2.</li>
+        <li>Try factors of 35: (5, 7). For product −35, one is negative.</li>
+        <li>+7 and −5: multiply = −35 ✓, sum = 7 + (−5) = 2 ✓</li>
+        <li>Result: <strong>(x + 7)(x − 5)</strong></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 7: FOIL METHOD                                        -->
+<!-- ============================================================ -->
+<section id="s7">
+  <h2>7. FOIL Method — Multiplying Binomials</h2>
+  <p>FOIL stands for <strong>First, Outer, Inner, Last</strong> — it's your method for multiplying two binomials like (a + b)(c + d).</p>
+
+  <div class="formula-box">
+    <code>(a + b)(c + d) = ac + ad + bc + bd</code><br>
+    <strong>F</strong>irst × First | <strong>O</strong>uter × Outer | <strong>I</strong>nner × Inner | <strong>L</strong>ast × Last
+  </div>
+
+  <div class="example-box">
+    <h4>Example: Multiply (x + 3)(x + 5)</h4>
+    <p class="solution">
+      <strong>F:</strong> x × x = x²<br>
+      <strong>O:</strong> x × 5 = 5x<br>
+      <strong>I:</strong> 3 × x = 3x<br>
+      <strong>L:</strong> 3 × 5 = 15<br>
+      Combine: x² + 5x + 3x + 15 = <span class="math">x² + 8x + 15</span>
+    </p>
+  </div>
+
+  <div class="example-box">
+    <h4>Example: Multiply (2x − 3)(x + 4)</h4>
+    <p class="solution">
+      <strong>F:</strong> 2x × x = 2x²<br>
+      <strong>O:</strong> 2x × 4 = 8x<br>
+      <strong>I:</strong> −3 × x = −3x<br>
+      <strong>L:</strong> −3 × 4 = −12<br>
+      Combine: 2x² + 8x − 3x − 12 = <span class="math">2x² + 5x − 12</span>
+    </p>
+  </div>
+
+  <h3>Practice Questions</h3>
+
+  <div class="practice-question">
+    <div class="q-label">Q1 — FOIL Method</div>
+    <div class="q-text">Multiply: (x + 6)(x − 2)</div>
+    <div class="options">
+      <label><input type="radio" name="q19"> A) x² + 4x − 12</label>
+      <label><input type="radio" name="q19"> B) x² − 8x − 12</label>
+      <label><input type="radio" name="q19"> C) x² + 8x + 12</label>
+      <label><input type="radio" name="q19"> D) x² + 4x + 12</label>
+    </div>
+    <div class="explanation show">
+      <strong>Answer: A) x² + 4x − 12</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li><strong>F:</strong> x × x = x²</li>
+        <li><strong>O:</strong> x × (−2) = −2x</li>
+        <li><strong>I:</strong> 6 × x = 6x</li>
+        <li><strong>L:</strong> 6 × (−2) = −12</li>
+        <li>Combine: x² − 2x + 6x − 12 = <strong>x² + 4x − 12</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q2 — FOIL Method</div>
+    <div class="q-text">Multiply: (3x − 4)(2x + 5)</div>
+    <div class="options">
+      <label><input type="radio" name="q20"> A) 6x² + 7x − 20</label>
+      <label><input type="radio" name="q20"> B) 6x² − 7x − 20</label>
+      <label><input type="radio" name="q20"> C) 6x² + 23x − 20</label>
+      <label><input type="radio" name="q20"> D) 5x² + 7x − 20</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: A) 6x² + 7x − 20</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li><strong>F:</strong> 3x × 2x = 6x²</li>
+        <li><strong>O:</strong> 3x × 5 = 15x</li>
+        <li><strong>I:</strong> −4 × 2x = −8x</li>
+        <li><strong>L:</strong> −4 × 5 = −20</li>
+        <li>Combine: 6x² + 15x − 8x − 20 = <strong>6x² + 7x − 20</strong></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 8: FUNCTIONS & GRAPHS                                  -->
+<!-- ============================================================ -->
+<section id="s8">
+  <h2>8. Functions &amp; Graphs</h2>
+  <p>A <strong>function</strong> is a rule that assigns each input (x) exactly one output (y). The most common form on the IBEW test is the linear function:</p>
+
+  <div class="formula-box">
+    <code>y = mx + b</code><br>
+    <strong>m</strong> = slope (rate of change, rise over run)<br>
+    <strong>b</strong> = y-intercept (where the line crosses the y-axis)
+  </div>
+
+  <h3>Finding Slope</h3>
+  <div class="formula-box">
+    <code>m = (y₂ − y₁) / (x₂ − x₁)</code>
+  </div>
+
+  <div class="example-box">
+    <h4>Example: Find the slope of the line through (2, 5) and (6, 13)</h4>
+    <p class="solution">
+      m = (13 − 5) / (6 − 2) = 8 / 4 = <strong>2</strong><br>
+      The line rises 2 units for every 1 unit it runs to the right.
+    </p>
+  </div>
+
+  <h3>Using a Table of Values</h3>
+  <p>You can find the function rule from a table by identifying the pattern.</p>
+
+  <div class="example-box">
+    <h4>Example: Find the equation from this table</h4>
+    <table class="data-table">
+      <tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td></tr>
+      <tr><th>y</th><td>4</td><td>7</td><td>10</td><td>13</td></tr>
+    </table>
+    <p class="solution">
+      Each time x increases by 1, y increases by 3 → slope m = 3.<br>
+      When x = 0, y = 4 → y-intercept b = 4.<br>
+      <strong>Equation: y = 3x + 4</strong>
+    </p>
+  </div>
+
+  <h3>Practice Questions</h3>
+
+  <div class="practice-question">
+    <div class="q-label">Q1 — Slope Calculation</div>
+    <div class="q-text">Find the slope of the line passing through points (1, 2) and (5, 14).</div>
+    <div class="options">
+      <label><input type="radio" name="q21"> A) 4</label>
+      <label><input type="radio" name="q21"> B) 3</label>
+      <label><input type="radio" name="q21"> C) 6</label>
+      <label><input type="radio" name="q21"> D) 12</label>
+    </div>
+    <div class="explanation show">
+      <strong>Answer: B) 3</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>m = (y₂ − y₁) / (x₂ − x₁)</li>
+        <li>m = (14 − 2) / (5 − 1) = 12 / 4 = <strong>3</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q2 — Finding Equation from Table</div>
+    <div class="q-text">Find the equation for this table:<br>
+    <table class="data-table" style="margin:8px 0;"><tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><th>y</th><td>−2</td><td>2</td><td>6</td><td>10</td></tr></table></div>
+    <div class="options">
+      <label><input type="radio" name="q22"> A) y = 4x − 2</label>
+      <label><input type="radio" name="q22"> B) y = 2x − 2</label>
+      <label><input type="radio" name="q22"> C) y = 4x + 2</label>
+      <label><input type="radio" name="q22"> D) y = −2x + 4</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: A) y = 4x − 2</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Find slope: when x goes from 0→1, y goes from −2→2, change = +4 → m = 4</li>
+        <li>Check: 1→2, y goes 2→6, change = +4 ✓</li>
+        <li>y-intercept: when x = 0, y = −2 → b = −2</li>
+        <li>Equation: <strong>y = 4x − 2</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q3 — Interpreting Slope</div>
+    <div class="q-text">A plumber charges a $50 service fee plus $25 per hour. Which equation gives the total cost C for h hours?</div>
+    <div class="options">
+      <label><input type="radio" name="q23"> A) C = 50h + 25</label>
+      <label><input type="radio" name="q23"> B) C = 25h + 50</label>
+      <label><input type="radio" name="q23"> C) C = 75h</label>
+      <label><input type="radio" name="q23"> D) C = 50 + 25 + h</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: B) C = 25h + 50</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Fixed fee (y-intercept, b) = $50</li>
+        <li>Rate per hour (slope, m) = $25 per hour</li>
+        <li>C = mh + b = <strong>25h + 50</strong></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 9: NUMBER SERIES                                      -->
+<!-- ============================================================ -->
+<section id="s9">
+  <h2>9. Number Series</h2>
+  <p>Number series questions test your ability to recognize patterns. The IBEW test often includes sequences where you must find the next term. Here are the main pattern types:</p>
+
+  <h3>Pattern Type 1: Constant Difference (Arithmetic)</h3>
+  <p>Each term is obtained by adding (or subtracting) the same number.</p>
+
+  <div class="example-box">
+    <h4>Example: 3, 7, 11, 15, 19, ___</h4>
+    <p class="solution">
+      Difference: +4, +4, +4, +4 → Next term: 19 + 4 = <strong>23</strong>
+    </p>
+  </div>
+
+  <h3>Pattern Type 2: Constant Ratio (Geometric)</h3>
+  <p>Each term is obtained by multiplying (or dividing) by the same number.</p>
+
+  <div class="example-box">
+    <h4>Example: 2, 6, 18, 54, ___</h4>
+    <p class="solution">
+      Ratio: ×3, ×3, ×3 → Next term: 54 × 3 = <strong>162</strong>
+    </p>
+  </div>
+
+  <h3>Pattern Type 3: Alternating Patterns</h3>
+  <p>Two different rules alternate between terms.</p>
+
+  <div class="example-box">
+    <h4>Example: 1, 10, 2, 9, 3, 8, ___</h4>
+    <p class="solution">
+      Odd positions: 1, 2, 3 (adding 1 each time)<br>
+      Even positions: 10, 9, 8 (subtracting 1 each time)<br>
+      Next term is at position 7 (odd): 3 + 1 = <strong>4</strong>
+    </p>
+  </div>
+
+  <h3>Pattern Type 4: Second-Level Differences</h3>
+  <p>The differences between terms form their own pattern.</p>
+
+  <div class="example-box">
+    <h4>Example: 1, 4, 9, 16, 25, ___</h4>
+    <p class="solution">
+      These are squares: 1², 2², 3², 4², 5² → Next: 6² = <strong>36</strong><br>
+      (Also see: differences are 3, 5, 7, 9 — increasing by 2 each time → next difference is 11 → 25 + 11 = 36)
+    </p>
+  </div>
+
+  <h3>Practice Questions</h3>
+
+  <div class="practice-question">
+    <div class="q-label">Q1 — Arithmetic Series</div>
+    <div class="q-text">What comes next? 12, 17, 22, 27, 32, ___</div>
+    <div class="options">
+      <label><input type="radio" name="q24"> A) 35</label>
+      <label><input type="radio" name="q24"> B) 37</label>
+      <label><input type="radio" name="q24"> C) 38</label>
+      <label><input type="radio" name="q24"> D) 42</label>
+    </div>
+    <div class="explanation show">
+      <strong>Answer: B) 37</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Find the difference: 17 − 12 = 5, 22 − 17 = 5, etc.</li>
+        <li>Constant difference of +5</li>
+        <li>Next term: 32 + 5 = <strong>37</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q2 — Geometric Series</div>
+    <div class="q-text">What comes next? 5, 15, 45, 135, ___</div>
+    <div class="options">
+      <label><input type="radio" name="q25"> A) 270</label>
+      <label><input type="radio" name="q25"> B) 365</label>
+      <label><input type="radio" name="q25"> C) 405</label>
+      <label><input type="radio" name="q25"> D) 675</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: C) 405</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Find the ratio: 15 ÷ 5 = 3, 45 ÷ 15 = 3, 135 ÷ 45 = 3</li>
+        <li>Constant ratio of ×3</li>
+        <li>Next term: 135 × 3 = <strong>405</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q3 — Alternating Pattern</div>
+    <div class="q-text">What comes next? 2, 20, 4, 18, 6, 16, ___</div>
+    <div class="options">
+      <label><input type="radio" name="q26"> A) 14</label>
+      <label><input type="radio" name="q26"> B) 8</label>
+      <label><input type="radio" name="q26"> C) 12</label>
+      <label><input type="radio" name="q26"> D) 10</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: B) 8</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Split into two interleaved sequences:</li>
+        <li>Odd positions: 2, 4, 6 — pattern: +2 each step → next odd (position 7) = 8</li>
+        <li>Even positions: 20, 18, 16 — pattern: −2 each step</li>
+        <li>The next term is the 7th term (odd position): <strong>8</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q4 — Second-Level Differences</div>
+    <div class="q-text">What comes next? 1, 3, 6, 10, 15, ___</div>
+    <div class="options">
+      <label><input type="radio" name="q27"> A) 18</label>
+      <label><input type="radio" name="q27"> B) 20</label>
+      <label><input type="radio" name="q27"> C) 21</label>
+      <label><input type="radio" name="q27"> D) 25</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: C) 21</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>First differences: 3−1=2, 6−3=3, 10−6=4, 15−10=5</li>
+        <li>The differences are: 2, 3, 4, 5 — increasing by 1 each time</li>
+        <li>Next difference: 6</li>
+        <li>Next term: 15 + 6 = <strong>21</strong></li>
+      </ol>
+      <p><em>These are triangular numbers: Tₙ = n(n+1)/2. T₆ = 6×7/2 = 21.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 10: EXPONENTS & RATIONAL NUMBERS                       -->
+<!-- ============================================================ -->
+<section id="s10">
+  <h2>10. Exponents &amp; Rational Numbers</h2>
+
+  <h3>Rules of Exponents</h3>
+
+  <div class="formula-box">
+    <strong>Product Rule:</strong> xᵃ × xᵇ = xᵃ⁺ᵇ<br>
+    <strong>Quotient Rule:</strong> xᵃ ÷ xᵇ = xᵃ⁻ᵇ<br>
+    <strong>Power Rule:</strong> (xᵃ)ᵇ = xᵃˣᵇ<br>
+    <strong>Zero Exponent:</strong> x⁰ = 1 (x ≠ 0)<br>
+    <strong>Negative Exponent:</strong> x⁻ᵃ = 1/xᵃ<br>
+    <strong>Product to Power:</strong> (xy)ᵃ = xᵃyᵃ
+  </div>
+
+  <div class="example-box">
+    <h4>Example: Simplify (2x³)(5x⁴)</h4>
+    <p class="solution">
+      Multiply coefficients: 2 × 5 = 10<br>
+      Add exponents: x³ × x⁴ = x³⁺⁴ = x⁷<br>
+      <strong>Result: 10x⁷</strong>
+    </p>
+  </div>
+
+  <div class="example-box">
+    <h4>Example: Simplify x⁸ / x³</h4>
+    <p class="solution">
+      Subtract exponents: x⁸⁻³ = <strong>x⁵</strong>
+    </p>
+  </div>
+
+  <h3>Fractions, Decimals &amp; Ratios</h3>
+
+  <div class="example-box">
+    <h4>Fraction Operations Reminder</h4>
+    <p>
+      <strong>Addition/Subtraction:</strong> Find a common denominator first.<br>
+      <strong>Multiplication:</strong> Multiply numerators, multiply denominators.<br>
+      <strong>Division:</strong> Multiply by the reciprocal (flip the second fraction).<br>
+      <strong>Simplifying:</strong> Divide numerator and denominator by their GCF.
+    </p>
+  </div>
+
+  <div class="example-box">
+    <h4>Example: Simplify 3/4 + 2/3</h4>
+    <p class="solution">
+      Common denominator of 4 and 3 is 12.<br>
+      3/4 = 9/12, 2/3 = 8/12<br>
+      9/12 + 8/12 = <strong>17/12 = 1 5/12</strong>
+    </p>
+  </div>
+
+  <h3>Practice Questions</h3>
+
+  <div class="practice-question">
+    <div class="q-label">Q1 — Exponent Rules</div>
+    <div class="q-text">Simplify: (3x²y)(4x³y⁵)</div>
+    <div class="options">
+      <label><input type="radio" name="q28"> A) 12x⁶y⁵</label>
+      <label><input type="radio" name="q28"> B) 12x⁵y⁶</label>
+      <label><input type="radio" name="q28"> C) 7x⁵y⁶</label>
+      <label><input type="radio" name="q28"> D) 12x⁶y⁶</label>
+    </div>
+    <div class="explanation show">
+      <strong>Answer: B) 12x⁵y⁶</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Multiply coefficients: 3 × 4 = 12</li>
+        <li>Add exponents for x: x² × x³ = x²⁺³ = x⁵</li>
+        <li>Add exponents for y: y¹ × y⁵ = y¹⁺⁵ = y⁶</li>
+        <li>Result: <strong>12x⁵y⁶</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q2 — Rational Numbers</div>
+    <div class="q-text">A recipe calls for 2/3 cup of sugar. You want to make half the recipe. How much sugar do you need?</div>
+    <div class="options">
+      <label><input type="radio" name="q29"> A) 1/4 cup</label>
+      <label><input type="radio" name="q29"> B) 1/3 cup</label>
+      <label><input type="radio" name="q29"> C) 1/2 cup</label>
+      <label><input type="radio" name="q29"> D) 2/6 cup</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: B) 1/3 cup</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>Half of 2/3 = 2/3 × 1/2</li>
+        <li>Multiply numerators: 2 × 1 = 2</li>
+        <li>Multiply denominators: 3 × 2 = 6</li>
+        <li>Result: 2/6 = <strong>1/3</strong> cup (simplified)</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 11: THE CARTESIAN PLANE                                -->
+<!-- ============================================================ -->
+<section id="s11">
+  <h2>11. The Cartesian Plane</h2>
+  <p>The <strong>Cartesian plane</strong> (coordinate plane) is a grid defined by the x-axis (horizontal) and y-axis (vertical). Every point is identified by an ordered pair (x, y).</p>
+
+  <div class="key-point">
+    <strong>Key facts:</strong>
+    <ul>
+      <li>The origin is (0, 0) — where the axes cross.</li>
+      <li>The x-coordinate tells you how far left or right to go.</li>
+      <li>The y-coordinate tells you how far up or down to go.</li>
+      <li>Quadrant I: (+, +) — Quadrant II: (−, +) — Quadrant III: (−, −) — Quadrant IV: (+, −)</li>
+    </ul>
+  </div>
+
+  <h3>Plotting Points</h3>
+  <div class="example-box">
+    <h4>Example: Plot the points A(3, 4), B(−2, 5), C(−3, −1), D(1, −2)</h4>
+    <p class="solution">
+      <strong>A(3, 4):</strong> Start at origin, go right 3, up 4. (Quadrant I)<br>
+      <strong>B(−2, 5):</strong> Go left 2, up 5. (Quadrant II)<br>
+      <strong>C(−3, −1):</strong> Go left 3, down 1. (Quadrant III)<br>
+      <strong>D(1, −2):</strong> Go right 1, down 2. (Quadrant IV)
+    </p>
+  </div>
+
+  <h3>Graphing a Line</h3>
+  <p>To graph <span class="math">y = 2x − 1</span>:</p>
+  <ol>
+    <li>Plot the y-intercept (b = −1): point (0, −1).</li>
+    <li>Use the slope (m = 2 = 2/1): from (0, −1), go up 2, right 1 to (1, 1).</li>
+    <li>Connect the points with a straight line.</li>
+  </ol>
+
+  <div class="example-box">
+    <h4>Example: Find the equation of a horizontal line through (4, 3)</h4>
+    <p class="solution">
+      A horizontal line has slope m = 0. All points have the same y-coordinate.<br>
+      <strong>Equation: y = 3</strong>
+    </p>
+  </div>
+
+  <div class="example-box">
+    <h4>Example: Find the equation of a vertical line through (−2, 5)</h4>
+    <p class="solution">
+      A vertical line has an undefined slope. All points have the same x-coordinate.<br>
+      <strong>Equation: x = −2</strong>
+    </p>
+  </div>
+
+  <h3>Practice Questions</h3>
+
+  <div class="practice-question">
+    <div class="q-label">Q1 — Plotting Points</div>
+    <div class="q-text">In which quadrant does the point (−5, 7) lie?</div>
+    <div class="options">
+      <label><input type="radio" name="q30"> A) Quadrant I</label>
+      <label><input type="radio" name="q30"> B) Quadrant II</label>
+      <label><input type="radio" name="q30"> C) Quadrant III</label>
+      <label><input type="radio" name="q30"> D) Quadrant IV</label>
+    </div>
+    <div class="explanation show">
+      <strong>Answer: B) Quadrant II</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>x = −5 (negative), y = 7 (positive)</li>
+        <li>Negative x, positive y → Quadrant II</li>
+      </ol>
+      <p><em>Quadrant II is the upper-left region of the plane.</em></p>
+    </div>
+  </div>
+
+  <div class="practice-question">
+    <div class="q-label">Q2 — Graphing a Line</div>
+    <div class="q-text">What is the y-intercept of the line y = −3x + 8?</div>
+    <div class="options">
+      <label><input type="radio" name="q31"> A) −3</label>
+      <label><input type="radio" name="q31"> B) 3</label>
+      <label><input type="radio" name="q31"> C) 8</label>
+      <label><input type="radio" name="q31"> D) −8</label>
+    </div>
+    <div class="explanation">
+      <strong>Answer: C) 8</strong><br><br>
+      <strong>Step-by-step:</strong>
+      <ol>
+        <li>The equation is in slope-intercept form: y = mx + b</li>
+        <li>Here m = −3 and b = 8</li>
+        <li>The y-intercept is b = <strong>8</strong>, meaning the line crosses the y-axis at (0, 8)</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 12: KEY FORMULAS SUMMARY SHEET                        -->
+<!-- ============================================================ -->
+<section id="s12">
+  <h2>12. Key Formulas Summary Sheet</h2>
+  <p>Print or memorize these formulas — they are essential for the IBEW Aptitude Test.</p>
+
+  <div class="formula-box">
+    <strong>PEMDAS:</strong> Parentheses → Exponents → Multiply/Divide (L→R) → Add/Subtract (L→R)
+  </div>
+
+  <div class="formula-box">
+    <strong>Slope of a Line:</strong> m = (y₂ − y₁) / (x₂ − x₁)
+  </div>
+
+  <div class="formula-box">
+    <strong>Slope-Intercept Form:</strong> y = mx + b &nbsp;&nbsp; (m = slope, b = y-intercept)
+  </div>
+
+  <div class="formula-box">
+    <strong>FOIL:</strong> (a + b)(c + d) = ac + ad + bc + bd
+  </div>
+
+  <div class="formula-box">
+    <strong>Difference of Squares:</strong> a² − b² = (a + b)(a − b)
+  </div>
+
+  <div class="formula-box">
+    <strong>Exponent Rules:</strong><br>
+    xᵃ · xᵇ = xᵃ⁺ᵇ &nbsp;&nbsp;|&nbsp;&nbsp; xᵃ ÷ xᵇ = xᵃ⁻ᵇ &nbsp;&nbsp;|&nbsp;&nbsp; (xᵃ)ᵇ = xᵃᵇ<br>
+    x⁰ = 1 &nbsp;&nbsp;|&nbsp;&nbsp; x⁻ᵃ = 1/xᵃ
+  </div>
+
+  <div class="formula-box">
+    <strong>Distance Formula:</strong> d = √[(x₂ − x₁)² + (y₂ − y₁)²]
+  </div>
+
+  <div class="formula-box">
+    <strong>Midpoint Formula:</strong> M = ((x₁ + x₂)/2, (y₁ + y₂)/2)
+  </div>
+
+  <div class="formula-box">
+    <strong>Quadratic Formula:</strong> x = [−b ± √(b² − 4ac)] / 2a<br>
+    (For ax² + bx + c = 0)
+  </div>
+
+  <div class="formula-box">
+    <strong>Fraction Operations:</strong><br>
+    a/b + c/d = (ad + bc)/bd &nbsp;&nbsp;|&nbsp;&nbsp; a/b × c/d = ac/bd &nbsp;&nbsp;|&nbsp;&nbsp; a/b ÷ c/d = a/b × d/c
+  </div>
+
+  <div class="formula-box">
+    <strong>Percent to Decimal:</strong> Divide by 100 &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Decimal to Percent:</strong> Multiply by 100
+  </div>
+
+  <div class="formula-box">
+    <strong>Ratio:</strong> a:b = a/b &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Proportion:</strong> a/b = c/d → ad = bc (cross multiply)
+  </div>
+
+  <div class="warning-box" style="margin-top: 30px;">
+    <strong>⚠ REMEMBER:</strong> NO CALCULATORS ALLOWED on the actual IBEW Aptitude Test. Practice all problems by hand. Master your times tables up to 12×12. Be comfortable with fraction arithmetic without a calculator.
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- END OF CONTENT                                                -->
+<!-- ============================================================ -->
+</div><!-- /container -->
+</main>
+
+<!-- === FOOTER === -->
+<footer>
+  <p>IBEW Aptitude Test Prep — Free Study Resource</p>
+  <p style="margin-top:6px;">This is an independent study guide. Not affiliated with IBEW or NJATC.</p>
+  <p style="margin-top:6px;"><a href="algebra.html">Back to Top</a></p>
+</footer>
+
+<!-- === INTERACTIVE: Show/Hide Explanations === -->
+<script>
+  // For each practice question, clicking "Check Answer" or any option toggles explanation
+  document.querySelectorAll('.practice-question .options input').forEach(function(input) {
+    input.addEventListener('change', function() {
+      var explanation = this.closest('.practice-question').querySelector('.explanation');
+      if (explanation) {
+        explanation.classList.add('show');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
