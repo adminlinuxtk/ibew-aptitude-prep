@@ -110,47 +110,54 @@
 
     /* ===== TIMER ===== */
     .timer-container {
-      background: var(--card-bg);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin-bottom: 24px;
-      text-align: center;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
       position: sticky;
       top: 88px;
       z-index: 40;
     }
+    .timer-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .timer-section-label {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
     .timer-display {
-      font-size: 3rem;
-      font-weight: 800;
+      font-size: 1.15rem;
+      font-weight: 700;
       color: var(--primary);
       font-family: 'Courier New', monospace;
-      letter-spacing: 2px;
-      margin: 8px 0;
+      letter-spacing: 1px;
+      min-width: 60px;
     }
     .timer-display.warning { color: #e67e22; }
     .timer-display.danger { color: var(--danger); animation: pulse 1s infinite; }
-    .timer-section-label {
-      font-size: 0.9rem;
-      color: var(--text-light);
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
     .timer-controls {
       display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 10px;
-      flex-wrap: wrap;
+      gap: 6px;
     }
     .timer-btn {
-      padding: 10px 22px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.9rem;
+      padding: 5px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.78rem;
       cursor: pointer;
       border: none;
       transition: all 0.2s;
+      line-height: 1.4;
     }
     .timer-btn.start { background: var(--success); color: white; }
     .timer-btn.start:hover { background: #236b36; }
@@ -420,8 +427,10 @@
 
     <!-- === TIMER === -->
     <div class="timer-container" id="timerContainer">
-      <div class="timer-section-label" id="timerSectionLabel">Ready to begin</div>
-      <div class="timer-display" id="timerDisplay">97:00</div>
+      <div class="timer-left">
+        <span class="timer-section-label" id="timerSectionLabel">Ready to begin</span>
+        <span class="timer-display" id="timerDisplay">97:00</span>
+      </div>
       <div class="timer-controls">
         <button class="timer-btn start" id="btnStart" onclick="startTimer()">▶ Start</button>
         <button class="timer-btn pause" id="btnPause" onclick="pauseTimer()" style="display:none;">⏸ Pause</button>
