@@ -4678,5 +4678,455 @@ window.questionBank = [
     options: ["A) −1 ≤ x ≤ 4", "B) 1 ≤ x ≤ 4", "C) −4 ≤ x ≤ 1", "D) −1 ≤ x ≤ 1"],
     correct: 0,
     explanation: "|2x−3| ≤ 5 means −5 ≤ 2x−3 ≤ 5. Add 3: −2 ≤ 2x ≤ 8. Divide by 2: −1 ≤ x ≤ 4."
+  },
+  {
+    id: 521,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "2/3 + 2/3 =",
+    options: ["A) 4/6", "B) 4/9", "C) 1 1/3", "D) 1 2/3"],
+    correct: 2,
+    explanation: "2/3 + 2/3 = 4/3 = 1 1/3"
+  },
+  {
+    id: 522,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "5/16 + 3/8 =",
+    options: ["A) 8/24", "B) 11/16", "C) 1/3", "D) 5/8"],
+    correct: 1,
+    explanation: "3/8 = 6/16, so 5/16 + 6/16 = 11/16"
+  },
+  {
+    id: 523,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "4 1/8 \u2212 1 2/3 =",
+    options: ["A) 3 17/24", "B) 5 19/24", "C) 3 1/8", "D) 2 11/24"],
+    correct: 3,
+    explanation: "4 1/8 = 33/8 = 99/24. 1 2/3 = 5/3 = 40/24. 99/24 \u2212 40/24 = 59/24 = 2 11/24"
+  },
+  {
+    id: 524,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "9/10 \u00d7 5/6 =",
+    options: ["A) 1 44/60", "B) 45/60", "C) 1 1/4", "D) 3/4"],
+    correct: 3,
+    explanation: "9/10 \u00d7 5/6 = 45/60 = 3/4"
+  },
+  {
+    id: 525,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "1 1/5 \u00d7 2 2/3 =",
+    options: ["A) 3 1/5", "B) 3 3/5", "C) 1 3/4", "D) 1 3/5"],
+    correct: 0,
+    explanation: "1 1/5 = 6/5, 2 2/3 = 8/3. 6/5 \u00d7 8/3 = 48/15 = 16/5 = 3 1/5"
+  },
+  {
+    id: 526,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "3/4 \u00f7 1/2 =",
+    options: ["A) 1/2", "B) 1 1/2", "C) 2/3", "D) 3/8"],
+    correct: 1,
+    explanation: "3/4 \u00f7 1/2 = 3/4 \u00d7 2/1 = 6/4 = 1 1/2"
+  },
+  {
+    id: 527,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "0.25 \u00d7 0.375 =",
+    options: ["A) 0.094", "B) 0.09375", "C) 0.625", "D) 0.667"],
+    correct: 1,
+    explanation: "0.25 \u00d7 0.375 = 25/100 \u00d7 375/1000 = 9375/100000 = 0.09375"
+  },
+  {
+    id: 528,
+    topic: "Basic Math",
+    difficulty: 3,
+    question: "0.625 \u00d7 8.808 =",
+    options: ["A) 5.5", "B) 9.433", "C) 5.505", "D) 8.183"],
+    correct: 2,
+    explanation: "0.625 \u00d7 8.808 = 5.505"
+  },
+  {
+    id: 529,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "3.2500 \u2212 0.0125 =",
+    options: ["A) 3.231", "B) 3.262", "C) 3.261", "D) 3.2375"],
+    correct: 3,
+    explanation: "3.2500 \u2212 0.0125 = 3.2375"
+  },
+  {
+    id: 530,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "Convert 9/16 to decimal, round to nearest thousandth:",
+    options: ["A) 0.375", "B) 0.536", "C) 0.144", "D) 0.563"],
+    correct: 3,
+    explanation: "9 \u00f7 16 = 0.5625, rounded to thousandth = 0.563"
+  },
+  {
+    id: 531,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "Convert 15/16 to decimal:",
+    options: ["A) 0.938", "B) 0.94", "C) 0.9375", "D) 0.93"],
+    correct: 2,
+    explanation: "15 \u00f7 16 = 0.9375"
+  },
+  {
+    id: 532,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "Convert 0.0625 to fraction:",
+    options: ["A) 1/8", "B) 3/32", "C) 2/3", "D) 1/16"],
+    correct: 3,
+    explanation: "0.0625 = 625/10000 = 1/16"
+  },
+  {
+    id: 533,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "Convert 0.75 to fraction:",
+    options: ["A) 3/4", "B) 2/3", "C) 5/7", "D) 13/16"],
+    correct: 0,
+    explanation: "0.75 = 75/100 = 3/4"
+  },
+  {
+    id: 534,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "Convert 0.1875 to fraction:",
+    options: ["A) 1/4", "B) 3/16", "C) 5/16", "D) 13/75"],
+    correct: 1,
+    explanation: "0.1875 = 1875/10000 = 3/16"
+  },
+  {
+    id: 535,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "Round 67.1275 to nearest tenth:",
+    options: ["A) 67", "B) 67.1", "C) 67.13", "D) 67.128"],
+    correct: 1,
+    explanation: "The tenths digit is 1, and the hundredths digit is 2 (less than 5), so we round down: 67.1"
+  },
+  {
+    id: 536,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "Round 67.1275 to nearest hundredth:",
+    options: ["A) 67", "B) 67.1", "C) 67.13", "D) 67.128"],
+    correct: 2,
+    explanation: "The hundredths digit is 2, and the thousandths digit is 7 (5 or more), so we round up: 67.13"
+  },
+  {
+    id: 537,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "(\u22121) + 2 =",
+    options: ["A) 3", "B) \u22123", "C) 1", "D) \u22121"],
+    correct: 2,
+    explanation: "Starting at \u22121, add 2: move 2 steps right on the number line to reach 1"
+  },
+  {
+    id: 538,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "(\u22123) \u2212 (\u22124) =",
+    options: ["A) \u22127", "B) 7", "C) \u22121", "D) 1"],
+    correct: 3,
+    explanation: "Subtracting \u22124 is the same as adding 4: \u22123 + 4 = 1"
+  },
+  {
+    id: 539,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "sqrt(1024) =",
+    options: ["A) 32", "B) 512", "C) 1024", "D) 1048576"],
+    correct: 0,
+    explanation: "32 \u00d7 32 = 1024"
+  },
+  {
+    id: 540,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "sqrt(0.09) =",
+    options: ["A) 3", "B) 0.09", "C) 0.3", "D) 8100"],
+    correct: 2,
+    explanation: "0.3 \u00d7 0.3 = 0.09"
+  },
+  {
+    id: 541,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "sqrt(0.81) =",
+    options: ["A) 0.66", "B) 0.9", "C) 1.62", "D) 9"],
+    correct: 1,
+    explanation: "0.9 \u00d7 0.9 = 0.81"
+  },
+  {
+    id: 542,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "sqrt(10) =",
+    options: ["A) 0.1", "B) 3.16", "C) 5", "D) 100"],
+    correct: 1,
+    explanation: "3.16 \u00d7 3.16 = 9.9856, approximately 10"
+  },
+  {
+    id: 543,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "6 squared =",
+    options: ["A) 12", "B) 3", "C) 36", "D) 18"],
+    correct: 2,
+    explanation: "6^2 = 6 \u00d7 6 = 36"
+  },
+  {
+    id: 544,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "4 cubed =",
+    options: ["A) 12", "B) 16", "C) 64", "D) 7"],
+    correct: 2,
+    explanation: "4^3 = 4 \u00d7 4 \u00d7 4 = 64"
+  },
+  {
+    id: 545,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "10^3 \u00d7 10^4 =",
+    options: ["A) 10^7", "B) 10,000,000", "C) 10^12", "D) 10^(\u22121)"],
+    correct: 0,
+    explanation: "When multiplying powers with the same base, add the exponents: 10^(3+4) = 10^7"
+  },
+  {
+    id: 546,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "The square of 12 =",
+    options: ["A) 3", "B) 3.46", "C) 4", "D) 144"],
+    correct: 3,
+    explanation: "12 \u00d7 12 = 144"
+  },
+  {
+    id: 547,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "(2/3)^3 =",
+    options: ["A) 2/27", "B) 8/27", "C) 16/27", "D) 2 2/3"],
+    correct: 1,
+    explanation: "(2/3)^3 = 2^3/3^3 = 8/27"
+  },
+  {
+    id: 548,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "sqrt(169/121) =",
+    options: ["A) 13/11", "B) 12/10", "C) 14/12", "D) 11/13"],
+    correct: 0,
+    explanation: "sqrt(169/121) = sqrt(169)/sqrt(121) = 13/11"
+  },
+  {
+    id: 549,
+    topic: "Basic Math",
+    difficulty: 3,
+    question: "66 2/3% as a fraction =",
+    options: ["A) 200/3", "B) 66 4/6", "C) 1/3", "D) 2/3"],
+    correct: 3,
+    explanation: "66 2/3% = 200/3 \u00f7 100 = 200/300 = 2/3"
+  },
+  {
+    id: 550,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "45% as a fraction =",
+    options: ["A) 4/5", "B) 9/20", "C) 1/2", "D) 3/8"],
+    correct: 1,
+    explanation: "45% = 45/100 = 9/20"
+  },
+  {
+    id: 551,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "1/3 as a percentage =",
+    options: ["A) 0.33%", "B) 33%", "C) 0.67%", "D) 67%"],
+    correct: 1,
+    explanation: "1/3 = 0.3333... = 33%"
+  },
+  {
+    id: 552,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "15% as a decimal =",
+    options: ["A) 15/100", "B) 3/20", "C) 0.15", "D) 0.015"],
+    correct: 2,
+    explanation: "15% = 15/100 = 0.15"
+  },
+  {
+    id: 553,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "167% as a decimal =",
+    options: ["A) 167/100", "B) 8/50", "C) 1.67", "D) 16.7"],
+    correct: 2,
+    explanation: "167% = 167/100 = 1.67"
+  },
+  {
+    id: 554,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "0.6 as a percentage =",
+    options: ["A) 0.6%", "B) 6%", "C) 60%", "D) 600%"],
+    correct: 2,
+    explanation: "0.6 \u00d7 100 = 60%"
+  },
+  {
+    id: 555,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "2.45 as a percentage =",
+    options: ["A) 2.45%", "B) 24.5%", "C) 245%", "D) 2450%"],
+    correct: 2,
+    explanation: "2.45 \u00d7 100 = 245%"
+  },
+  {
+    id: 556,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "An apprentice earns $18/hr for 40 hours. Income tax is 22% of gross. How much is income tax?",
+    options: ["A) $15.84", "B) $158.40", "C) $327.27", "D) $32.72"],
+    correct: 1,
+    explanation: "Gross = $18 \u00d7 40 = $720. Tax = $720 \u00d7 0.22 = $158.40"
+  },
+  {
+    id: 557,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "A circle has a diameter of 25 inches. What is its circumference? (use pi = 3.14)",
+    options: ["A) 38.25 in", "B) 39.25 in", "C) 78.5 in", "D) 79.5 in"],
+    correct: 2,
+    explanation: "Circumference = pi \u00d7 d = 3.14 \u00d7 25 = 78.5 inches"
+  },
+  {
+    id: 558,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "A circle has radius 12.5 inches. What is its area? (pi = 3.14)",
+    options: ["A) 159 sq in", "B) 196 sq in", "C) 490.62 sq in", "D) 1962.5 sq in"],
+    correct: 2,
+    explanation: "Area = pi \u00d7 r^2 = 3.14 \u00d7 12.5^2 = 3.14 \u00d7 156.25 = 490.625 sq in"
+  },
+  {
+    id: 559,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "A rectangle is 17.5m by 9m. What is its perimeter?",
+    options: ["A) 26.5m", "B) 53m", "C) 157.5m", "D) 702.3m"],
+    correct: 1,
+    explanation: "P = 2(l + w) = 2(17.5 + 9) = 2(26.5) = 53 meters"
+  },
+  {
+    id: 560,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "A rectangle is 17.5m by 9m. What is its area?",
+    options: ["A) 26.5m", "B) 53m", "C) 157.5 sq m", "D) 702.3 sq m"],
+    correct: 2,
+    explanation: "A = l \u00d7 w = 17.5 \u00d7 9 = 157.5 square meters"
+  },
+  {
+    id: 561,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "A circle has radius 1.5m. What is its diameter?",
+    options: ["A) 1.5m", "B) 2.5m", "C) 3m", "D) 4.7m"],
+    correct: 2,
+    explanation: "d = 2 \u00d7 r = 2 \u00d7 1.5 = 3 meters"
+  },
+  {
+    id: 562,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "A circle has diameter 3m. What is its circumference? (pi = 3.14)",
+    options: ["A) 4.71m", "B) 7.07m", "C) 9.42m", "D) 28.26m"],
+    correct: 2,
+    explanation: "C = pi \u00d7 d = 3.14 \u00d7 3 = 9.42 meters"
+  },
+  {
+    id: 563,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "0.003 liters = how many mL?",
+    options: ["A) 0.3", "B) 3", "C) 30", "D) 3000"],
+    correct: 1,
+    explanation: "1 L = 1000 mL. 0.003 L \u00d7 1000 = 3 mL"
+  },
+  {
+    id: 564,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "47 mm = how many meters?",
+    options: ["A) 0.047", "B) 0.47", "C) 4.7", "D) 4700"],
+    correct: 0,
+    explanation: "1 m = 1000 mm. 47 \u00f7 1000 = 0.047 meters"
+  },
+  {
+    id: 565,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "45 resistors have mass 116.6g. Mass of each resistor? (nearest tenth)",
+    options: ["A) 2.5g", "B) 2.59g", "C) 2.591g", "D) 2.6g"],
+    correct: 3,
+    explanation: "116.6 \u00f7 45 = 2.5911... Rounded to nearest tenth = 2.6g"
+  },
+  {
+    id: 566,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "Three thousandths as a decimal:",
+    options: ["A) 0.3", "B) 0.03", "C) 0.003", "D) 30/1000"],
+    correct: 2,
+    explanation: "Three thousandths = 3/1000 = 0.003"
+  },
+  {
+    id: 567,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "75/1000 as a decimal:",
+    options: ["A) 0.075", "B) 3/4", "C) 0.75", "D) 7.5"],
+    correct: 0,
+    explanation: "75/1000 = 0.075"
+  },
+  {
+    id: 568,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "Fifty-seven ten thousandths as decimal:",
+    options: ["A) 57/1000", "B) 0.0057", "C) 0.057", "D) 0.00057"],
+    correct: 1,
+    explanation: "Fifty-seven ten thousandths = 57/10000 = 0.0057"
+  },
+  {
+    id: 569,
+    topic: "Basic Math",
+    difficulty: 1,
+    question: "Social security is 7% of $720 gross pay. How much is SS?",
+    options: ["A) $50.40", "B) $51", "C) $54", "D) $54.40"],
+    correct: 0,
+    explanation: "$720 \u00d7 0.07 = $50.40"
+  },
+  {
+    id: 570,
+    topic: "Basic Math",
+    difficulty: 2,
+    question: "Union dues are 5% of $720 gross pay. How much are dues?",
+    options: ["A) $14.40", "B) $1.44", "C) $3.60", "D) $36.00"],
+    correct: 3,
+    explanation: "$720 \u00d7 0.05 = $36.00"
   }
 ];
