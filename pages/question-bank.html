@@ -209,14 +209,14 @@
 
 <!-- === TOP BANNER === -->
 <div class="top-banner">
-  ⚡ <strong>FREE</strong> IBEW Aptitude Test Preparation — 520+ Practice Questions
+  <strong>FREE</strong> IBEW Aptitude Test Preparation — 520+ Practice Questions
 </div>
 
 <!-- === HEADER === -->
 <header>
   <div class="header-inner">
     <a href="../index.html" class="logo">
-      ⚡ IBEW<span>Prep</span>
+      IBEW<span>Prep</span>
       <span class="sub">Aptitude Test Study Guide</span>
     </a>
     <nav>
@@ -234,7 +234,7 @@
 <div class="container lesson-page">
 
   <div class="qb-header">
-    <h1>📚 Algebra Question Bank</h1>
+    <h1>Algebra Question Bank</h1>
     <p><strong>520+ practice questions</strong> across 11 topics — filter by topic, difficulty, or shuffle randomly</p>
   </div>
 
@@ -255,15 +255,15 @@
 
     <label>Order:</label>
     <select id="orderFilter" onchange="applyFilters()">
-      <option value="sequential">Sequential</option>
       <option value="random">Random</option>
+      <option value="sequential">Sequential</option>
     </select>
 
     <label>Per page:</label>
     <select id="perPage" onchange="applyFilters()">
-      <option value="1">1</option>
+      <option value="1" selected>1</option>
       <option value="5">5</option>
-      <option value="10" selected>10</option>
+      <option value="10">10</option>
       <option value="20">20</option>
     </select>
 
@@ -292,7 +292,7 @@
     <button class="btn btn-prev" onclick="prevPage()">← Previous</button>
     <span id="pageInfo" style="font-size:0.9rem;color:var(--text-light);"></span>
     <button class="btn btn-check" onclick="checkAll()">✓ Check Answers</button>
-    <button class="btn btn-shuffle" onclick="shuffleCurrent()">🔀 Shuffle</button>
+    <button class="btn btn-shuffle" onclick="shuffleCurrent()">Shuffle</button>
     <button class="btn btn-next" onclick="nextPage()">Next →</button>
   </div>
 
@@ -300,7 +300,7 @@
 
 <!-- === FOOTER === -->
 <footer>
-  <p>⚡ IBEW Prep — Free study materials for the Electrical Training Alliance Aptitude Test</p>
+  <p>IBEW Prep — Free study materials for the Electrical Training Alliance Aptitude Test</p>
   <p style="margin-top:6px;">
     <a href="../index.html">Home</a> ·
     <a href="algebra.html">Algebra</a> ·
@@ -339,7 +339,7 @@ function init() {
   const pills = document.getElementById('topicPills');
   const allPill = document.createElement('button');
   allPill.className = 'topic-btn all-btn active';
-  allPill.textContent = '📋 All Topics';
+  allPill.textContent = 'All Topics';
   allPill.onclick = function() { setActivePill(this); document.getElementById('topicFilter').value = 'all'; applyFilters(); };
   pills.appendChild(allPill);
 

@@ -43,9 +43,19 @@
       letter-spacing: 1px;
       padding: 8px 4px 4px;
       margin-top: 4px;
-      color: var(--primary);
       border-top: 1px solid var(--border);
     }
+    .nav-section-label.algebra-label { color: #2980b9; }
+    .nav-section-label.reading-label { color: #2d7d46; }
+    .nav-section-label .dot {
+      display: inline-block;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+    .nav-section-label .dot.blue { background: #2980b9; }
+    .nav-section-label .dot.green { background: #2d7d46; }
     .nav-btn {
       display: inline-flex;
       align-items: center;
@@ -76,8 +86,6 @@
       color: #2d7d46;
     }
     .nav-btn.answered {
-      background: var(--primary);
-      border-color: var(--primary);
       color: white;
     }
     .nav-btn.answered.algebra {
@@ -92,6 +100,14 @@
       box-shadow: 0 0 0 3px var(--secondary);
       transform: scale(1.1);
       z-index: 2;
+    }
+    .nav-btn.wrong-answer {
+      border-color: var(--danger) !important;
+      background: #fce4e4 !important;
+      color: var(--danger) !important;
+    }
+    .nav-btn.correct-answer {
+      border-color: var(--success) !important;
     }
     .nav-grid {
       display: flex;
@@ -170,32 +186,72 @@
       0%,100% { opacity: 1; } 50% { opacity: 0.6; }
     }
 
-    /* ===== TEST QUESTION CARD ===== */
-    .test-card {
+    /* ===== QUESTION CARD ===== */
+    .question-card {
       background: var(--card-bg);
       border-radius: 12px;
       padding: 28px 30px;
       margin: 16px 0;
       box-shadow: 0 1px 6px rgba(0,0,0,0.05);
       border: 1px solid var(--border);
-      scroll-margin-top: 180px;
+      min-height: 300px;
     }
-    .test-card .q-num {
-      font-size: 0.78rem;
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .card-qnum {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .card-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: var(--text-light);
-      font-weight: 600;
-      margin-bottom: 8px;
+      letter-spacing: 0.5px;
     }
-    .test-card .q-text {
+    .badge-algebra { background: #dbeafe; color: #1e40af; }
+    .badge-reading { background: #dcfce7; color: #166534; }
+    .badge-difficulty {
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    .card-question {
       font-size: 1.08rem;
       font-weight: 600;
       color: var(--text);
-      margin-bottom: 16px;
-      line-height: 1.6;
+      margin-bottom: 20px;
+      line-height: 1.7;
     }
-    .test-card .q-options label {
+    .card-passage {
+      background: #faf6ee;
+      border: 1px solid #e8dcc8;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 18px;
+      font-size: 0.92rem;
+      line-height: 1.75;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+    .card-passage .passage-title {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+    .card-options label {
       display: block;
       padding: 11px 16px;
       margin-bottom: 7px;
@@ -205,65 +261,125 @@
       transition: all 0.15s;
       font-size: 0.95rem;
     }
-    .test-card .q-options label:hover { background: #f5f7fa; border-color: #bcc3ce; }
-    .test-card .q-options input[type="radio"] { margin-right: 10px; accent-color: var(--primary); }
-    .test-card .q-options .correct { background: #d4edda; border-color: var(--success); }
-    .test-card .q-options .wrong { background: #f8d7da; border-color: var(--danger); }
-    .test-card .q-btn {
+    .card-options label:hover { background: #f5f7fa; border-color: #bcc3ce; }
+    .card-options input[type="radio"] { margin-right: 10px; accent-color: var(--primary); }
+    .card-options label.correct { background: #d4edda; border-color: var(--success); }
+    .card-options label.wrong { background: #f8d7da; border-color: var(--danger); }
+    .card-options label.disabled { pointer-events: none; opacity: 0.85; }
+
+    /* ===== CHECK BUTTON ===== */
+    .check-btn {
       background: var(--primary);
       color: white;
       border: none;
-      padding: 9px 22px;
+      padding: 10px 26px;
       border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: background 0.2s;
+    }
+    .check-btn:hover { background: var(--primary-light); }
+    .check-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ===== RESULT INDICATOR ===== */
+    .result-indicator {
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: none;
+    }
+    .result-indicator.show { display: block; }
+    .result-indicator.correct-result {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .result-indicator.wrong-result {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .result-icon {
+      font-size: 1.2rem;
+      margin-right: 6px;
+    }
+
+    /* ===== VERTICAL EXPLANATION ===== */
+    .explanation-box {
+      margin-top: 12px;
+      padding: 16px 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 3px solid var(--primary);
+      font-size: 0.9rem;
+      color: #444;
+      line-height: 1.9;
+      display: none;
+    }
+    .explanation-box.show { display: block; }
+    .explanation-box .exp-divider {
+      border: none;
+      border-top: 1px dashed #ccc;
+      margin: 8px 0;
+    }
+    .explanation-box .exp-step {
+      display: block;
+      padding: 2px 0;
+    }
+    .explanation-box .exp-header {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    /* ===== NAVIGATION CONTROLS ===== */
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    .nav-ctrl-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 10px 24px;
+      border-radius: 8px;
       font-weight: 600;
       font-size: 0.88rem;
       cursor: pointer;
-      margin-top: 10px;
-      transition: background 0.2s;
+      color: var(--text);
+      transition: all 0.2s;
     }
-    .test-card .q-btn:hover { background: var(--primary-light); }
-    .test-card .q-explanation {
-      margin-top: 14px;
-      padding: 14px 16px;
-      background: #f8f9fa;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      display: none;
-      color: #444;
-      line-height: 1.5;
-    }
-    .test-card .q-explanation.show { display: block; }
-
-    /* ===== SECTION DIVIDER ===== */
-    .section-divider {
-      text-align: center;
-      margin: 40px 0 24px;
-      padding: 24px;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    .nav-ctrl-btn:hover:not(:disabled) {
+      background: var(--primary);
       color: white;
-      border-radius: 12px;
-      scroll-margin-top: 170px;
+      border-color: var(--primary);
     }
-    .section-divider h2 { font-size: 1.6rem; margin-bottom: 4px; }
-    .section-divider p { opacity: 0.9; font-size: 1rem; }
-
-    /* ===== PASSAGE BOX ===== */
-    .passage-box {
-      background: #faf6ee;
-      border: 1px solid #e8dcc8;
-      border-radius: 10px;
-      padding: 24px;
-      margin: 16px 0;
-      font-size: 0.95rem;
-      line-height: 1.75;
-      max-height: 420px;
-      overflow-y: auto;
+    .nav-ctrl-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
     }
-    .passage-box .passage-title {
-      font-weight: 700;
+    .nav-ctrl-btn.shuffle-btn {
+      background: #fef9ee;
+      border-color: var(--secondary);
       color: var(--primary);
-      font-size: 1.05rem;
-      margin-bottom: 10px;
+    }
+    .nav-ctrl-btn.shuffle-btn:hover {
+      background: var(--secondary);
+      color: white;
+    }
+    .progress-text {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      font-weight: 600;
+      min-width: 100px;
+      text-align: center;
     }
 
     /* ===== SCORE SECTION ===== */
@@ -345,6 +461,33 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     }
+    .progress-bar {
+      width: 100%;
+      height: 16px;
+      background: #e9ecef;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 10px;
+      transition: width 0.5s ease;
+    }
+
+    /* ===== PASSAGE INDICATOR ===== */
+    .passage-indicator {
+      display: inline-block;
+      background: #f0f4ff;
+      color: #1e40af;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-left: 6px;
+    }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 900px) {
@@ -360,9 +503,16 @@
         border-bottom: 1px solid var(--border);
       }
       .timer-container { position: relative; top: 0; }
-      .test-card { scroll-margin-top: 20px; }
-      .section-divider { scroll-margin-top: 20px; }
-      .timer-display { font-size: 2rem; }
+    }
+
+    /* ===== BANNER / HEADER NO-EMOJI OVERRIDES ===== */
+    .top-banner .bolt-icon {
+      display: inline-block;
+      width: 14px; height: 14px;
+      background: var(--secondary);
+      clip-path: polygon(50% 0%, 65% 35%, 100% 35%, 70% 60%, 85% 100%, 45% 65%, 10% 65%, 35% 40%);
+      vertical-align: middle;
+      margin-right: 4px;
     }
   </style>
 </head>
@@ -370,14 +520,14 @@
 
 <!-- === TOP BANNER === -->
 <div class="top-banner">
-  ⚡ <strong>FREE</strong> IBEW Aptitude Test Preparation — No Sign-Up Required
+  <span class="bolt-icon"></span> <strong>FREE</strong> IBEW Aptitude Test Preparation — No Sign-Up Required
 </div>
 
 <!-- === HEADER === -->
 <header>
   <div class="header-inner">
     <a href="../index.html" class="logo">
-      ⚡ IBEW<span>Prep</span>
+      <span class="bolt-icon" style="width:18px;height:18px;"></span> IBEW<span>Prep</span>
       <span class="sub">Aptitude Test Study Guide</span>
     </a>
     <nav>
@@ -396,10 +546,10 @@
 
   <!-- ===== SIDEBAR NAVIGATOR ===== -->
   <aside class="question-nav" id="questionNav">
-    <h3>📋 Question Navigator</h3>
-    <div class="nav-section-label">🔵 Algebra Q1–Q33</div>
+    <h3>Question Navigator</h3>
+    <div class="nav-section-label algebra-label"><span class="dot blue"></span> Algebra Q1–Q33</div>
     <div class="nav-grid" id="navAlgebra"></div>
-    <div class="nav-section-label">🟢 Reading Q34–Q69</div>
+    <div class="nav-section-label reading-label"><span class="dot green"></span> Reading Q34–Q69</div>
     <div class="nav-grid" id="navReading"></div>
   </aside>
 
@@ -409,20 +559,20 @@
     <!-- === PAGE HEADER === -->
     <div class="page-header">
       <h1>Full-Length Simulated Practice Test</h1>
-      <p>69 Questions • 97 Minutes • Experience the real IBEW Aptitude Test under timed conditions</p>
+      <p>69 Questions &middot; 97 Minutes &middot; Experience the real IBEW Aptitude Test under timed conditions</p>
     </div>
 
     <!-- === TEST RULES === -->
-    <div class="test-rules" style="background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px;">
-      <h3 style="color:var(--primary);margin-bottom:8px;">📋 Test Rules &amp; Format</h3>
+    <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px;">
+      <h3 style="color:var(--primary);margin-bottom:8px;">Test Rules &amp; Format</h3>
       <ul style="margin-left:20px;font-size:0.92rem;color:var(--text-light);line-height:1.8;">
-        <li><strong>Section 1 — Algebra &amp; Functions:</strong> 33 questions | 46 minutes</li>
-        <li><strong>Section 2 — Reading Comprehension:</strong> 36 questions | 51 minutes</li>
+        <li><strong>Section 1 &mdash; Algebra &amp; Functions:</strong> 33 questions | 46 minutes</li>
+        <li><strong>Section 2 &mdash; Reading Comprehension:</strong> 36 questions | 51 minutes</li>
         <li><strong>Total:</strong> 69 questions | 97 minutes</li>
-        <li><strong>🚫 NO CALCULATOR</strong> — All math must be done by hand, exactly like the real test</li>
-        <li><strong>📝 Scratch paper is allowed</strong> (and encouraged!) for working out problems</li>
-        <li>Select your answer and click <strong>Check</strong> to see the correct answer and explanation</li>
-        <li>Score yourself at the bottom when finished — breakdown by section included</li>
+        <li><strong>NO CALCULATOR</strong> &mdash; All math must be done by hand, exactly like the real test</li>
+        <li><strong>Scratch paper is allowed</strong> (and encouraged!) for working out problems</li>
+        <li>Select your answer and click <strong>Check Answer</strong> to see the correct answer and step-by-step explanation</li>
+        <li>Click <strong>View Score</strong> at the bottom when finished &mdash; breakdown by section included</li>
       </ul>
     </div>
 
@@ -433,914 +583,38 @@
         <span class="timer-display" id="timerDisplay">97:00</span>
       </div>
       <div class="timer-controls">
-        <button class="timer-btn start" id="btnStart" onclick="startTimer()">▶ Start</button>
-        <button class="timer-btn pause" id="btnPause" onclick="pauseTimer()" style="display:none;">⏸ Pause</button>
-        <button class="timer-btn reset" onclick="resetTimer()">↺ Reset</button>
+        <button class="timer-btn start" id="btnStart" onclick="startTimer()">Start</button>
+        <button class="timer-btn pause" id="btnPause" onclick="pauseTimer()" style="display:none;">Pause</button>
+        <button class="timer-btn reset" onclick="resetTimer()">Reset</button>
       </div>
     </div>
 
-    <!-- ================================================================ -->
-    <!-- SECTION 1: ALGEBRA & FUNCTIONS (33 questions)                    -->
-    <!-- ================================================================ -->
-    <div class="section-divider" id="algebraSection">
-      <h2>📐 SECTION 1: Algebra &amp; Functions</h2>
-      <p>33 Questions • 46 Minutes • No Calculator</p>
+    <!-- ===== QUESTION CARD ===== -->
+    <div class="question-card" id="questionCard">
+      <div class="card-header">
+        <span class="card-qnum" id="cardQNum">Question 1</span>
+        <span class="card-badge" id="cardBadge"></span>
+        <span class="badge-difficulty" id="cardDifficulty"></span>
+        <span class="passage-indicator" id="cardPassageLabel" style="display:none;"></span>
+      </div>
+      <div class="card-passage" id="cardPassage" style="display:none;"></div>
+      <div class="card-question" id="cardQuestion"></div>
+      <div class="card-options" id="cardOptions"></div>
+      <button class="check-btn" id="checkBtn" onclick="checkCurrentAnswer()">Check Answer</button>
+      <div class="result-indicator" id="resultIndicator"></div>
+      <div class="explanation-box" id="explanationBox"></div>
     </div>
 
-    <!-- ===== Part A: Evaluating Expressions (Q1–Q5) ===== -->
-    <h3 style="color:var(--primary);margin:30px 0 10px;font-size:1.1rem;">Part A: Evaluating Expressions (Q1–Q5)</h3>
-
-    <!-- Q1 — ETA: A = B + 3(4 - C) -->
-    <div class="test-card" id="q1">
-      <div class="q-num">Question 1</div>
-      <div class="q-text">If A = B + 3(4 − C), what is the value of A when B = 2 and C = 5?</div>
-      <div class="q-options">
-        <label><input type="radio" name="q1" value="a"> A) 5</label>
-        <label><input type="radio" name="q1" value="b"> B) −1</label>
-        <label><input type="radio" name="q1" value="c"> C) 1</label>
-        <label><input type="radio" name="q1" value="d"> D) −5</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q1','b')">Check</button>
-      <div class="q-explanation" id="q1-exp">
-        <strong>Correct: B) −1</strong><br>
-        Substitute B = 2 and C = 5: A = 2 + 3(4 − 5) = 2 + 3(−1) = 2 − 3 = <strong>−1</strong>.
-      </div>
+    <!-- ===== NAVIGATION CONTROLS ===== -->
+    <div class="nav-controls">
+      <button class="nav-ctrl-btn shuffle-btn" onclick="shuffleQuestions()">Shuffle</button>
+      <button class="nav-ctrl-btn" id="prevBtn" onclick="navigateQuestion(-1)">&#8592; Previous</button>
+      <span class="progress-text" id="progressText">Question 1 of 69</span>
+      <button class="nav-ctrl-btn" id="nextBtn" onclick="navigateQuestion(1)">Next &#8594;</button>
+      <button class="submit-btn" id="scoreBtn" onclick="viewScore()">View Score</button>
     </div>
 
-    <!-- Q2 — Order of Operations -->
-    <div class="test-card" id="q2">
-      <div class="q-num">Question 2</div>
-      <div class="q-text">Simplify: 24 ÷ 6 × 2 + 3² − 5</div>
-      <div class="q-options">
-        <label><input type="radio" name="q2" value="a"> A) 8</label>
-        <label><input type="radio" name="q2" value="b"> B) 12</label>
-        <label><input type="radio" name="q2" value="c"> C) 10</label>
-        <label><input type="radio" name="q2" value="d"> D) 6</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q2','b')">Check</button>
-      <div class="q-explanation" id="q2-exp">
-        <strong>Correct: B) 12</strong><br>
-        Exponent first: 3² = 9. Divide/multiply L→R: 24 ÷ 6 = 4, 4 × 2 = 8. Add/subtract: 8 + 9 − 5 = <strong>12</strong>.
-      </div>
-    </div>
-
-    <!-- Q3 -->
-    <div class="test-card" id="q3">
-      <div class="q-num">Question 3</div>
-      <div class="q-text">Evaluate: (15 − 3 × 2) + 4² ÷ 8</div>
-      <div class="q-options">
-        <label><input type="radio" name="q3" value="a"> A) 11</label>
-        <label><input type="radio" name="q3" value="b"> B) 13</label>
-        <label><input type="radio" name="q3" value="c"> C) 9</label>
-        <label><input type="radio" name="q3" value="d"> D) 14</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q3','a')">Check</button>
-      <div class="q-explanation" id="q3-exp">
-        <strong>Correct: A) 11</strong><br>
-        Innermost first, multiply before subtract: 3×2=6, (15−6)=9. 4²=16, 16÷8=2. 9+2=<strong>11</strong>.
-      </div>
-    </div>
-
-    <!-- Q4 -->
-    <div class="test-card" id="q4">
-      <div class="q-num">Question 4</div>
-      <div class="q-text">If x = 3 and y = −4, evaluate: 2x² − 3y + xy</div>
-      <div class="q-options">
-        <label><input type="radio" name="q4" value="a"> A) 30</label>
-        <label><input type="radio" name="q4" value="b"> B) 18</label>
-        <label><input type="radio" name="q4" value="c"> C) 6</label>
-        <label><input type="radio" name="q4" value="d"> D) 42</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q4','b')">Check</button>
-      <div class="q-explanation" id="q4-exp">
-        <strong>Correct: B) 18</strong><br>
-        2(3)² − 3(−4) + (3)(−4) = 2(9) + 12 − 12 = 18 + 0 = <strong>18</strong>.
-      </div>
-    </div>
-
-    <!-- Q5 -->
-    <div class="test-card" id="q5">
-      <div class="q-num">Question 5</div>
-      <div class="q-text">Evaluate: 5[12 − 2(8 ÷ 4 + 1)]</div>
-      <div class="q-options">
-        <label><input type="radio" name="q5" value="a"> A) 10</label>
-        <label><input type="radio" name="q5" value="b"> B) 20</label>
-        <label><input type="radio" name="q5" value="c"> C) 30</label>
-        <label><input type="radio" name="q5" value="d"> D) 40</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q5','c')">Check</button>
-      <div class="q-explanation" id="q5-exp">
-        <strong>Correct: C) 30</strong><br>
-        Inside out: 8÷4=2, 2+1=3. 12−2(3)=12−6=6. 5[6]=<strong>30</strong>.
-      </div>
-    </div>
-
-    <!-- ===== Part B: Linear Equations (Q6–Q10) ===== -->
-    <h3 style="color:var(--primary);margin:36px 0 10px;font-size:1.1rem;">Part B: Solving Linear Equations (Q6–Q10)</h3>
-
-    <!-- Q6 -->
-    <div class="test-card" id="q6">
-      <div class="q-num">Question 6</div>
-      <div class="q-text">Solve for x: 4x − 7 = 2x + 15</div>
-      <div class="q-options">
-        <label><input type="radio" name="q6" value="a"> A) x = 8</label>
-        <label><input type="radio" name="q6" value="b"> B) x = 11</label>
-        <label><input type="radio" name="q6" value="c"> C) x = 7</label>
-        <label><input type="radio" name="q6" value="d"> D) x = 4</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q6','b')">Check</button>
-      <div class="q-explanation" id="q6-exp">
-        <strong>Correct: B) x = 11</strong><br>
-        Subtract 2x: 2x − 7 = 15. Add 7: 2x = 22. Divide by 2: x = <strong>11</strong>.
-      </div>
-    </div>
-
-    <!-- Q7 -->
-    <div class="test-card" id="q7">
-      <div class="q-num">Question 7</div>
-      <div class="q-text">Solve: 3(2x − 4) = 5(x + 1) − 8</div>
-      <div class="q-options">
-        <label><input type="radio" name="q7" value="a"> A) x = 5</label>
-        <label><input type="radio" name="q7" value="b"> B) x = 9</label>
-        <label><input type="radio" name="q7" value="c"> C) x = 3</label>
-        <label><input type="radio" name="q7" value="d"> D) x = 6</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q7','b')">Check</button>
-      <div class="q-explanation" id="q7-exp">
-        <strong>Correct: B) x = 9</strong><br>
-        Expand: 6x − 12 = 5x − 3. Subtract 5x: x − 12 = −3. Add 12: x = <strong>9</strong>.
-      </div>
-    </div>
-
-    <!-- Q8 -->
-    <div class="test-card" id="q8">
-      <div class="q-num">Question 8</div>
-      <div class="q-text">Solve for n: 2n/3 + 5 = n/2 + 8</div>
-      <div class="q-options">
-        <label><input type="radio" name="q8" value="a"> A) n = 6</label>
-        <label><input type="radio" name="q8" value="b"> B) n = 12</label>
-        <label><input type="radio" name="q8" value="c"> C) n = 18</label>
-        <label><input type="radio" name="q8" value="d"> D) n = 24</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q8','c')">Check</button>
-      <div class="q-explanation" id="q8-exp">
-        <strong>Correct: C) n = 18</strong><br>
-        Multiply by 6 (LCM of 3,2): 4n + 30 = 3n + 48 → n = <strong>18</strong>.
-      </div>
-    </div>
-
-    <!-- Q9 — ETA: a = 1/2 b − 4 -->
-    <div class="test-card" id="q9">
-      <div class="q-num">Question 9</div>
-      <div class="q-text">If a = ½b − 4, which of the following statements is true?</div>
-      <div class="q-options">
-        <label><input type="radio" name="q9" value="a"> A) When b = 12, a = 2</label>
-        <label><input type="radio" name="q9" value="b"> B) When b = 8, a = 8</label>
-        <label><input type="radio" name="q9" value="c"> C) When b = 4, a = 0</label>
-        <label><input type="radio" name="q9" value="d"> D) When b = 0, a = 4</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q9','a')">Check</button>
-      <div class="q-explanation" id="q9-exp">
-        <strong>Correct: A) When b = 12, a = 2</strong><br>
-        a = ½(12) − 4 = 6 − 4 = <strong>2</strong>. Check others: B) ½(8)−4=0, C) ½(4)−4=−2, D) ½(0)−4=−4. Only A is true.
-      </div>
-    </div>
-
-    <!-- Q10 -->
-    <div class="test-card" id="q10">
-      <div class="q-num">Question 10</div>
-      <div class="q-text">The sum of three consecutive integers is 72. What is the smallest integer?</div>
-      <div class="q-options">
-        <label><input type="radio" name="q10" value="a"> A) 22</label>
-        <label><input type="radio" name="q10" value="b"> B) 23</label>
-        <label><input type="radio" name="q10" value="c"> C) 24</label>
-        <label><input type="radio" name="q10" value="d"> D) 25</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q10','b')">Check</button>
-      <div class="q-explanation" id="q10-exp">
-        <strong>Correct: B) 23</strong><br>
-        n + (n+1) + (n+2) = 72 → 3n + 3 = 72 → 3n = 69 → n = <strong>23</strong>.
-      </div>
-    </div>
-
-    <!-- ===== Part C: Systems of Equations (Q11–Q13) ===== -->
-    <h3 style="color:var(--primary);margin:36px 0 10px;font-size:1.1rem;">Part C: Systems of Equations (Q11–Q13)</h3>
-
-    <!-- Q11 -->
-    <div class="test-card" id="q11">
-      <div class="q-num">Question 11</div>
-      <div class="q-text">Solve the system:<br>2x + y = 10<br>x − y = 2</div>
-      <div class="q-options">
-        <label><input type="radio" name="q11" value="a"> A) x = 3, y = 4</label>
-        <label><input type="radio" name="q11" value="b"> B) x = 4, y = 2</label>
-        <label><input type="radio" name="q11" value="c"> C) x = 5, y = 0</label>
-        <label><input type="radio" name="q11" value="d"> D) x = 4, y = 6</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q11','b')">Check</button>
-      <div class="q-explanation" id="q11-exp">
-        <strong>Correct: B) x = 4, y = 2</strong><br>
-        Add equations: 3x = 12 → x = 4. Then 4 − y = 2 → y = <strong>2</strong>.
-      </div>
-    </div>
-
-    <!-- Q12 -->
-    <div class="test-card" id="q12">
-      <div class="q-num">Question 12</div>
-      <div class="q-text">Solve:<br>3x + 2y = 16<br>5x − 2y = 8</div>
-      <div class="q-options">
-        <label><input type="radio" name="q12" value="a"> A) x = 2, y = 5</label>
-        <label><input type="radio" name="q12" value="b"> B) x = 3, y = 3.5</label>
-        <label><input type="radio" name="q12" value="c"> C) x = 4, y = 2</label>
-        <label><input type="radio" name="q12" value="d"> D) x = 3, y = 5</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q12','b')">Check</button>
-      <div class="q-explanation" id="q12-exp">
-        <strong>Correct: B) x = 3, y = 3.5</strong><br>
-        Add: 8x = 24 → x = 3. Then 9 + 2y = 16 → 2y = 7 → y = <strong>3.5</strong>.
-      </div>
-    </div>
-
-    <!-- Q13 -->
-    <div class="test-card" id="q13">
-      <div class="q-num">Question 13</div>
-      <div class="q-text">A movie theater sold 200 tickets. Adult tickets cost $9 and child tickets cost $5. Total revenue was $1,400. How many adult tickets were sold?</div>
-      <div class="q-options">
-        <label><input type="radio" name="q13" value="a"> A) 80</label>
-        <label><input type="radio" name="q13" value="b"> B) 100</label>
-        <label><input type="radio" name="q13" value="c"> C) 120</label>
-        <label><input type="radio" name="q13" value="d"> D) 150</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q13','b')">Check</button>
-      <div class="q-explanation" id="q13-exp">
-        <strong>Correct: B) 100</strong><br>
-        a + c = 200, 9a + 5c = 1400. c=200−a. 9a+5(200−a)=1400 → 4a=400 → a=<strong>100</strong>.
-      </div>
-    </div>
-
-    <!-- ===== Part D: Simplifying & Factoring Polynomials (Q14–Q18) ===== -->
-    <h3 style="color:var(--primary);margin:36px 0 10px;font-size:1.1rem;">Part D: Simplifying &amp; Factoring Polynomials (Q14–Q18)</h3>
-
-    <!-- Q14 -->
-    <div class="test-card" id="q14">
-      <div class="q-num">Question 14</div>
-      <div class="q-text">Simplify: (5x² − 3x + 2) + (2x² + 7x − 4)</div>
-      <div class="q-options">
-        <label><input type="radio" name="q14" value="a"> A) 7x² + 4x + 2</label>
-        <label><input type="radio" name="q14" value="b"> B) 7x² + 4x − 2</label>
-        <label><input type="radio" name="q14" value="c"> C) 3x² + 10x − 2</label>
-        <label><input type="radio" name="q14" value="d"> D) 7x² + 4x − 6</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q14','b')">Check</button>
-      <div class="q-explanation" id="q14-exp">
-        <strong>Correct: B) 7x² + 4x − 2</strong><br>
-        Combine like terms: 5x²+2x²=7x²; −3x+7x=4x; 2+(−4)=−2.
-      </div>
-    </div>
-
-    <!-- Q15 -->
-    <div class="test-card" id="q15">
-      <div class="q-num">Question 15</div>
-      <div class="q-text">Subtract: (6x² + 5x − 3) − (2x² − 3x + 7)</div>
-      <div class="q-options">
-        <label><input type="radio" name="q15" value="a"> A) 4x² + 8x + 4</label>
-        <label><input type="radio" name="q15" value="b"> B) 4x² + 2x − 10</label>
-        <label><input type="radio" name="q15" value="c"> C) 4x² + 8x − 10</label>
-        <label><input type="radio" name="q15" value="d"> D) 8x² + 2x − 10</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q15','c')">Check</button>
-      <div class="q-explanation" id="q15-exp">
-        <strong>Correct: C) 4x² + 8x − 10</strong><br>
-        Distribute negative: 6x²+5x−3−2x²+3x−7 = 4x²+8x−10.
-      </div>
-    </div>
-
-    <!-- Q16 -->
-    <div class="test-card" id="q16">
-      <div class="q-num">Question 16</div>
-      <div class="q-text">Factor completely: x² − 16x + 64</div>
-      <div class="q-options">
-        <label><input type="radio" name="q16" value="a"> A) (x − 8)(x − 8)</label>
-        <label><input type="radio" name="q16" value="b"> B) (x − 4)(x − 16)</label>
-        <label><input type="radio" name="q16" value="c"> C) (x + 8)(x − 8)</label>
-        <label><input type="radio" name="q16" value="d"> D) (x − 8)(x + 2)</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q16','a')">Check</button>
-      <div class="q-explanation" id="q16-exp">
-        <strong>Correct: A) (x − 8)(x − 8) = (x − 8)²</strong><br>
-        Perfect square trinomial. Half of −16 is −8, (−8)²=64.
-      </div>
-    </div>
-
-    <!-- Q17 -->
-    <div class="test-card" id="q17">
-      <div class="q-num">Question 17</div>
-      <div class="q-text">Factor: 6x² − 13x − 5</div>
-      <div class="q-options">
-        <label><input type="radio" name="q17" value="a"> A) (3x + 1)(2x − 5)</label>
-        <label><input type="radio" name="q17" value="b"> B) (2x + 5)(3x − 1)</label>
-        <label><input type="radio" name="q17" value="c"> C) (6x + 5)(x − 1)</label>
-        <label><input type="radio" name="q17" value="d"> D) (3x − 5)(2x + 1)</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q17','a')">Check</button>
-      <div class="q-explanation" id="q17-exp">
-        <strong>Correct: A) (3x + 1)(2x − 5)</strong><br>
-        Factors of 6×(−5)=−30 summing to −13: −15 and 2. Group: 3x(2x−5)+1(2x−5) = (3x+1)(2x−5).
-      </div>
-    </div>
-
-    <!-- Q18 -->
-    <div class="test-card" id="q18">
-      <div class="q-num">Question 18</div>
-      <div class="q-text">Factor: 4x² − 25</div>
-      <div class="q-options">
-        <label><input type="radio" name="q18" value="a"> A) (2x + 5)(2x − 5)</label>
-        <label><input type="radio" name="q18" value="b"> B) (4x + 5)(x − 5)</label>
-        <label><input type="radio" name="q18" value="c"> C) (2x − 5)²</label>
-        <label><input type="radio" name="q18" value="d"> D) (2x + 5)(2x + 5)</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q18','a')">Check</button>
-      <div class="q-explanation" id="q18-exp">
-        <strong>Correct: A) (2x + 5)(2x − 5)</strong><br>
-        Difference of squares: a²−b² = (a+b)(a−b). a=2x, b=5.
-      </div>
-    </div>
-
-    <!-- ===== Part E: FOIL & Quadratic Expressions (Q19–Q22) ===== -->
-    <h3 style="color:var(--primary);margin:36px 0 10px;font-size:1.1rem;">Part E: FOIL &amp; Quadratic Expressions (Q19–Q22)</h3>
-
-    <!-- Q19 -->
-    <div class="test-card" id="q19">
-      <div class="q-num">Question 19</div>
-      <div class="q-text">Use FOIL to multiply: (x + 6)(x − 4)</div>
-      <div class="q-options">
-        <label><input type="radio" name="q19" value="a"> A) x² + 2x − 24</label>
-        <label><input type="radio" name="q19" value="b"> B) x² − 2x − 24</label>
-        <label><input type="radio" name="q19" value="c"> C) x² + 10x − 24</label>
-        <label><input type="radio" name="q19" value="d"> D) x² + 2x + 24</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q19','a')">Check</button>
-      <div class="q-explanation" id="q19-exp">
-        <strong>Correct: A) x² + 2x − 24</strong><br>
-        First: x·x=x². Outer: x·(−4)=−4x. Inner: 6·x=6x. Last: 6·(−4)=−24. Sum: x²+2x−24.
-      </div>
-    </div>
-
-    <!-- Q20 -->
-    <div class="test-card" id="q20">
-      <div class="q-num">Question 20</div>
-      <div class="q-text">Multiply: (2x − 3)(3x + 5)</div>
-      <div class="q-options">
-        <label><input type="radio" name="q20" value="a"> A) 6x² + x − 15</label>
-        <label><input type="radio" name="q20" value="b"> B) 6x² + 19x − 15</label>
-        <label><input type="radio" name="q20" value="c"> C) 6x² − x − 15</label>
-        <label><input type="radio" name="q20" value="d"> D) 5x² + x − 15</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q20','a')">Check</button>
-      <div class="q-explanation" id="q20-exp">
-        <strong>Correct: A) 6x² + x − 15</strong><br>
-        FOIL: 2x·3x=6x², 2x·5=10x, (−3)·3x=−9x, (−3)·5=−15. Sum: 6x²+x−15.
-      </div>
-    </div>
-
-    <!-- Q21 -->
-    <div class="test-card" id="q21">
-      <div class="q-num">Question 21</div>
-      <div class="q-text">Expand: (x + 7)²</div>
-      <div class="q-options">
-        <label><input type="radio" name="q21" value="a"> A) x² + 49</label>
-        <label><input type="radio" name="q21" value="b"> B) x² + 7x + 49</label>
-        <label><input type="radio" name="q21" value="c"> C) x² + 14x + 49</label>
-        <label><input type="radio" name="q21" value="d"> D) x² + 14x + 14</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q21','c')">Check</button>
-      <div class="q-explanation" id="q21-exp">
-        <strong>Correct: C) x² + 14x + 49</strong><br>
-        (x+7)² = x² + 2·7·x + 7² = x² + 14x + 49. Formula: (a+b)² = a²+2ab+b².
-      </div>
-    </div>
-
-    <!-- Q22 — ETA: y = 3(x+5)(x-2) — x-intercepts -->
-    <div class="test-card" id="q22">
-      <div class="q-num">Question 22</div>
-      <div class="q-text">What are the x-intercepts of the graph of y = 3(x + 5)(x − 2)?</div>
-      <div class="q-options">
-        <label><input type="radio" name="q22" value="a"> A) x = 5 and x = −2</label>
-        <label><input type="radio" name="q22" value="b"> B) x = −5 and x = 2</label>
-        <label><input type="radio" name="q22" value="c"> C) x = 3 and x = −2</label>
-        <label><input type="radio" name="q22" value="d"> D) x = −3 and x = 2</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q22','b')">Check</button>
-      <div class="q-explanation" id="q22-exp">
-        <strong>Correct: B) x = −5 and x = 2</strong><br>
-        Set y = 0: 3(x+5)(x−2)=0. Since 3≠0, either x+5=0 → x=−5, or x−2=0 → x=2.
-      </div>
-    </div>
-
-    <!-- ===== Part F: Functions & Graphs (Q23–Q27) ===== -->
-    <h3 style="color:var(--primary);margin:36px 0 10px;font-size:1.1rem;">Part F: Functions &amp; Graphs (Q23–Q27)</h3>
-
-    <!-- Q23 -->
-    <div class="test-card" id="q23">
-      <div class="q-num">Question 23</div>
-      <div class="q-text">What is the slope of the line passing through points (2, 5) and (6, 17)?</div>
-      <div class="q-options">
-        <label><input type="radio" name="q23" value="a"> A) 2</label>
-        <label><input type="radio" name="q23" value="b"> B) 3</label>
-        <label><input type="radio" name="q23" value="c"> C) 4</label>
-        <label><input type="radio" name="q23" value="d"> D) 6</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q23','b')">Check</button>
-      <div class="q-explanation" id="q23-exp">
-        <strong>Correct: B) 3</strong><br>
-        Slope = (y₂−y₁)/(x₂−x₁) = (17−5)/(6−2) = 12/4 = <strong>3</strong>.
-      </div>
-    </div>
-
-    <!-- Q24 -->
-    <div class="test-card" id="q24">
-      <div class="q-num">Question 24</div>
-      <div class="q-text">A line has a slope of 4 and passes through (1, 3). What is its equation in slope-intercept form?</div>
-      <div class="q-options">
-        <label><input type="radio" name="q24" value="a"> A) y = 4x − 1</label>
-        <label><input type="radio" name="q24" value="b"> B) y = 4x + 1</label>
-        <label><input type="radio" name="q24" value="c"> C) y = 4x + 7</label>
-        <label><input type="radio" name="q24" value="d"> D) y = 3x + 4</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q24','a')">Check</button>
-      <div class="q-explanation" id="q24-exp">
-        <strong>Correct: A) y = 4x − 1</strong><br>
-        y = mx + b. 3 = 4(1) + b → b = −1. So y = <strong>4x − 1</strong>.
-      </div>
-    </div>
-
-    <!-- Q25 -->
-    <div class="test-card" id="q25">
-      <div class="q-num">Question 25</div>
-      <div class="q-text">Given f(x) = 2x² − 3x + 5, find f(4).</div>
-      <div class="q-options">
-        <label><input type="radio" name="q25" value="a"> A) 21</label>
-        <label><input type="radio" name="q25" value="b"> B) 25</label>
-        <label><input type="radio" name="q25" value="c"> C) 29</label>
-        <label><input type="radio" name="q25" value="d"> D) 33</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q25','b')">Check</button>
-      <div class="q-explanation" id="q25-exp">
-        <strong>Correct: B) 25</strong><br>
-        f(4) = 2(16) − 12 + 5 = 32 − 12 + 5 = <strong>25</strong>.
-      </div>
-    </div>
-
-    <!-- Q26 -->
-    <div class="test-card" id="q26">
-      <div class="q-num">Question 26</div>
-      <div class="q-text">What is the y-intercept of the line 3x − 2y = 12?</div>
-      <div class="q-options">
-        <label><input type="radio" name="q26" value="a"> A) (0, −4)</label>
-        <label><input type="radio" name="q26" value="b"> B) (0, −6)</label>
-        <label><input type="radio" name="q26" value="c"> C) (0, 4)</label>
-        <label><input type="radio" name="q26" value="d"> D) (0, 6)</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q26','b')">Check</button>
-      <div class="q-explanation" id="q26-exp">
-        <strong>Correct: B) (0, −6)</strong><br>
-        Set x = 0: −2y = 12 → y = <strong>−6</strong>.
-      </div>
-    </div>
-
-    <!-- Q27 — ETA: X/Y Table -->
-    <div class="test-card" id="q27">
-      <div class="q-num">Question 27</div>
-      <div class="q-text">Which equation represents the relationship shown in the table?<br>
-        <table style="border-collapse:collapse;margin:10px 0;font-size:0.95rem;">
-          <tr><th style="padding:6px 16px;border-bottom:2px solid var(--primary);">x</th><th style="padding:6px 16px;border-bottom:2px solid var(--primary);">y</th></tr>
-          <tr><td style="padding:4px 16px;">−2</td><td style="padding:4px 16px;">−7</td></tr>
-          <tr><td style="padding:4px 16px;">0</td><td style="padding:4px 16px;">−3</td></tr>
-          <tr><td style="padding:4px 16px;">2</td><td style="padding:4px 16px;">1</td></tr>
-          <tr><td style="padding:4px 16px;">4</td><td style="padding:4px 16px;">5</td></tr>
-        </table>
-      </div>
-      <div class="q-options">
-        <label><input type="radio" name="q27" value="a"> A) y = 2x − 3</label>
-        <label><input type="radio" name="q27" value="b"> B) y = 3x − 3</label>
-        <label><input type="radio" name="q27" value="c"> C) y = x − 3</label>
-        <label><input type="radio" name="q27" value="d"> D) y = 2x + 3</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q27','a')">Check</button>
-      <div class="q-explanation" id="q27-exp">
-        <strong>Correct: A) y = 2x − 3</strong><br>
-        Slope = (1−(−3))/(2−0) = 4/2 = 2. At x=0, y=−3, so b=−3. Equation: <strong>y = 2x − 3</strong>.
-      </div>
-    </div>
-
-    <!-- ===== Part G: Number Series (Q28–Q33) ===== -->
-    <h3 style="color:var(--primary);margin:36px 0 10px;font-size:1.1rem;">Part G: Number Series (Q28–Q33)</h3>
-
-    <!-- Q28 — ETA Number Series: 110, 112, 107, 109, 104, ___ -->
-    <div class="test-card" id="q28">
-      <div class="q-num">Question 28</div>
-      <div class="q-text">Find the next number in the series: 110, 112, 107, 109, 104, ___</div>
-      <div class="q-options">
-        <label><input type="radio" name="q28" value="a"> A) 102</label>
-        <label><input type="radio" name="q28" value="b"> B) 106</label>
-        <label><input type="radio" name="q28" value="c"> C) 99</label>
-        <label><input type="radio" name="q28" value="d"> D) 108</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q28','b')">Check</button>
-      <div class="q-explanation" id="q28-exp">
-        <strong>Correct: B) 106</strong><br>
-        Pattern alternates: +2, −5, +2, −5, +2. 104 + 2 = <strong>106</strong>.
-      </div>
-    </div>
-
-    <!-- Q29 -->
-    <div class="test-card" id="q29">
-      <div class="q-num">Question 29</div>
-      <div class="q-text">What comes next? 2, 6, 18, 54, 162, ___</div>
-      <div class="q-options">
-        <label><input type="radio" name="q29" value="a"> A) 324</label>
-        <label><input type="radio" name="q29" value="b"> B) 486</label>
-        <label><input type="radio" name="q29" value="c"> C) 512</label>
-        <label><input type="radio" name="q29" value="d"> D) 648</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q29','b')">Check</button>
-      <div class="q-explanation" id="q29-exp">
-        <strong>Correct: B) 486</strong><br>
-        Each term is multiplied by 3: 162 × 3 = <strong>486</strong>.
-      </div>
-    </div>
-
-    <!-- Q30 -->
-    <div class="test-card" id="q30">
-      <div class="q-num">Question 30</div>
-      <div class="q-text">Find the missing number: 1, 4, 9, 16, 25, 36, 49, ___</div>
-      <div class="q-options">
-        <label><input type="radio" name="q30" value="a"> A) 56</label>
-        <label><input type="radio" name="q30" value="b"> B) 60</label>
-        <label><input type="radio" name="q30" value="c"> C) 64</label>
-        <label><input type="radio" name="q30" value="d"> D) 72</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q30','c')">Check</button>
-      <div class="q-explanation" id="q30-exp">
-        <strong>Correct: C) 64</strong><br>
-        Perfect squares: 1²,2²,3²,4²,5²,6²,7²,<strong>8²=64</strong>.
-      </div>
-    </div>
-
-    <!-- Q31 -->
-    <div class="test-card" id="q31">
-      <div class="q-num">Question 31</div>
-      <div class="q-text">What is the next term? 1, 1, 2, 3, 5, 8, 13, ___</div>
-      <div class="q-options">
-        <label><input type="radio" name="q31" value="a"> A) 18</label>
-        <label><input type="radio" name="q31" value="b"> B) 19</label>
-        <label><input type="radio" name="q31" value="c"> C) 20</label>
-        <label><input type="radio" name="q31" value="d"> D) 21</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q31','d')">Check</button>
-      <div class="q-explanation" id="q31-exp">
-        <strong>Correct: D) 21</strong><br>
-        Fibonacci: each term is sum of previous two. 8 + 13 = <strong>21</strong>.
-      </div>
-    </div>
-
-    <!-- Q32 -->
-    <div class="test-card" id="q32">
-      <div class="q-num">Question 32</div>
-      <div class="q-text">Find the next number: 80, 40, 20, 10, 5, ___</div>
-      <div class="q-options">
-        <label><input type="radio" name="q32" value="a"> A) 0</label>
-        <label><input type="radio" name="q32" value="b"> B) 1</label>
-        <label><input type="radio" name="q32" value="c"> C) 2.5</label>
-        <label><input type="radio" name="q32" value="d"> D) 3</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q32','c')">Check</button>
-      <div class="q-explanation" id="q32-exp">
-        <strong>Correct: C) 2.5</strong><br>
-        Each term divided by 2: 5 ÷ 2 = <strong>2.5</strong>.
-      </div>
-    </div>
-
-    <!-- Q33 -->
-    <div class="test-card" id="q33">
-      <div class="q-num">Question 33</div>
-      <div class="q-text">What is the next number in the series? 5, 11, 23, 47, 95, ___</div>
-      <div class="q-options">
-        <label><input type="radio" name="q33" value="a"> A) 143</label>
-        <label><input type="radio" name="q33" value="b"> B) 158</label>
-        <label><input type="radio" name="q33" value="c"> C) 167</label>
-        <label><input type="radio" name="q33" value="d"> D) 191</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('q33','d')">Check</button>
-      <div class="q-explanation" id="q33-exp">
-        <strong>Correct: D) 191</strong><br>
-        Multiply by 2 then add 1: 95 × 2 + 1 = <strong>191</strong>.
-      </div>
-    </div>
-
-    <!-- ================================================================ -->
-    <!-- SECTION 2: READING COMPREHENSION (36 questions)                  -->
-    <!-- ================================================================ -->
-    <div class="section-divider" id="readingSection">
-      <h2>📖 SECTION 2: Reading Comprehension</h2>
-      <p>4+ Passages • 36 Questions • 51 Minutes</p>
-    </div>
-
-    <!-- ===== PASSAGE A: Urban Planning (9 questions) ===== -->
-    <h3 style="color:var(--primary);margin:30px 0 10px;font-size:1.1rem;">Passage A: Urban Planning &amp; City Infrastructure</h3>
-    <div class="passage-box">
-      <div class="passage-title">The Evolution of Modern Urban Planning</div>
-      <p>Urban planning, the discipline concerned with the design and regulation of the use of space within cities, has undergone profound transformations since the Industrial Revolution. In the nineteenth century, rapid urbanization created overcrowded, unsanitary conditions in major cities across Europe and North America. Factories belched smoke into the air, tenement housing crammed families into windowless rooms, and diseases such as cholera and typhus spread rapidly through contaminated water supplies. These conditions prompted the first wave of formal urban planning, epitomized by Baron Haussmann's renovation of Paris between 1853 and 1870, which replaced narrow medieval streets with wide boulevards, parks, and modern sewer systems.</p>
-      <p>The twentieth century introduced new models of urban design. Ebenezer Howard's "Garden City" concept proposed self-contained communities surrounded by greenbelts, combining the benefits of town and country living. In the United States, the City Beautiful movement emphasized monumental civic buildings, public parks, and grand boulevards intended to inspire civic pride and moral virtue. However, the post-World War II era saw the rise of automobile-centric development patterns that prioritized highways and suburban expansion over dense urban cores, often at the expense of existing neighborhoods, particularly those housing minority communities.</p>
-      <p>Contemporary urban planning emphasizes sustainability, mixed-use development, and public transit-oriented design. Planners now recognize that walkable neighborhoods with a diverse mix of housing, employment, retail, and recreational spaces promote healthier lifestyles, reduce carbon emissions, and strengthen community bonds. The concept of "smart cities" integrates digital technology into infrastructure management, using sensors and data analytics to optimize traffic flow, energy consumption, and public services. Yet challenges remain: rapid urbanization in the developing world, the need for affordable housing, climate resilience, and the legacy of past planning decisions that entrenched inequality. Modern urban planners must balance competing interests — economic development, environmental protection, social equity, and quality of life — while navigating complex political landscapes and constrained budgets.</p>
-    </div>
-
-    <!-- Q34 (qa1) -->
-    <div class="test-card" id="qa1">
-      <div class="q-num">Question 34</div>
-      <div class="q-text">What is the main purpose of the passage?</div>
-      <div class="q-options">
-        <label><input type="radio" name="qa1" value="a"> A) To argue that Haussmann's renovation of Paris was the most important event in urban planning</label>
-        <label><input type="radio" name="qa1" value="b"> B) To trace the historical development of urban planning and describe its current challenges</label>
-        <label><input type="radio" name="qa1" value="c"> C) To criticize automobile-centric development patterns in the United States</label>
-        <label><input type="radio" name="qa1" value="d"> D) To promote smart city technology as the solution to all urban problems</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('qa1','b')">Check</button>
-      <div class="q-explanation" id="qa1-exp"><strong>Correct: B</strong> — The passage surveys urban planning from the 19th century to the present, describing key movements and contemporary challenges.</div>
-    </div>
-
-    <!-- Q35 (qa2) -->
-    <div class="test-card" id="qa2">
-      <div class="q-num">Question 35</div>
-      <div class="q-text">According to the passage, what primarily motivated the first wave of formal urban planning?</div>
-      <div class="q-options">
-        <label><input type="radio" name="qa2" value="a"> A) The desire to build grand civic monuments</label>
-        <label><input type="radio" name="qa2" value="b"> B) Overcrowded and unsanitary living conditions in industrial cities</label>
-        <label><input type="radio" name="qa2" value="c"> C) The need for automobile-friendly road systems</label>
-        <label><input type="radio" name="qa2" value="d"> D) Competition between European and American cities</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('qa2','b')">Check</button>
-      <div class="q-explanation" id="qa2-exp"><strong>Correct: B</strong> — The passage states that "overcrowded, unsanitary conditions" and disease "prompted the first wave of formal urban planning."</div>
-    </div>
-
-    <!-- Q36 (qa3) -->
-    <div class="test-card" id="qa3">
-      <div class="q-num">Question 36</div>
-      <div class="q-text">The word "epitomized" in the first paragraph most nearly means:</div>
-      <div class="q-options">
-        <label><input type="radio" name="qa3" value="a"> A) Contradicted</label>
-        <label><input type="radio" name="qa3" value="b"> B) Exemplified</label>
-        <label><input type="radio" name="qa3" value="c"> C) Criticized</label>
-        <label><input type="radio" name="qa3" value="d"> D) Predated</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('qa3','b')">Check</button>
-      <div class="q-explanation" id="qa3-exp"><strong>Correct: B</strong> — "Epitomized" means represented or exemplified. Haussmann's renovation is given as a prime example.</div>
-    </div>
-
-    <!-- Q37 (qa4) -->
-    <div class="test-card" id="qa4">
-      <div class="q-num">Question 37</div>
-      <div class="q-text">Which of the following is NOT mentioned as a feature of contemporary urban planning?</div>
-      <div class="q-options">
-        <label><input type="radio" name="qa4" value="a"> A) Sustainability</label>
-        <label><input type="radio" name="qa4" value="b"> B) Mixed-use development</label>
-        <label><input type="radio" name="qa4" value="c"> C) Mandatory population limits</label>
-        <label><input type="radio" name="qa4" value="d"> D) Public transit-oriented design</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('qa4','c')">Check</button>
-      <div class="q-explanation" id="qa4-exp"><strong>Correct: C</strong> — The passage mentions sustainability, mixed-use development, and transit-oriented design, but not mandatory population limits.</div>
-    </div>
-
-    <!-- Q38 (qa5) -->
-    <div class="test-card" id="qa5">
-      <div class="q-num">Question 38</div>
-      <div class="q-text">According to the passage, what was a negative consequence of post-WWII urban planning in the US?</div>
-      <div class="q-options">
-        <label><input type="radio" name="qa5" value="a"> A) It led to the outbreak of cholera in suburban areas</label>
-        <label><input type="radio" name="qa5" value="b"> B) It prioritized highways at the expense of existing neighborhoods</label>
-        <label><input type="radio" name="qa5" value="c"> C) It eliminated all public parks from cities</label>
-        <label><input type="radio" name="qa5" value="d"> D) It caused factories to relocate to Europe</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('qa5','b')">Check</button>
-      <div class="q-explanation" id="qa5-exp"><strong>Correct: B</strong> — The passage notes automobile-centric patterns "prioritized highways...often at the expense of existing neighborhoods."</div>
-    </div>
-
-    <!-- Q39 (qa6) -->
-    <div class="test-card" id="qa6">
-      <div class="q-num">Question 39</div>
-      <div class="q-text">It can be inferred from the passage that "smart cities" rely on:</div>
-      <div class="q-options">
-        <label><input type="radio" name="qa6" value="a"> A) Eliminating all forms of private transportation</label>
-        <label><input type="radio" name="qa6" value="b"> B) Digital technology and data analytics for infrastructure management</label>
-        <label><input type="radio" name="qa6" value="c"> C) Returning to Haussmann-era architectural styles</label>
-        <label><input type="radio" name="qa6" value="d"> D) Reducing city populations to Garden City levels</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('qa6','b')">Check</button>
-      <div class="q-explanation" id="qa6-exp"><strong>Correct: B</strong> — The passage defines smart cities as integrating "digital technology into infrastructure management, using sensors and data analytics."</div>
-    </div>
-
-    <!-- Q40 (qa7) -->
-    <div class="test-card" id="qa7">
-      <div class="q-num">Question 40</div>
-      <div class="q-text">The author mentions "the legacy of past planning decisions that entrenched inequality" to:</div>
-      <div class="q-options">
-        <label><input type="radio" name="qa7" value="a"> A) Suggest that all past planning was harmful</label>
-        <label><input type="radio" name="qa7" value="b"> B) Identify an ongoing challenge that modern planners face</label>
-        <label><input type="radio" name="qa7" value="c"> C) Argue for abolishing all zoning laws</label>
-        <label><input type="radio" name="qa7" value="d"> D) Blame Haussmann for modern inequality</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('qa7','b')">Check</button>
-      <div class="q-explanation" id="qa7-exp"><strong>Correct: B</strong> — This line appears in a list of contemporary challenges, showing past decisions still create problems today.</div>
-    </div>
-
-    <!-- Q41 (qa8) -->
-    <div class="test-card" id="qa8">
-      <div class="q-num">Question 41</div>
-      <div class="q-text">Which statement best describes the author's tone toward modern urban planning?</div>
-      <div class="q-options">
-        <label><input type="radio" name="qa8" value="a"> A) Hostile and dismissive</label>
-        <label><input type="radio" name="qa8" value="b"> B) Cautiously optimistic, acknowledging both progress and challenges</label>
-        <label><input type="radio" name="qa8" value="c"> C) Entirely negative, predicting future failure</label>
-        <label><input type="radio" name="qa8" value="d"> D) Uncritically enthusiastic about all new technologies</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('qa8','b')">Check</button>
-      <div class="q-explanation" id="qa8-exp"><strong>Correct: B</strong> — The author describes positive developments while also listing persistent challenges, indicating cautious optimism.</div>
-    </div>
-
-    <!-- Q42 (qa9) -->
-    <div class="test-card" id="qa9">
-      <div class="q-num">Question 42</div>
-      <div class="q-text">The word "greenbelts" in paragraph two refers to:</div>
-      <div class="q-options">
-        <label><input type="radio" name="qa9" value="a"> A) Belts made of recycled materials</label>
-        <label><input type="radio" name="qa9" value="b"> B) Undeveloped natural land surrounding urban areas</label>
-        <label><input type="radio" name="qa9" value="c"> C) Military defense zones around cities</label>
-        <label><input type="radio" name="qa9" value="d"> D) Rooftop gardens on city buildings</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('qa9','b')">Check</button>
-      <div class="q-explanation" id="qa9-exp"><strong>Correct: B</strong> — In the context of Howard's Garden City concept, greenbelts are undeveloped natural areas surrounding urban communities.</div>
-    </div>
-
-    <!-- ===== PASSAGE B: History of Electricity (9 questions) ===== -->
-    <h3 style="color:var(--primary);margin:36px 0 10px;font-size:1.1rem;">Passage B: History of Electricity</h3>
-    <div class="passage-box">
-      <div class="passage-title">The Journey of Electricity: From Ancient Discovery to Modern Grid</div>
-      <p>The story of electricity spans millennia, from ancient observations of static electricity in amber to the complex alternating current networks that power modern civilization. The ancient Greeks first documented electrical phenomena around 600 BCE when they noticed that rubbing amber against fur attracted lightweight objects such as feathers. The word "electricity" itself derives from the Greek word "elektron," meaning amber. For over two thousand years, this curious phenomenon remained a scientific curiosity with no practical application.</p>
-      <p>The scientific revolution of the seventeenth and eighteenth centuries transformed our understanding of electricity. In 1600, English physician William Gilbert published "De Magnete," which distinguished between magnetism and static electricity and coined the term "electricus." Benjamin Franklin's famous kite experiment in 1752 demonstrated that lightning was a form of electrical discharge, leading to his invention of the lightning rod. Alessandro Volta created the first true battery, the voltaic pile, in 1800, providing scientists with a reliable source of continuous electrical current for the first time. This breakthrough enabled a cascade of discoveries: Hans Christian Ørsted found that electric current creates magnetic fields, André-Marie Ampère formulated the mathematical laws of electromagnetism, and Michael Faraday discovered electromagnetic induction — the principle behind electric generators and transformers.</p>
-      <p>The late nineteenth century witnessed the "War of the Currents" — a fierce commercial battle between Thomas Edison's direct current (DC) system and Nikola Tesla's alternating current (AC) system, backed by industrialist George Westinghouse. While DC was simpler and had been the standard for early electrical distribution, it could not be transmitted efficiently over long distances. Tesla's AC system, using transformers to step voltage up for transmission and down for household use, proved far more practical for large-scale power distribution. The decisive moment came in 1896 when Westinghouse's AC system powered Buffalo, New York, from hydroelectric generators at Niagara Falls, 26 miles away. This achievement demonstrated the viability of long-distance power transmission and established AC as the global standard. Today, electricity is fundamental to nearly every aspect of modern life — from lighting and heating to computing and communications — and the challenge of generating it sustainably through renewable sources like solar and wind power represents one of the defining technological transitions of the twenty-first century.</p>
-    </div>
-
-    <!-- Q43 (qb1) -->
-    <div class="test-card" id="qb1"><div class="q-num">Question 43</div><div class="q-text">What is the primary focus of the passage?</div><div class="q-options"><label><input type="radio" name="qb1" value="a"> A) The rivalry between Thomas Edison and Nikola Tesla</label><label><input type="radio" name="qb1" value="b"> B) The historical development of electricity from ancient times to modern applications</label><label><input type="radio" name="qb1" value="c"> C) How to generate electricity sustainably using renewable sources</label><label><input type="radio" name="qb1" value="d"> D) Benjamin Franklin's scientific achievements</label></div><button class="q-btn" onclick="checkAnswer('qb1','b')">Check</button><div class="q-explanation" id="qb1-exp"><strong>Correct: B</strong> — The passage traces electricity from ancient Greek observations through the scientific revolution, War of the Currents, and modern challenges.</div></div>
-
-    <!-- Q44 (qb2) -->
-    <div class="test-card" id="qb2"><div class="q-num">Question 44</div><div class="q-text">According to the passage, what does the word "electricity" derive from?</div><div class="q-options"><label><input type="radio" name="qb2" value="a"> A) The Latin word for lightning</label><label><input type="radio" name="qb2" value="b"> B) The Greek word for amber</label><label><input type="radio" name="qb2" value="c"> C) The name of Alessandro Volta</label><label><input type="radio" name="qb2" value="d"> D) The title of William Gilbert's book</label></div><button class="q-btn" onclick="checkAnswer('qb2','b')">Check</button><div class="q-explanation" id="qb2-exp"><strong>Correct: B</strong> — The passage states: "The word 'electricity' itself derives from the Greek word 'elektron,' meaning amber."</div></div>
-
-    <!-- Q45 (qb3) -->
-    <div class="test-card" id="qb3"><div class="q-num">Question 45</div><div class="q-text">What was the significance of Volta's voltaic pile, according to the passage?</div><div class="q-options"><label><input type="radio" name="qb3" value="a"> A) It proved that lightning was a form of electricity</label><label><input type="radio" name="qb3" value="b"> B) It provided the first reliable source of continuous electrical current</label><label><input type="radio" name="qb3" value="c"> C) It won the War of the Currents</label><label><input type="radio" name="qb3" value="d"> D) It powered the city of Buffalo, New York</label></div><button class="q-btn" onclick="checkAnswer('qb3','b')">Check</button><div class="q-explanation" id="qb3-exp"><strong>Correct: B</strong> — The passage says Volta "provided scientists with a reliable source of continuous electrical current for the first time."</div></div>
-
-    <!-- Q46 (qb4) -->
-    <div class="test-card" id="qb4"><div class="q-num">Question 46</div><div class="q-text">Which scientist discovered electromagnetic induction?</div><div class="q-options"><label><input type="radio" name="qb4" value="a"> A) Benjamin Franklin</label><label><input type="radio" name="qb4" value="b"> B) Hans Christian Ørsted</label><label><input type="radio" name="qb4" value="c"> C) Michael Faraday</label><label><input type="radio" name="qb4" value="d"> D) André-Marie Ampère</label></div><button class="q-btn" onclick="checkAnswer('qb4','c')">Check</button><div class="q-explanation" id="qb4-exp"><strong>Correct: C</strong> — The passage states: "Michael Faraday discovered electromagnetic induction."</div></div>
-
-    <!-- Q47 (qb5) -->
-    <div class="test-card" id="qb5"><div class="q-num">Question 47</div><div class="q-text">What was the main advantage of Tesla's AC system over Edison's DC system?</div><div class="q-options"><label><input type="radio" name="qb5" value="a"> A) It was simpler to understand</label><label><input type="radio" name="qb5" value="b"> B) It could be transmitted efficiently over long distances</label><label><input type="radio" name="qb5" value="c"> C) It was cheaper to produce than DC</label><label><input type="radio" name="qb5" value="d"> D) It used less copper wire</label></div><button class="q-btn" onclick="checkAnswer('qb5','b')">Check</button><div class="q-explanation" id="qb5-exp"><strong>Correct: B</strong> — The passage states DC "could not be transmitted efficiently over long distances" while AC proved more practical for large-scale distribution.</div></div>
-
-    <!-- Q48 (qb6) -->
-    <div class="test-card" id="qb6"><div class="q-num">Question 48</div><div class="q-text">What event does the passage cite as the "decisive moment" that established AC as the standard?</div><div class="q-options"><label><input type="radio" name="qb6" value="a"> A) Franklin's kite experiment</label><label><input type="radio" name="qb6" value="b"> B) The publication of "De Magnete"</label><label><input type="radio" name="qb6" value="c"> C) Tesla's invention of the induction motor</label><label><input type="radio" name="qb6" value="d"> D) Westinghouse powering Buffalo from Niagara Falls</label></div><button class="q-btn" onclick="checkAnswer('qb6','d')">Check</button><div class="q-explanation" id="qb6-exp"><strong>Correct: D</strong> — The passage calls "Westinghouse's AC system powered Buffalo...from hydroelectric generators at Niagara Falls, 26 miles away" the decisive moment.</div></div>
-
-    <!-- Q49 (qb7) -->
-    <div class="test-card" id="qb7"><div class="q-num">Question 49</div><div class="q-text">It can be inferred that the "War of the Currents" was primarily:</div><div class="q-options"><label><input type="radio" name="qb7" value="a"> A) A military conflict between nations</label><label><input type="radio" name="qb7" value="b"> B) A commercial and technological rivalry over electrical distribution standards</label><label><input type="radio" name="qb7" value="c"> C) A scientific debate about the nature of lightning</label><label><input type="radio" name="qb7" value="d"> D) An argument about who invented the battery</label></div><button class="q-btn" onclick="checkAnswer('qb7','b')">Check</button><div class="q-explanation" id="qb7-exp"><strong>Correct: B</strong> — Described as "a fierce commercial battle between Thomas Edison's DC system and Nikola Tesla's AC system."</div></div>
-
-    <!-- Q50 (qb8) -->
-    <div class="test-card" id="qb8"><div class="q-num">Question 50</div><div class="q-text">The word "cascade" in the second paragraph most nearly means:</div><div class="q-options"><label><input type="radio" name="qb8" value="a"> A) Waterfall</label><label><input type="radio" name="qb8" value="b"> B) Sudden failure</label><label><input type="radio" name="qb8" value="c"> C) Rapid series of connected events</label><label><input type="radio" name="qb8" value="d"> D) Electrical short circuit</label></div><button class="q-btn" onclick="checkAnswer('qb8','c')">Check</button><div class="q-explanation" id="qb8-exp"><strong>Correct: C</strong> — "A cascade of discoveries" means a rapid series of connected scientific breakthroughs.</div></div>
-
-    <!-- Q51 (qb9) -->
-    <div class="test-card" id="qb9"><div class="q-num">Question 51</div><div class="q-text">According to the passage, what is a defining technological challenge of the twenty-first century regarding electricity?</div><div class="q-options"><label><input type="radio" name="qb9" value="a"> A) Winning a new "War of the Currents"</label><label><input type="radio" name="qb9" value="b"> B) Generating electricity sustainably through renewable sources</label><label><input type="radio" name="qb9" value="c"> C) Discovering the true nature of lightning</label><label><input type="radio" name="qb9" value="d"> D) Building longer transmission lines than Niagara Falls</label></div><button class="q-btn" onclick="checkAnswer('qb9','b')">Check</button><div class="q-explanation" id="qb9-exp"><strong>Correct: B</strong> — The final sentence identifies "generating it sustainably through renewable sources like solar and wind power" as a defining challenge.</div></div>
-
-    <!-- ===== PASSAGE C: Workplace Safety (9 questions) ===== -->
-    <h3 style="color:var(--primary);margin:36px 0 10px;font-size:1.1rem;">Passage C: Workplace Safety Practices</h3>
-    <div class="passage-box">
-      <div class="passage-title">Building a Culture of Safety in the Electrical Trades</div>
-      <p>Workplace safety in the electrical trades is not merely a regulatory requirement — it is a fundamental professional responsibility that protects workers from some of the most severe occupational hazards in any industry. Electricians face unique risks, including arc flash incidents that can generate temperatures exceeding 35,000 degrees Fahrenheit, electrocution from contact with energized conductors, falls from elevated work positions, and injuries from repetitive motion or improper lifting techniques. The Occupational Safety and Health Administration (OSHA) establishes baseline safety standards, but truly effective safety programs go far beyond compliance to create an organizational culture in which every worker feels personally responsible for their own safety and the safety of their colleagues.</p>
-      <p>The hierarchy of hazard controls provides a systematic framework for managing workplace risks. At the most effective level, hazard elimination involves physically removing the danger — for instance, de-energizing circuits before performing maintenance. Substitution replaces a hazardous condition with a safer alternative, such as using battery-powered tools instead of corded ones in wet environments. Engineering controls isolate workers from hazards through physical barriers, ventilation systems, or machine guarding. Administrative controls change how people work through procedures, training, and scheduling, such as implementing a lockout/tagout program that ensures equipment remains de-energized during servicing. Personal protective equipment (PPE), the last line of defense, includes insulated gloves, arc-rated clothing, hard hats, safety glasses, and steel-toed boots. Importantly, PPE protects only the individual worker and depends on proper use and maintenance, which is why higher-level controls are always preferred.</p>
-      <p>Electrical safety specifically demands rigorous adherence to protocols that may seem tedious but are proven to save lives. A comprehensive lockout/tagout procedure requires workers to identify all energy sources, notify affected personnel, shut down equipment, isolate energy sources, apply locks and tags, verify isolation by testing, and only then begin work. The National Fire Protection Association's NFPA 70E standard provides detailed guidance on arc flash risk assessment, approach boundaries, and appropriate PPE categories. Regular safety meetings, job hazard analyses conducted before each shift, and a non-punitive near-miss reporting system all contribute to continuous improvement in safety outcomes. Ultimately, the most effective safety cultures are those in which workers feel empowered to stop work when they observe an unsafe condition — a principle known as "stop-work authority" — reinforcing that no deadline, budget, or productivity target is worth a preventable injury or fatality.</p>
-    </div>
-
-    <!-- Q52 (qc1) -->
-    <div class="test-card" id="qc1"><div class="q-num">Question 52</div><div class="q-text">What is the main idea of the passage?</div><div class="q-options"><label><input type="radio" name="qc1" value="a"> A) OSHA regulations are too burdensome for electrical contractors</label><label><input type="radio" name="qc1" value="b"> B) Building a genuine safety culture requires going beyond minimum compliance</label><label><input type="radio" name="qc1" value="c"> C) PPE is the most important component of electrical safety</label><label><input type="radio" name="qc1" value="d"> D) Arc flash incidents are the only serious risk electricians face</label></div><button class="q-btn" onclick="checkAnswer('qc1','b')">Check</button><div class="q-explanation" id="qc1-exp"><strong>Correct: B</strong> — The passage argues "truly effective safety programs go far beyond compliance."</div></div>
-
-    <!-- Q53 (qc2) -->
-    <div class="test-card" id="qc2"><div class="q-num">Question 53</div><div class="q-text">According to the passage, what is the most effective level of hazard control?</div><div class="q-options"><label><input type="radio" name="qc2" value="a"> A) Personal protective equipment</label><label><input type="radio" name="qc2" value="b"> B) Administrative controls</label><label><input type="radio" name="qc2" value="c"> C) Hazard elimination</label><label><input type="radio" name="qc2" value="d"> D) Engineering controls</label></div><button class="q-btn" onclick="checkAnswer('qc2','c')">Check</button><div class="q-explanation" id="qc2-exp"><strong>Correct: C</strong> — The passage states: "At the most effective level, hazard elimination involves physically removing the danger."</div></div>
-
-    <!-- Q54 (qc3) -->
-    <div class="test-card" id="qc3"><div class="q-num">Question 54</div><div class="q-text">The word "de-energizing" in the second paragraph most nearly means:</div><div class="q-options"><label><input type="radio" name="qc3" value="a"> A) Increasing power levels</label><label><input type="radio" name="qc3" value="b"> B) Removing electrical power from a circuit</label><label><input type="radio" name="qc3" value="c"> C) Installing new energy sources</label><label><input type="radio" name="qc3" value="d"> D) Converting AC power to DC power</label></div><button class="q-btn" onclick="checkAnswer('qc3','b')">Check</button><div class="q-explanation" id="qc3-exp"><strong>Correct: B</strong> — "De-energizing circuits before performing maintenance" means removing electrical power to make work safe.</div></div>
-
-    <!-- Q55 (qc4) -->
-    <div class="test-card" id="qc4"><div class="q-num">Question 55</div><div class="q-text">Why does the passage describe PPE as the "last line of defense"?</div><div class="q-options"><label><input type="radio" name="qc4" value="a"> A) Because PPE is ineffective and should not be used</label><label><input type="radio" name="qc4" value="b"> B) Because PPE only protects the individual and depends on proper use, so higher-level controls are preferred</label><label><input type="radio" name="qc4" value="c"> C) Because PPE is the most expensive type of safety equipment</label><label><input type="radio" name="qc4" value="d"> D) Because OSHA requires other controls to be tried first</label></div><button class="q-btn" onclick="checkAnswer('qc4','b')">Check</button><div class="q-explanation" id="qc4-exp"><strong>Correct: B</strong> — The passage explains: "PPE protects only the individual worker and depends on proper use and maintenance."</div></div>
-
-    <!-- Q56 (qc5) -->
-    <div class="test-card" id="qc5"><div class="q-num">Question 56</div><div class="q-text">According to the passage, arc flash incidents can generate temperatures above:</div><div class="q-options"><label><input type="radio" name="qc5" value="a"> A) 3,500 degrees Fahrenheit</label><label><input type="radio" name="qc5" value="b"> B) 35,000 degrees Fahrenheit</label><label><input type="radio" name="qc5" value="c"> C) 350 degrees Fahrenheit</label><label><input type="radio" name="qc5" value="d"> D) 350,000 degrees Fahrenheit</label></div><button class="q-btn" onclick="checkAnswer('qc5','b')">Check</button><div class="q-explanation" id="qc5-exp"><strong>Correct: B</strong> — The passage states arc flash can generate "temperatures exceeding 35,000 degrees Fahrenheit."</div></div>
-
-    <!-- Q57 (qc6) -->
-    <div class="test-card" id="qc6"><div class="q-num">Question 57</div><div class="q-text">Which of the following is a step in the lockout/tagout procedure described in the passage?</div><div class="q-options"><label><input type="radio" name="qc6" value="a"> A) Increasing voltage for testing purposes</label><label><input type="radio" name="qc6" value="b"> B) Applying locks and tags after verifying isolation</label><label><input type="radio" name="qc6" value="c"> C) Verifying isolation after applying locks and tags</label><label><input type="radio" name="qc6" value="d"> D) Removing all PPE before beginning work</label></div><button class="q-btn" onclick="checkAnswer('qc6','b')">Check</button><div class="q-explanation" id="qc6-exp"><strong>Correct: B</strong> — The sequence is: isolate, apply locks and tags, then verify, then begin work.</div></div>
-
-    <!-- Q58 (qc7) -->
-    <div class="test-card" id="qc7"><div class="q-num">Question 58</div><div class="q-text">It can be inferred from the passage that "stop-work authority" means:</div><div class="q-options"><label><input type="radio" name="qc7" value="a"> A) Management alone has the right to stop dangerous work</label><label><input type="radio" name="qc7" value="b"> B) Workers are empowered to halt operations when they observe unsafe conditions</label><label><input type="radio" name="qc7" value="c"> C) All construction projects should be stopped permanently</label><label><input type="radio" name="qc7" value="d"> D) Safety inspectors can shut down any job site at any time</label></div><button class="q-btn" onclick="checkAnswer('qc7','b')">Check</button><div class="q-explanation" id="qc7-exp"><strong>Correct: B</strong> — The passage defines it as "workers feel empowered to stop work when they observe an unsafe condition."</div></div>
-
-    <!-- Q59 (qc8) -->
-    <div class="test-card" id="qc8"><div class="q-num">Question 59</div><div class="q-text">What standard does the passage reference for arc flash risk assessment?</div><div class="q-options"><label><input type="radio" name="qc8" value="a"> A) OSHA 1910</label><label><input type="radio" name="qc8" value="b"> B) NFPA 70E</label><label><input type="radio" name="qc8" value="c"> C) IEEE Standard 1584</label><label><input type="radio" name="qc8" value="d"> D) NEC Article 110</label></div><button class="q-btn" onclick="checkAnswer('qc8','b')">Check</button><div class="q-explanation" id="qc8-exp"><strong>Correct: B</strong> — "The National Fire Protection Association's NFPA 70E standard."</div></div>
-
-    <!-- Q60 (qc9) -->
-    <div class="test-card" id="qc9"><div class="q-num">Question 60</div><div class="q-text">Which of the following is NOT mentioned as a component of an effective safety culture?</div><div class="q-options"><label><input type="radio" name="qc9" value="a"> A) Regular safety meetings</label><label><input type="radio" name="qc9" value="b"> B) Job hazard analyses</label><label><input type="radio" name="qc9" value="c"> C) Non-punitive near-miss reporting</label><label><input type="radio" name="qc9" value="d"> D) Productivity-based bonuses</label></div><button class="q-btn" onclick="checkAnswer('qc9','d')">Check</button><div class="q-explanation" id="qc9-exp"><strong>Correct: D</strong> — The passage mentions safety meetings, job hazard analyses, and near-miss reporting, but not productivity bonuses.</div></div>
-
-    <!-- ===== PASSAGE D: Environmental Conservation (6 questions) ===== -->
-    <h3 style="color:var(--primary);margin:36px 0 10px;font-size:1.1rem;">Passage D: Environmental Conservation</h3>
-    <div class="passage-box">
-      <div class="passage-title">Conservation and the Electrical Industry: Toward a Sustainable Future</div>
-      <p>Environmental conservation has evolved from a niche concern of naturalists in the nineteenth century to a central imperative of twenty-first-century industrial policy. The electrical industry, paradoxically, stands at both ends of the environmental spectrum: it is simultaneously a major consumer of natural resources and a crucial enabler of the transition to a sustainable, low-carbon economy. Understanding this dual role is essential for the next generation of electrical workers who will be called upon to design, install, and maintain the infrastructure of a greener world.</p>
-      <p>The environmental impact of traditional electricity generation is well documented. Coal-fired power plants — which as recently as 2010 supplied nearly half of America's electricity — emit carbon dioxide, sulfur dioxide, nitrogen oxides, and particulate matter that contribute to climate change, acid rain, and respiratory illness. The extraction of coal through mountaintop removal mining has devastated ecosystems across Appalachia, while the disposal of coal ash has contaminated groundwater in numerous communities. Natural gas, while burning cleaner than coal, releases methane during extraction, a greenhouse gas far more potent than carbon dioxide over shorter time horizons. Even hydroelectric dams, despite producing emission-free electricity, can disrupt river ecosystems, block fish migration, and displace human communities. This complex web of environmental costs has driven a fundamental rethinking of how we generate power.</p>
-      <p>The transition to renewable energy sources — primarily solar photovoltaics, wind turbines, and in some regions geothermal and tidal power — represents the most significant transformation of the electrical grid since its original construction. Solar capacity in the United States has grown more than a hundredfold since 2010, while wind power has become cost-competitive with fossil fuels in many markets. Electrical workers are at the forefront of this transition: installing rooftop solar arrays, wiring electric vehicle charging stations, retrofitting buildings with energy-efficient lighting and HVAC systems, and constructing the smart grid infrastructure that will manage a distributed, bidirectional flow of electricity. The concept of "green building" standards, such as LEED certification, has created new specialties within the electrical trades focused on energy auditing, sustainable design, and renewable integration. Far from being a threat to traditional electrical work, the conservation movement has created unprecedented demand for skilled electricians who understand both conventional systems and emerging green technologies.</p>
-    </div>
-
-    <!-- Q61 (qd1) -->
-    <div class="test-card" id="qd1"><div class="q-num">Question 61</div><div class="q-text">What is the central theme of the passage?</div><div class="q-options"><label><input type="radio" name="qd1" value="a"> A) Coal power should be immediately banned worldwide</label><label><input type="radio" name="qd1" value="b"> B) The electrical industry has both negative environmental impacts and a crucial role in sustainability</label><label><input type="radio" name="qd1" value="c"> C) Solar energy is the only viable renewable source</label><label><input type="radio" name="qd1" value="d"> D) Environmental regulations harm the electrical industry</label></div><button class="q-btn" onclick="checkAnswer('qd1','b')">Check</button><div class="q-explanation" id="qd1-exp"><strong>Correct: B</strong> — The passage presents the electrical industry's "paradoxical" dual role.</div></div>
-
-    <!-- Q62 (qd2) -->
-    <div class="test-card" id="qd2"><div class="q-num">Question 62</div><div class="q-text">According to the passage, what percentage of America's electricity did coal supply as recently as 2010?</div><div class="q-options"><label><input type="radio" name="qd2" value="a"> A) Nearly 25%</label><label><input type="radio" name="qd2" value="b"> B) Nearly 50%</label><label><input type="radio" name="qd2" value="c"> C) Nearly 75%</label><label><input type="radio" name="qd2" value="d"> D) Nearly 90%</label></div><button class="q-btn" onclick="checkAnswer('qd2','b')">Check</button><div class="q-explanation" id="qd2-exp"><strong>Correct: B</strong> — "Coal-fired power plants — which as recently as 2010 supplied nearly half of America's electricity."</div></div>
-
-    <!-- Q63 (qd3) -->
-    <div class="test-card" id="qd3"><div class="q-num">Question 63</div><div class="q-text">The word "paradoxically" in the first paragraph most nearly means:</div><div class="q-options"><label><input type="radio" name="qd3" value="a"> A) Predictably</label><label><input type="radio" name="qd3" value="b"> B) In a seemingly contradictory manner</label><label><input type="radio" name="qd3" value="c"> C) Accidentally</label><label><input type="radio" name="qd3" value="d"> D) Unimportantly</label></div><button class="q-btn" onclick="checkAnswer('qd3','b')">Check</button><div class="q-explanation" id="qd3-exp"><strong>Correct: B</strong> — "Paradoxically" signals an apparent contradiction.</div></div>
-
-    <!-- Q64 (qd4) -->
-    <div class="test-card" id="qd4"><div class="q-num">Question 64</div><div class="q-text">What environmental issue does the passage associate with natural gas?</div><div class="q-options"><label><input type="radio" name="qd4" value="a"> A) Mountaintop removal</label><label><input type="radio" name="qd4" value="b"> B) Mercury contamination</label><label><input type="radio" name="qd4" value="c"> C) Methane release during extraction</label><label><input type="radio" name="qd4" value="d"> D) Blocking fish migration</label></div><button class="q-btn" onclick="checkAnswer('qd4','c')">Check</button><div class="q-explanation" id="qd4-exp"><strong>Correct: C</strong> — Natural gas "releases methane during extraction, a greenhouse gas far more potent than carbon dioxide."</div></div>
-
-    <!-- Q65 (qd5) -->
-    <div class="test-card" id="qd5"><div class="q-num">Question 65</div><div class="q-text">Which negative impact does the passage mention for hydroelectric dams?</div><div class="q-options"><label><input type="radio" name="qd5" value="a"> A) Carbon dioxide emissions</label><label><input type="radio" name="qd5" value="b"> B) Sulfur dioxide release</label><label><input type="radio" name="qd5" value="c"> C) Particulate matter pollution</label><label><input type="radio" name="qd5" value="d"> D) Blocking fish migration</label></div><button class="q-btn" onclick="checkAnswer('qd5','d')">Check</button><div class="q-explanation" id="qd5-exp"><strong>Correct: D</strong> — Hydroelectric dams "can disrupt river ecosystems, block fish migration, and displace human communities."</div></div>
-
-    <!-- Q66 (qd6) -->
-    <div class="test-card" id="qd6"><div class="q-num">Question 66</div><div class="q-text">According to the passage, how much has US solar capacity grown since 2010?</div><div class="q-options"><label><input type="radio" name="qd6" value="a"> A) It has doubled</label><label><input type="radio" name="qd6" value="b"> B) It has grown tenfold</label><label><input type="radio" name="qd6" value="c"> C) It has grown more than a hundredfold</label><label><input type="radio" name="qd6" value="d"> D) It has only grown slightly</label></div><button class="q-btn" onclick="checkAnswer('qd6','c')">Check</button><div class="q-explanation" id="qd6-exp"><strong>Correct: C</strong> — "Solar capacity in the United States has grown more than a hundredfold since 2010."</div></div>
-
-    <!-- ===== PASSAGE E: Mayan New Year (ETA) (3 questions) ===== -->
-    <h3 style="color:var(--primary);margin:36px 0 10px;font-size:1.1rem;">Passage E: The Mayan New Year</h3>
-    <div class="passage-box">
-      <div class="passage-title">How the Ancient Maya Celebrated the New Year</div>
-      <p>The ancient Maya civilization of Mesoamerica developed one of the most sophisticated calendar systems in human history. Unlike the modern Gregorian calendar that marks a single New Year's Day on January 1st, the Maya actually celebrated multiple "New Year" days throughout their ritual calendar cycle. The Maya used a complex interlocking system of calendars, the most important being the 260-day Tzolk'in ritual calendar and the 365-day Haab' solar calendar. Every 52 solar years, these two calendars would align, marking a complete Calendar Round — an event of tremendous religious significance that the Maya celebrated with elaborate ceremonies, offerings to the gods, and the ritual extinguishing and relighting of all fires.</p>
-      <p>The Maya New Year, known as Wayeb', was actually a five-day period at the end of the Haab' year that was considered a dangerous and unlucky time when the boundaries between the mortal world and the supernatural realm were thought to be thin. During Wayeb', the Maya would fast, abstain from normal activities, and perform purification rituals to ward off evil spirits before the New Year began. The New Year's Day itself varied depending on which of the four "Year Bearer" days — Ik', Manik', Eb', or Kaban — fell at the start of the new Haab' cycle, creating a four-year rotation of New Year celebrations each associated with a different cardinal direction, color, and set of patron deities. This rotating system ensured that the Maya maintained a rich and varied ceremonial calendar that bound their complex understanding of time to their spiritual and agricultural lives.</p>
-    </div>
-
-    <!-- Q67 (qe1) -->
-    <div class="test-card" id="qe1">
-      <div class="q-num">Question 67</div>
-      <div class="q-text">What is the main idea of the passage?</div>
-      <div class="q-options">
-        <label><input type="radio" name="qe1" value="a"> A) The Maya calendar was inferior to the modern Gregorian calendar</label>
-        <label><input type="radio" name="qe1" value="b"> B) The Maya had a complex calendar system with multiple New Year celebrations tied to religious beliefs</label>
-        <label><input type="radio" name="qe1" value="c"> C) The Maya only celebrated New Year once every 52 years</label>
-        <label><input type="radio" name="qe1" value="d"> D) Mayan New Year celebrations were identical to modern New Year festivities</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('qe1','b')">Check</button>
-      <div class="q-explanation" id="qe1-exp"><strong>Correct: B</strong> — The passage describes the Maya's interlocking calendar system, the Calendar Round, Wayeb', and the rotating Year Bearer celebrations.</div>
-    </div>
-
-    <!-- Q68 (qe2) -->
-    <div class="test-card" id="qe2">
-      <div class="q-num">Question 68</div>
-      <div class="q-text">According to the passage, what was Wayeb'?</div>
-      <div class="q-options">
-        <label><input type="radio" name="qe2" value="a"> A) The 260-day ritual calendar</label>
-        <label><input type="radio" name="qe2" value="b"> B) The name for Mayan priests who conducted ceremonies</label>
-        <label><input type="radio" name="qe2" value="c"> C) A five-day period at the end of the year considered dangerous and unlucky</label>
-        <label><input type="radio" name="qe2" value="d"> D) The ceremony for extinguishing and relighting fires</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('qe2','c')">Check</button>
-      <div class="q-explanation" id="qe2-exp"><strong>Correct: C</strong> — The passage states Wayeb' was "a five-day period at the end of the Haab' year that was considered a dangerous and unlucky time."</div>
-    </div>
-
-    <!-- Q69 (qe3) -->
-    <div class="test-card" id="qe3">
-      <div class="q-num">Question 69</div>
-      <div class="q-text">According to the passage, how often did the Calendar Round occur?</div>
-      <div class="q-options">
-        <label><input type="radio" name="qe3" value="a"> A) Every 52 solar years</label>
-        <label><input type="radio" name="qe3" value="b"> B) Every 260 days</label>
-        <label><input type="radio" name="qe3" value="c"> C) Every 365 days</label>
-        <label><input type="radio" name="qe3" value="d"> D) Every 4 years</label>
-      </div>
-      <button class="q-btn" onclick="checkAnswer('qe3','a')">Check</button>
-      <div class="q-explanation" id="qe3-exp"><strong>Correct: A</strong> — The passage states: "Every 52 solar years, these two calendars would align, marking a complete Calendar Round."</div>
-    </div>
-
-    <!-- ================================================================ -->
-    <!-- SCORING SECTION                                                  -->
-    <!-- ================================================================ -->
-    <div class="section-divider" id="scoringSection" style="margin-top:50px;">
-      <h2>📊 Calculate Your Score</h2>
-      <p>Check your answers and see how you performed</p>
-    </div>
-
-    <div style="text-align:center;">
-      <button class="submit-btn" onclick="calculateScore()">📝 Submit &amp; Calculate Score</button>
-    </div>
-
+    <!-- ===== SCORE SECTION ===== -->
     <div class="score-container" id="scoreContainer">
       <div class="score-big" id="scoreRaw">0 / 69</div>
       <div style="color:var(--text-light);margin-bottom:4px;">Questions Correct</div>
@@ -1350,7 +624,6 @@
       <div class="progress-bar" style="max-width:500px;margin:16px auto;">
         <div class="progress-fill" id="scoreBar" style="width:0%;"></div>
       </div>
-
       <div class="score-breakdown">
         <div class="score-section">
           <div class="ss-num" id="algebraScore">0 / 33</div>
@@ -1361,9 +634,8 @@
           <div class="ss-label">Reading Section</div>
         </div>
       </div>
-
       <p style="margin-top:12px;color:var(--text-light);font-size:0.85rem;">
-        <em>Stanine reference: 9 (90–100%), 8 (80–89%), 7 (70–79%), 6 (60–69%), 5 (50–59%), 4 (40–49%), Below 40% = 3</em>
+        <em>Stanine reference: 9 (90&ndash;100%), 8 (80&ndash;89%), 7 (70&ndash;79%), 6 (60&ndash;69%), 5 (50&ndash;59%), 4 (40&ndash;49%), Below 40% = 3</em>
       </p>
       <p style="color:var(--text-light);font-size:0.83rem;">
         On the real IBEW test, a score of 4 or higher (roughly 40%+) is typically required to qualify for an interview.
@@ -1375,87 +647,839 @@
 
 <!-- === FOOTER === -->
 <footer>
-  <p>⚡ <strong>IBEWPrep</strong> — Free IBEW Aptitude Test Preparation. No sign-up required.</p>
-  <p style="margin-top:5px;"><a href="../index.html">Home</a> · <a href="algebra.html">Algebra</a> · <a href="reading.html">Reading</a> · <a href="practice-test.html">Practice Test</a> · <a href="question-bank.html">Question Bank</a> · <a href="study-guide.html">Study Guide</a></p>
+  <p><strong>IBEWPrep</strong> &mdash; Free IBEW Aptitude Test Preparation. No sign-up required.</p>
+  <p style="margin-top:5px;"><a href="../index.html">Home</a> &middot; <a href="algebra.html">Algebra</a> &middot; <a href="reading.html">Reading</a> &middot; <a href="practice-test.html">Practice Test</a> &middot; <a href="question-bank.html">Question Bank</a> &middot; <a href="study-guide.html">Study Guide</a></p>
 </footer>
 
 <!-- ===== JAVASCRIPT ===== -->
 <script>
-// ===== QUESTION TRACKING =====
+// ============================================================
+// ALL 69 QUESTIONS — Extracted from the original practice test
+// ============================================================
+const allQuestions = [
+  // ===== ALGEBRA: Part A — Evaluating Expressions (Q1–Q5) =====
+  {
+    id: 1, section: "algebra", type: "Evaluating Expressions", difficulty: "Basic",
+    question: "If A = B + 3(4 &minus; C), what is the value of A when B = 2 and C = 5?",
+    options: ["A) 5", "B) &minus;1", "C) 1", "D) &minus;5"],
+    correct: 1,
+    explanation: "Step 1: Write the formula: A = B + 3(4 &minus; C)\nStep 2: Substitute B = 2 and C = 5: A = 2 + 3(4 &minus; 5)\nStep 3: Simplify inside parentheses: 4 &minus; 5 = &minus;1\nStep 4: Multiply: 3 &times; (&minus;1) = &minus;3\nStep 5: Add: 2 + (&minus;3) = &minus;1\nStep 6: A = &minus;1"
+  },
+  {
+    id: 2, section: "algebra", type: "Evaluating Expressions", difficulty: "Basic",
+    question: "Simplify: 24 &divide; 6 &times; 2 + 3&sup2; &minus; 5",
+    options: ["A) 8", "B) 12", "C) 10", "D) 6"],
+    correct: 1,
+    explanation: "Step 1: Start with 24 &divide; 6 &times; 2 + 3&sup2; &minus; 5\nStep 2: Exponent first: 3&sup2; = 9\nStep 3: Expression becomes: 24 &divide; 6 &times; 2 + 9 &minus; 5\nStep 4: Division and Multiplication left to right: 24 &divide; 6 = 4\nStep 5: 4 &times; 2 = 8\nStep 6: Expression becomes: 8 + 9 &minus; 5\nStep 7: Addition and Subtraction left to right: 8 + 9 = 17\nStep 8: 17 &minus; 5 = 12"
+  },
+  {
+    id: 3, section: "algebra", type: "Evaluating Expressions", difficulty: "Intermediate",
+    question: "Evaluate: (15 &minus; 3 &times; 2) + 4&sup2; &divide; 8",
+    options: ["A) 11", "B) 13", "C) 9", "D) 14"],
+    correct: 0,
+    explanation: "Step 1: Start with (15 &minus; 3 &times; 2) + 4&sup2; &divide; 8\nStep 2: Inside parentheses, multiply before subtract: 3 &times; 2 = 6\nStep 3: 15 &minus; 6 = 9\nStep 4: Handle exponent: 4&sup2; = 16\nStep 5: Expression becomes: 9 + 16 &divide; 8\nStep 6: Division before addition: 16 &divide; 8 = 2\nStep 7: 9 + 2 = 11"
+  },
+  {
+    id: 4, section: "algebra", type: "Evaluating Expressions", difficulty: "Intermediate",
+    question: "If x = 3 and y = &minus;4, evaluate: 2x&sup2; &minus; 3y + xy",
+    options: ["A) 30", "B) 18", "C) 6", "D) 42"],
+    correct: 1,
+    explanation: "Step 1: Start with 2x&sup2; &minus; 3y + xy\nStep 2: Substitute x = 3 and y = &minus;4\nStep 3: 2(3&sup2;) &minus; 3(&minus;4) + (3)(&minus;4)\nStep 4: 3&sup2; = 9, so 2(9) = 18\nStep 5: &minus;3(&minus;4) = +12 (negative times negative = positive)\nStep 6: (3)(&minus;4) = &minus;12\nStep 7: 18 + 12 + (&minus;12) = 18 + 12 &minus; 12\nStep 8: 30 &minus; 12 = 18"
+  },
+  {
+    id: 5, section: "algebra", type: "Evaluating Expressions", difficulty: "Advanced",
+    question: "Evaluate: 5[12 &minus; 2(8 &divide; 4 + 1)]",
+    options: ["A) 10", "B) 20", "C) 30", "D) 40"],
+    correct: 2,
+    explanation: "Step 1: Start with 5[12 &minus; 2(8 &divide; 4 + 1)]\nStep 2: Innermost first: 8 &divide; 4 = 2\nStep 3: 2 + 1 = 3\nStep 4: 2(3) = 6\nStep 5: 12 &minus; 6 = 6\nStep 6: 5[6] = 30"
+  },
+  // ===== ALGEBRA: Part B — Solving Linear Equations (Q6–Q10) =====
+  {
+    id: 6, section: "algebra", type: "Solving Linear Equations", difficulty: "Basic",
+    question: "Solve for x: 4x &minus; 7 = 2x + 15",
+    options: ["A) x = 8", "B) x = 11", "C) x = 7", "D) x = 4"],
+    correct: 1,
+    explanation: "Step 1: Start with 4x &minus; 7 = 2x + 15\nStep 2: Subtract 2x from both sides: 4x &minus; 2x &minus; 7 = 15\nStep 3: Simplify: 2x &minus; 7 = 15\nStep 4: Add 7 to both sides: 2x = 22\nStep 5: Divide both sides by 2: x = 11\nStep 6: Check: 4(11) &minus; 7 = 44 &minus; 7 = 37, and 2(11) + 15 = 22 + 15 = 37. Correct."
+  },
+  {
+    id: 7, section: "algebra", type: "Solving Linear Equations", difficulty: "Intermediate",
+    question: "Solve: 3(2x &minus; 4) = 5(x + 1) &minus; 8",
+    options: ["A) x = 5", "B) x = 9", "C) x = 3", "D) x = 6"],
+    correct: 1,
+    explanation: "Step 1: Start with 3(2x &minus; 4) = 5(x + 1) &minus; 8\nStep 2: Expand left side: 3 &times; 2x = 6x, 3 &times; (&minus;4) = &minus;12. So 6x &minus; 12\nStep 3: Expand right side: 5 &times; x = 5x, 5 &times; 1 = 5. So 5x + 5 &minus; 8 = 5x &minus; 3\nStep 4: Equation: 6x &minus; 12 = 5x &minus; 3\nStep 5: Subtract 5x from both sides: x &minus; 12 = &minus;3\nStep 6: Add 12 to both sides: x = 9"
+  },
+  {
+    id: 8, section: "algebra", type: "Solving Linear Equations", difficulty: "Intermediate",
+    question: "Solve for n: 2n/3 + 5 = n/2 + 8",
+    options: ["A) n = 6", "B) n = 12", "C) n = 18", "D) n = 24"],
+    correct: 2,
+    explanation: "Step 1: Start with 2n/3 + 5 = n/2 + 8\nStep 2: Find LCM of denominators 3 and 2: LCM = 6\nStep 3: Multiply every term by 6: 6(2n/3) + 6(5) = 6(n/2) + 6(8)\nStep 4: Simplify: 4n + 30 = 3n + 48\nStep 5: Subtract 3n from both sides: n + 30 = 48\nStep 6: Subtract 30: n = 18\nStep 7: Check: 2(18)/3 + 5 = 36/3 + 5 = 12 + 5 = 17, and 18/2 + 8 = 9 + 8 = 17. Correct."
+  },
+  {
+    id: 9, section: "algebra", type: "Solving Linear Equations", difficulty: "Basic",
+    question: "If a = &frac12;b &minus; 4, which of the following statements is true?",
+    options: ["A) When b = 12, a = 2", "B) When b = 8, a = 8", "C) When b = 4, a = 0", "D) When b = 0, a = 4"],
+    correct: 0,
+    explanation: "Step 1: Test each option using a = &frac12;b &minus; 4\nStep 2: Option A: b = 12 &rarr; a = &frac12;(12) &minus; 4 = 6 &minus; 4 = 2. True!\nStep 3: Option B: b = 8 &rarr; a = &frac12;(8) &minus; 4 = 4 &minus; 4 = 0. Not 8. False.\nStep 4: Option C: b = 4 &rarr; a = &frac12;(4) &minus; 4 = 2 &minus; 4 = &minus;2. Not 0. False.\nStep 5: Option D: b = 0 &rarr; a = &frac12;(0) &minus; 4 = &minus;4. Not 4. False.\nStep 6: Only A is correct."
+  },
+  {
+    id: 10, section: "algebra", type: "Solving Linear Equations", difficulty: "Intermediate",
+    question: "The sum of three consecutive integers is 72. What is the smallest integer?",
+    options: ["A) 22", "B) 23", "C) 24", "D) 25"],
+    correct: 1,
+    explanation: "Step 1: Let n = smallest integer\nStep 2: The three consecutive integers are: n, n+1, n+2\nStep 3: Their sum: n + (n+1) + (n+2) = 72\nStep 4: Combine like terms: 3n + 3 = 72\nStep 5: Subtract 3: 3n = 69\nStep 6: Divide by 3: n = 23\nStep 7: Check: 23 + 24 + 25 = 72. Correct."
+  },
+  // ===== ALGEBRA: Part C — Systems of Equations (Q11–Q13) =====
+  {
+    id: 11, section: "algebra", type: "Systems of Equations", difficulty: "Basic",
+    question: "Solve the system:<br>2x + y = 10<br>x &minus; y = 2",
+    options: ["A) x = 3, y = 4", "B) x = 4, y = 2", "C) x = 5, y = 0", "D) x = 4, y = 6"],
+    correct: 1,
+    explanation: "Step 1: Write the system:\n  2x + y = 10  ...(1)\n  x &minus; y = 2   ...(2)\nStep 2: Add equations (1) and (2) to eliminate y: (2x + y) + (x &minus; y) = 10 + 2\nStep 3: 3x = 12\nStep 4: x = 4\nStep 5: Substitute x = 4 into equation (2): 4 &minus; y = 2\nStep 6: &minus;y = &minus;2, so y = 2\nStep 7: Check in (1): 2(4) + 2 = 8 + 2 = 10. Correct."
+  },
+  {
+    id: 12, section: "algebra", type: "Systems of Equations", difficulty: "Basic",
+    question: "Solve:<br>3x + 2y = 16<br>5x &minus; 2y = 8",
+    options: ["A) x = 2, y = 5", "B) x = 3, y = 3.5", "C) x = 4, y = 2", "D) x = 3, y = 5"],
+    correct: 1,
+    explanation: "Step 1: Write the system:\n  3x + 2y = 16  ...(1)\n  5x &minus; 2y = 8   ...(2)\nStep 2: Add equations (1) and (2) to eliminate y: (3x + 2y) + (5x &minus; 2y) = 16 + 8\nStep 3: 8x = 24\nStep 4: x = 3\nStep 5: Substitute x = 3 into (1): 3(3) + 2y = 16\nStep 6: 9 + 2y = 16\nStep 7: 2y = 7\nStep 8: y = 3.5\nStep 9: Check in (2): 5(3) &minus; 2(3.5) = 15 &minus; 7 = 8. Correct."
+  },
+  {
+    id: 13, section: "algebra", type: "Systems of Equations", difficulty: "Intermediate",
+    question: "A movie theater sold 200 tickets. Adult tickets cost $9 and child tickets cost $5. Total revenue was $1,400. How many adult tickets were sold?",
+    options: ["A) 80", "B) 100", "C) 120", "D) 150"],
+    correct: 1,
+    explanation: "Step 1: Let a = number of adult tickets, c = number of child tickets\nStep 2: Total tickets: a + c = 200  ...(1)\nStep 3: Total revenue: 9a + 5c = 1,400  ...(2)\nStep 4: From (1): c = 200 &minus; a\nStep 5: Substitute into (2): 9a + 5(200 &minus; a) = 1,400\nStep 6: Expand: 9a + 1,000 &minus; 5a = 1,400\nStep 7: 4a + 1,000 = 1,400\nStep 8: 4a = 400\nStep 9: a = 100\nStep 10: Check: 100 adult tickets = $900, 100 child tickets = $500. Total = $1,400. Correct."
+  },
+  // ===== ALGEBRA: Part D — Simplifying & Factoring Polynomials (Q14–Q18) =====
+  {
+    id: 14, section: "algebra", type: "Simplifying Polynomials", difficulty: "Basic",
+    question: "Simplify: (5x&sup2; &minus; 3x + 2) + (2x&sup2; + 7x &minus; 4)",
+    options: ["A) 7x&sup2; + 4x + 2", "B) 7x&sup2; + 4x &minus; 2", "C) 3x&sup2; + 10x &minus; 2", "D) 7x&sup2; + 4x &minus; 6"],
+    correct: 1,
+    explanation: "Step 1: Write the sum: (5x&sup2; &minus; 3x + 2) + (2x&sup2; + 7x &minus; 4)\nStep 2: Group like terms: x&sup2; terms, x terms, constant terms\nStep 3: x&sup2; terms: 5x&sup2; + 2x&sup2; = 7x&sup2;\nStep 4: x terms: &minus;3x + 7x = 4x\nStep 5: Constant terms: 2 + (&minus;4) = &minus;2\nStep 6: Result: 7x&sup2; + 4x &minus; 2"
+  },
+  {
+    id: 15, section: "algebra", type: "Simplifying Polynomials", difficulty: "Basic",
+    question: "Subtract: (6x&sup2; + 5x &minus; 3) &minus; (2x&sup2; &minus; 3x + 7)",
+    options: ["A) 4x&sup2; + 8x + 4", "B) 4x&sup2; + 2x &minus; 10", "C) 4x&sup2; + 8x &minus; 10", "D) 8x&sup2; + 2x &minus; 10"],
+    correct: 2,
+    explanation: "Step 1: Start with (6x&sup2; + 5x &minus; 3) &minus; (2x&sup2; &minus; 3x + 7)\nStep 2: Distribute the negative sign: 6x&sup2; + 5x &minus; 3 &minus; 2x&sup2; + 3x &minus; 7\nStep 3: Group like terms\nStep 4: x&sup2; terms: 6x&sup2; &minus; 2x&sup2; = 4x&sup2;\nStep 5: x terms: 5x + 3x = 8x\nStep 6: Constants: &minus;3 + (&minus;7) = &minus;10\nStep 7: Result: 4x&sup2; + 8x &minus; 10"
+  },
+  {
+    id: 16, section: "algebra", type: "Factoring Polynomials", difficulty: "Intermediate",
+    question: "Factor completely: x&sup2; &minus; 16x + 64",
+    options: ["A) (x &minus; 8)(x &minus; 8)", "B) (x &minus; 4)(x &minus; 16)", "C) (x + 8)(x &minus; 8)", "D) (x &minus; 8)(x + 2)"],
+    correct: 0,
+    explanation: "Step 1: Recognize x&sup2; &minus; 16x + 64 as a perfect square trinomial\nStep 2: A perfect square trinomial takes the form a&sup2; &minus; 2ab + b&sup2; = (a &minus; b)&sup2;\nStep 3: Here a = x, and 2ab = 16x means 2 &times; x &times; b = 16x, so b = 8\nStep 4: Check b&sup2;: 8&sup2; = 64. Matches!\nStep 5: Therefore: x&sup2; &minus; 16x + 64 = (x &minus; 8)(x &minus; 8) = (x &minus; 8)&sup2;\nStep 6: Expand to verify: (x &minus; 8)(x &minus; 8) = x&sup2; &minus; 8x &minus; 8x + 64 = x&sup2; &minus; 16x + 64. Correct."
+  },
+  {
+    id: 17, section: "algebra", type: "Factoring Polynomials", difficulty: "Advanced",
+    question: "Factor: 6x&sup2; &minus; 13x &minus; 5",
+    options: ["A) (3x + 1)(2x &minus; 5)", "B) (2x + 5)(3x &minus; 1)", "C) (6x + 5)(x &minus; 1)", "D) (3x &minus; 5)(2x + 1)"],
+    correct: 0,
+    explanation: "Step 1: For ax&sup2; + bx + c, multiply a &times; c: 6 &times; (&minus;5) = &minus;30\nStep 2: Find two numbers that multiply to &minus;30 AND add to b = &minus;13\nStep 3: Factors of &minus;30: check pairs. &minus;15 and +2: (&minus;15) &times; 2 = &minus;30, (&minus;15) + 2 = &minus;13. Works!\nStep 4: Rewrite middle term: 6x&sup2; &minus; 15x + 2x &minus; 5\nStep 5: Group: (6x&sup2; &minus; 15x) + (2x &minus; 5)\nStep 6: Factor each group: 3x(2x &minus; 5) + 1(2x &minus; 5)\nStep 7: Factor out common binomial: (3x + 1)(2x &minus; 5)\nStep 8: Verify with FOIL: 3x(2x) = 6x&sup2;, 3x(&minus;5) = &minus;15x, 1(2x) = 2x, 1(&minus;5) = &minus;5. Sum: 6x&sup2; &minus; 13x &minus; 5. Correct."
+  },
+  {
+    id: 18, section: "algebra", type: "Factoring Polynomials", difficulty: "Basic",
+    question: "Factor: 4x&sup2; &minus; 25",
+    options: ["A) (2x + 5)(2x &minus; 5)", "B) (4x + 5)(x &minus; 5)", "C) (2x &minus; 5)&sup2;", "D) (2x + 5)(2x + 5)"],
+    correct: 0,
+    explanation: "Step 1: Recognize 4x&sup2; &minus; 25 as a difference of squares\nStep 2: Difference of squares formula: a&sup2; &minus; b&sup2; = (a + b)(a &minus; b)\nStep 3: Identify a and b: a&sup2; = 4x&sup2; so a = 2x; b&sup2; = 25 so b = 5\nStep 4: Apply formula: (2x + 5)(2x &minus; 5)\nStep 5: Verify with FOIL: 2x(2x) = 4x&sup2;, 2x(&minus;5) = &minus;10x, 5(2x) = 10x, 5(&minus;5) = &minus;25. Sum: 4x&sup2; &minus; 25. Correct."
+  },
+  // ===== ALGEBRA: Part E — FOIL & Quadratic Expressions (Q19–Q22) =====
+  {
+    id: 19, section: "algebra", type: "FOIL & Quadratics", difficulty: "Basic",
+    question: "Use FOIL to multiply: (x + 6)(x &minus; 4)",
+    options: ["A) x&sup2; + 2x &minus; 24", "B) x&sup2; &minus; 2x &minus; 24", "C) x&sup2; + 10x &minus; 24", "D) x&sup2; + 2x + 24"],
+    correct: 0,
+    explanation: "Step 1: FOIL = First, Outer, Inner, Last\nStep 2: First: x &times; x = x&sup2;\nStep 3: Outer: x &times; (&minus;4) = &minus;4x\nStep 4: Inner: 6 &times; x = 6x\nStep 5: Last: 6 &times; (&minus;4) = &minus;24\nStep 6: Sum all terms: x&sup2; + (&minus;4x) + 6x + (&minus;24)\nStep 7: Combine like terms: &minus;4x + 6x = 2x\nStep 8: Result: x&sup2; + 2x &minus; 24"
+  },
+  {
+    id: 20, section: "algebra", type: "FOIL & Quadratics", difficulty: "Basic",
+    question: "Multiply: (2x &minus; 3)(3x + 5)",
+    options: ["A) 6x&sup2; + x &minus; 15", "B) 6x&sup2; + 19x &minus; 15", "C) 6x&sup2; &minus; x &minus; 15", "D) 5x&sup2; + x &minus; 15"],
+    correct: 0,
+    explanation: "Step 1: FOIL: First, Outer, Inner, Last\nStep 2: First: 2x &times; 3x = 6x&sup2;\nStep 3: Outer: 2x &times; 5 = 10x\nStep 4: Inner: (&minus;3) &times; 3x = &minus;9x\nStep 5: Last: (&minus;3) &times; 5 = &minus;15\nStep 6: Sum: 6x&sup2; + 10x + (&minus;9x) + (&minus;15)\nStep 7: Combine like terms: 10x &minus; 9x = x\nStep 8: Result: 6x&sup2; + x &minus; 15"
+  },
+  {
+    id: 21, section: "algebra", type: "FOIL & Quadratics", difficulty: "Basic",
+    question: "Expand: (x + 7)&sup2;",
+    options: ["A) x&sup2; + 49", "B) x&sup2; + 7x + 49", "C) x&sup2; + 14x + 49", "D) x&sup2; + 14x + 14"],
+    correct: 2,
+    explanation: "Step 1: Use the perfect square formula: (a + b)&sup2; = a&sup2; + 2ab + b&sup2;\nStep 2: Here a = x, b = 7\nStep 3: a&sup2; = x&sup2;\nStep 4: 2ab = 2 &times; x &times; 7 = 14x\nStep 5: b&sup2; = 7&sup2; = 49\nStep 6: Result: x&sup2; + 14x + 49\nStep 7: Verify by FOIL: (x + 7)(x + 7) = x&sup2; + 7x + 7x + 49 = x&sup2; + 14x + 49. Correct."
+  },
+  {
+    id: 22, section: "algebra", type: "FOIL & Quadratics", difficulty: "Intermediate",
+    question: "What are the x-intercepts of the graph of y = 3(x + 5)(x &minus; 2)?",
+    options: ["A) x = 5 and x = &minus;2", "B) x = &minus;5 and x = 2", "C) x = 3 and x = &minus;2", "D) x = &minus;3 and x = 2"],
+    correct: 1,
+    explanation: "Step 1: x-intercepts occur when y = 0\nStep 2: Set y = 0: 3(x + 5)(x &minus; 2) = 0\nStep 3: Since 3 &ne; 0, use the zero product property: (x + 5)(x &minus; 2) = 0\nStep 4: Either x + 5 = 0 or x &minus; 2 = 0\nStep 5: x + 5 = 0 &rarr; x = &minus;5\nStep 6: x &minus; 2 = 0 &rarr; x = 2\nStep 7: The x-intercepts are (&minus;5, 0) and (2, 0)"
+  },
+  // ===== ALGEBRA: Part F — Functions & Graphs (Q23–Q27) =====
+  {
+    id: 23, section: "algebra", type: "Functions & Graphs", difficulty: "Basic",
+    question: "What is the slope of the line passing through points (2, 5) and (6, 17)?",
+    options: ["A) 2", "B) 3", "C) 4", "D) 6"],
+    correct: 1,
+    explanation: "Step 1: Slope formula: m = (y&sub2; &minus; y&sub1;) / (x&sub2; &minus; x&sub1;)\nStep 2: Label points: (x&sub1;, y&sub1;) = (2, 5), (x&sub2;, y&sub2;) = (6, 17)\nStep 3: y&sub2; &minus; y&sub1; = 17 &minus; 5 = 12\nStep 4: x&sub2; &minus; x&sub1; = 6 &minus; 2 = 4\nStep 5: m = 12 / 4 = 3\nStep 6: The slope is 3"
+  },
+  {
+    id: 24, section: "algebra", type: "Functions & Graphs", difficulty: "Basic",
+    question: "A line has a slope of 4 and passes through (1, 3). What is its equation in slope-intercept form?",
+    options: ["A) y = 4x &minus; 1", "B) y = 4x + 1", "C) y = 4x + 7", "D) y = 3x + 4"],
+    correct: 0,
+    explanation: "Step 1: Slope-intercept form: y = mx + b, where m = slope, b = y-intercept\nStep 2: Given m = 4, so y = 4x + b\nStep 3: Plug in point (1, 3): 3 = 4(1) + b\nStep 4: 3 = 4 + b\nStep 5: b = 3 &minus; 4 = &minus;1\nStep 6: Equation: y = 4x &minus; 1\nStep 7: Check: at x = 1, y = 4(1) &minus; 1 = 3. Correct."
+  },
+  {
+    id: 25, section: "algebra", type: "Functions & Graphs", difficulty: "Basic",
+    question: "Given f(x) = 2x&sup2; &minus; 3x + 5, find f(4).",
+    options: ["A) 21", "B) 25", "C) 29", "D) 33"],
+    correct: 1,
+    explanation: "Step 1: f(x) = 2x&sup2; &minus; 3x + 5\nStep 2: Substitute x = 4: f(4) = 2(4&sup2;) &minus; 3(4) + 5\nStep 3: 4&sup2; = 16\nStep 4: 2(16) = 32\nStep 5: 3(4) = 12\nStep 6: f(4) = 32 &minus; 12 + 5\nStep 7: 32 &minus; 12 = 20\nStep 8: 20 + 5 = 25"
+  },
+  {
+    id: 26, section: "algebra", type: "Functions & Graphs", difficulty: "Basic",
+    question: "What is the y-intercept of the line 3x &minus; 2y = 12?",
+    options: ["A) (0, &minus;4)", "B) (0, &minus;6)", "C) (0, 4)", "D) (0, 6)"],
+    correct: 1,
+    explanation: "Step 1: The y-intercept is where x = 0\nStep 2: Plug x = 0 into 3x &minus; 2y = 12\nStep 3: 3(0) &minus; 2y = 12\nStep 4: 0 &minus; 2y = 12\nStep 5: &minus;2y = 12\nStep 6: y = 12 / (&minus;2) = &minus;6\nStep 7: The y-intercept is (0, &minus;6)"
+  },
+  {
+    id: 27, section: "algebra", type: "Functions & Graphs", difficulty: "Intermediate",
+    question: "Which equation represents the relationship shown in the table?<br><table style='border-collapse:collapse;margin:10px 0;font-size:0.95rem;'><tr><th style='padding:6px 16px;border-bottom:2px solid var(--primary);'>x</th><th style='padding:6px 16px;border-bottom:2px solid var(--primary);'>y</th></tr><tr><td style='padding:4px 16px;'>&minus;2</td><td style='padding:4px 16px;'>&minus;7</td></tr><tr><td style='padding:4px 16px;'>0</td><td style='padding:4px 16px;'>&minus;3</td></tr><tr><td style='padding:4px 16px;'>2</td><td style='padding:4px 16px;'>1</td></tr><tr><td style='padding:4px 16px;'>4</td><td style='padding:4px 16px;'>5</td></tr></table>",
+    options: ["A) y = 2x &minus; 3", "B) y = 3x &minus; 3", "C) y = x &minus; 3", "D) y = 2x + 3"],
+    correct: 0,
+    explanation: "Step 1: Find the slope using two points. Use (0, &minus;3) and (2, 1)\nStep 2: Slope m = (1 &minus; (&minus;3)) / (2 &minus; 0) = 4 / 2 = 2\nStep 3: The y-intercept is the y-value when x = 0: b = &minus;3\nStep 4: Equation: y = mx + b = 2x + (&minus;3) = 2x &minus; 3\nStep 5: Verify with (&minus;2, &minus;7): y = 2(&minus;2) &minus; 3 = &minus;4 &minus; 3 = &minus;7. Correct.\nStep 6: Verify with (4, 5): y = 2(4) &minus; 3 = 8 &minus; 3 = 5. Correct."
+  },
+  // ===== ALGEBRA: Part G — Number Series (Q28–Q33) =====
+  {
+    id: 28, section: "algebra", type: "Number Series", difficulty: "Intermediate",
+    question: "Find the next number in the series: 110, 112, 107, 109, 104, ___",
+    options: ["A) 102", "B) 106", "C) 99", "D) 108"],
+    correct: 1,
+    explanation: "Step 1: Look at the differences between consecutive terms\nStep 2: 112 &minus; 110 = +2\nStep 3: 107 &minus; 112 = &minus;5\nStep 4: 109 &minus; 107 = +2\nStep 5: 104 &minus; 109 = &minus;5\nStep 6: Pattern: +2, &minus;5, +2, &minus;5, ... alternating\nStep 7: Next operation after 104 should be +2\nStep 8: 104 + 2 = 106"
+  },
+  {
+    id: 29, section: "algebra", type: "Number Series", difficulty: "Basic",
+    question: "What comes next? 2, 6, 18, 54, 162, ___",
+    options: ["A) 324", "B) 486", "C) 512", "D) 648"],
+    correct: 1,
+    explanation: "Step 1: Check the ratio between consecutive terms\nStep 2: 6 / 2 = 3\nStep 3: 18 / 6 = 3\nStep 4: 54 / 18 = 3\nStep 5: 162 / 54 = 3\nStep 6: Pattern: each term is multiplied by 3 (geometric sequence with r = 3)\nStep 7: Next term: 162 &times; 3 = 486"
+  },
+  {
+    id: 30, section: "algebra", type: "Number Series", difficulty: "Basic",
+    question: "Find the missing number: 1, 4, 9, 16, 25, 36, 49, ___",
+    options: ["A) 56", "B) 60", "C) 64", "D) 72"],
+    correct: 2,
+    explanation: "Step 1: Recognize the pattern: 1 = 1&sup2;\nStep 2: 4 = 2&sup2;\nStep 3: 9 = 3&sup2;\nStep 4: 16 = 4&sup2;\nStep 5: 25 = 5&sup2;\nStep 6: 36 = 6&sup2;\nStep 7: 49 = 7&sup2;\nStep 8: Pattern: perfect squares. Next: 8&sup2; = 64"
+  },
+  {
+    id: 31, section: "algebra", type: "Number Series", difficulty: "Basic",
+    question: "What is the next term? 1, 1, 2, 3, 5, 8, 13, ___",
+    options: ["A) 18", "B) 19", "C) 20", "D) 21"],
+    correct: 3,
+    explanation: "Step 1: This is the Fibonacci sequence\nStep 2: Rule: each term is the sum of the two preceding terms\nStep 3: 1 + 1 = 2\nStep 4: 1 + 2 = 3\nStep 5: 2 + 3 = 5\nStep 6: 3 + 5 = 8\nStep 7: 5 + 8 = 13\nStep 8: 8 + 13 = 21"
+  },
+  {
+    id: 32, section: "algebra", type: "Number Series", difficulty: "Basic",
+    question: "Find the next number: 80, 40, 20, 10, 5, ___",
+    options: ["A) 0", "B) 1", "C) 2.5", "D) 3"],
+    correct: 2,
+    explanation: "Step 1: Check the ratio between consecutive terms\nStep 2: 40 / 80 = 1/2\nStep 3: 20 / 40 = 1/2\nStep 4: 10 / 20 = 1/2\nStep 5: 5 / 10 = 1/2\nStep 6: Pattern: each term is divided by 2 (halved)\nStep 7: Next term: 5 &divide; 2 = 2.5"
+  },
+  {
+    id: 33, section: "algebra", type: "Number Series", difficulty: "Intermediate",
+    question: "What is the next number in the series? 5, 11, 23, 47, 95, ___",
+    options: ["A) 143", "B) 158", "C) 167", "D) 191"],
+    correct: 3,
+    explanation: "Step 1: Look at the pattern from one term to the next\nStep 2: 5 &times; 2 + 1 = 11\nStep 3: 11 &times; 2 + 1 = 23\nStep 4: 23 &times; 2 + 1 = 47\nStep 5: 47 &times; 2 + 1 = 95\nStep 6: Pattern: multiply by 2, then add 1\nStep 7: Next term: 95 &times; 2 + 1 = 190 + 1 = 191"
+  },
+
+  // ===== READING: Passage A — Urban Planning (Q34–Q42) =====
+  {
+    id: 34, section: "reading", type: "Main Idea", difficulty: "Basic",
+    passage: "The Evolution of Modern Urban Planning",
+    passageText: "Urban planning, the discipline concerned with the design and regulation of the use of space within cities, has undergone profound transformations since the Industrial Revolution. In the nineteenth century, rapid urbanization created overcrowded, unsanitary conditions in major cities across Europe and North America. Factories belched smoke into the air, tenement housing crammed families into windowless rooms, and diseases such as cholera and typhus spread rapidly through contaminated water supplies. These conditions prompted the first wave of formal urban planning, epitomized by Baron Haussmann's renovation of Paris between 1853 and 1870, which replaced narrow medieval streets with wide boulevards, parks, and modern sewer systems.\n\nThe twentieth century introduced new models of urban design. Ebenezer Howard's \"Garden City\" concept proposed self-contained communities surrounded by greenbelts, combining the benefits of town and country living. In the United States, the City Beautiful movement emphasized monumental civic buildings, public parks, and grand boulevards intended to inspire civic pride and moral virtue. However, the post-World War II era saw the rise of automobile-centric development patterns that prioritized highways and suburban expansion over dense urban cores, often at the expense of existing neighborhoods, particularly those housing minority communities.\n\nContemporary urban planning emphasizes sustainability, mixed-use development, and public transit-oriented design. Planners now recognize that walkable neighborhoods with a diverse mix of housing, employment, retail, and recreational spaces promote healthier lifestyles, reduce carbon emissions, and strengthen community bonds. The concept of \"smart cities\" integrates digital technology into infrastructure management, using sensors and data analytics to optimize traffic flow, energy consumption, and public services. Yet challenges remain: rapid urbanization in the developing world, the need for affordable housing, climate resilience, and the legacy of past planning decisions that entrenched inequality. Modern urban planners must balance competing interests — economic development, environmental protection, social equity, and quality of life — while navigating complex political landscapes and constrained budgets.",
+    question: "What is the main purpose of the passage?",
+    options: ["A) To argue that Haussmann's renovation of Paris was the most important event in urban planning", "B) To trace the historical development of urban planning and describe its current challenges", "C) To criticize automobile-centric development patterns in the United States", "D) To promote smart city technology as the solution to all urban problems"],
+    correct: 1,
+    explanation: "Step 1: Read the passage as a whole. It begins with 19th-century urban conditions\nStep 2: Then moves through 20th-century models (Garden City, City Beautiful, post-WWII)\nStep 3: Finally discusses contemporary approaches and challenges\nStep 4: This is a chronological survey that traces historical development\nStep 5: The passage does not focus on any single event, criticism, or solution\nStep 6: B best captures the broad historical survey nature of the text"
+  },
+  {
+    id: 35, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "The Evolution of Modern Urban Planning",
+    question: "According to the passage, what primarily motivated the first wave of formal urban planning?",
+    options: ["A) The desire to build grand civic monuments", "B) Overcrowded and unsanitary living conditions in industrial cities", "C) The need for automobile-friendly road systems", "D) Competition between European and American cities"],
+    correct: 1,
+    explanation: "Step 1: Locate the relevant section: first paragraph, middle\nStep 2: The passage states that rapid urbanization created \"overcrowded, unsanitary conditions\"\nStep 3: These conditions \"prompted the first wave of formal urban planning\"\nStep 4: The text then gives Haussmann's Paris renovation as an example\nStep 5: Grand civic monuments (A) came later with City Beautiful. Autos (C) came post-WWII. Competition (D) is not mentioned."
+  },
+  {
+    id: 36, section: "reading", type: "Vocabulary", difficulty: "Basic",
+    passage: "The Evolution of Modern Urban Planning",
+    question: "The word \"epitomized\" in the first paragraph most nearly means:",
+    options: ["A) Contradicted", "B) Exemplified", "C) Criticized", "D) Predated"],
+    correct: 1,
+    explanation: "Step 1: Find \"epitomized\" in context: \"epitomized by Baron Haussmann's renovation of Paris\"\nStep 2: The sentence describes the first wave of formal urban planning, then gives Haussmann's work as the prime example\nStep 3: \"Epitomized\" means represented or exemplified\nStep 4: Contradicted (A) means opposed. Criticized (C) means found fault with. Predated (D) means came before\nStep 5: B — Exemplified — is the correct synonym in this context"
+  },
+  {
+    id: 37, section: "reading", type: "Detail (NOT/EXCEPT)", difficulty: "Basic",
+    passage: "The Evolution of Modern Urban Planning",
+    question: "Which of the following is NOT mentioned as a feature of contemporary urban planning?",
+    options: ["A) Sustainability", "B) Mixed-use development", "C) Mandatory population limits", "D) Public transit-oriented design"],
+    correct: 2,
+    explanation: "Step 1: Locate the third paragraph discussing contemporary urban planning\nStep 2: The passage mentions: \"sustainability\" (A), \"mixed-use development\" (B), and \"public transit-oriented design\" (D)\nStep 3: \"Mandatory population limits\" (C) is not mentioned anywhere in the passage\nStep 4: C is therefore the correct answer for a NOT/EXCEPT question"
+  },
+  {
+    id: 38, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "The Evolution of Modern Urban Planning",
+    question: "According to the passage, what was a negative consequence of post-WWII urban planning in the US?",
+    options: ["A) It led to the outbreak of cholera in suburban areas", "B) It prioritized highways at the expense of existing neighborhoods", "C) It eliminated all public parks from cities", "D) It caused factories to relocate to Europe"],
+    correct: 1,
+    explanation: "Step 1: Locate the post-WWII discussion: second paragraph, end\nStep 2: Text says: \"automobile-centric development patterns that prioritized highways and suburban expansion over dense urban cores, often at the expense of existing neighborhoods\"\nStep 3: This directly matches B\nStep 4: Cholera (A) was 19th century issue. Parks elimination (C) is not stated. Factory relocation (D) is not discussed"
+  },
+  {
+    id: 39, section: "reading", type: "Inference", difficulty: "Basic",
+    passage: "The Evolution of Modern Urban Planning",
+    question: "It can be inferred from the passage that \"smart cities\" rely on:",
+    options: ["A) Eliminating all forms of private transportation", "B) Digital technology and data analytics for infrastructure management", "C) Returning to Haussmann-era architectural styles", "D) Reducing city populations to Garden City levels"],
+    correct: 1,
+    explanation: "Step 1: Locate \"smart cities\" in the third paragraph\nStep 2: Text states: \"integrates digital technology into infrastructure management, using sensors and data analytics\"\nStep 3: This directly describes option B\nStep 4: A, C, and D are not supported by the passage text about smart cities"
+  },
+  {
+    id: 40, section: "reading", type: "Author's Purpose", difficulty: "Intermediate",
+    passage: "The Evolution of Modern Urban Planning",
+    question: "The author mentions \"the legacy of past planning decisions that entrenched inequality\" to:",
+    options: ["A) Suggest that all past planning was harmful", "B) Identify an ongoing challenge that modern planners face", "C) Argue for abolishing all zoning laws", "D) Blame Haussmann for modern inequality"],
+    correct: 1,
+    explanation: "Step 1: Find this phrase in the third paragraph\nStep 2: It appears in a list of contemporary challenges: \"rapid urbanization...affordable housing...climate resilience...and the legacy of past planning decisions\"\nStep 3: The author is listing challenges that modern planners still grapple with\nStep 4: This is not a blanket condemnation of all past planning (A), nor about abolishing laws (C), nor blaming one person (D)\nStep 5: B correctly identifies that this is presented as an ongoing challenge"
+  },
+  {
+    id: 41, section: "reading", type: "Tone", difficulty: "Intermediate",
+    passage: "The Evolution of Modern Urban Planning",
+    question: "Which statement best describes the author's tone toward modern urban planning?",
+    options: ["A) Hostile and dismissive", "B) Cautiously optimistic, acknowledging both progress and challenges", "C) Entirely negative, predicting future failure", "D) Uncritically enthusiastic about all new technologies"],
+    correct: 1,
+    explanation: "Step 1: Analyze the third paragraph for tone\nStep 2: The author describes positive developments: sustainability, mixed-use, transit-oriented design, smart cities\nStep 3: But also lists persistent challenges: rapid urbanization, affordable housing, climate resilience, inequality\nStep 4: This balanced presentation of both progress and challenges indicates cautious optimism\nStep 5: A and C are too negative; D is too uncritical. B best captures the balanced tone"
+  },
+  {
+    id: 42, section: "reading", type: "Vocabulary in Context", difficulty: "Basic",
+    passage: "The Evolution of Modern Urban Planning",
+    question: "The word \"greenbelts\" in paragraph two refers to:",
+    options: ["A) Belts made of recycled materials", "B) Undeveloped natural land surrounding urban areas", "C) Military defense zones around cities", "D) Rooftop gardens on city buildings"],
+    correct: 1,
+    explanation: "Step 1: Find \"greenbelts\" in context: \"self-contained communities surrounded by greenbelts\"\nStep 2: This is in the description of Howard's Garden City concept\nStep 3: Greenbelts in urban planning refer to rings of undeveloped natural land around cities\nStep 4: B is the standard definition. A, C, and D are not what the term means in this context"
+  },
+
+  // ===== READING: Passage B — History of Electricity (Q43–Q51) =====
+  {
+    id: 43, section: "reading", type: "Main Idea", difficulty: "Basic",
+    passage: "The Journey of Electricity: From Ancient Discovery to Modern Grid",
+    passageText: "The story of electricity spans millennia, from ancient observations of static electricity in amber to the complex alternating current networks that power modern civilization. The ancient Greeks first documented electrical phenomena around 600 BCE when they noticed that rubbing amber against fur attracted lightweight objects such as feathers. The word \"electricity\" itself derives from the Greek word \"elektron,\" meaning amber. For over two thousand years, this curious phenomenon remained a scientific curiosity with no practical application.\n\nThe scientific revolution of the seventeenth and eighteenth centuries transformed our understanding of electricity. In 1600, English physician William Gilbert published \"De Magnete,\" which distinguished between magnetism and static electricity and coined the term \"electricus.\" Benjamin Franklin's famous kite experiment in 1752 demonstrated that lightning was a form of electrical discharge, leading to his invention of the lightning rod. Alessandro Volta created the first true battery, the voltaic pile, in 1800, providing scientists with a reliable source of continuous electrical current for the first time. This breakthrough enabled a cascade of discoveries: Hans Christian Orsted found that electric current creates magnetic fields, Andre-Marie Ampere formulated the mathematical laws of electromagnetism, and Michael Faraday discovered electromagnetic induction — the principle behind electric generators and transformers.\n\nThe late nineteenth century witnessed the \"War of the Currents\" — a fierce commercial battle between Thomas Edison's direct current (DC) system and Nikola Tesla's alternating current (AC) system, backed by industrialist George Westinghouse. While DC was simpler and had been the standard for early electrical distribution, it could not be transmitted efficiently over long distances. Tesla's AC system, using transformers to step voltage up for transmission and down for household use, proved far more practical for large-scale power distribution. The decisive moment came in 1896 when Westinghouse's AC system powered Buffalo, New York, from hydroelectric generators at Niagara Falls, 26 miles away. This achievement demonstrated the viability of long-distance power transmission and established AC as the global standard. Today, electricity is fundamental to nearly every aspect of modern life — from lighting and heating to computing and communications — and the challenge of generating it sustainably through renewable sources like solar and wind power represents one of the defining technological transitions of the twenty-first century.",
+    question: "What is the primary focus of the passage?",
+    options: ["A) The rivalry between Thomas Edison and Nikola Tesla", "B) The historical development of electricity from ancient times to modern applications", "C) How to generate electricity sustainably using renewable sources", "D) Benjamin Franklin's scientific achievements"],
+    correct: 1,
+    explanation: "Step 1: Survey the passage structure\nStep 2: First paragraph: ancient Greek observations of static electricity\nStep 3: Second paragraph: 17th-18th century scientific discoveries (Gilbert, Franklin, Volta, Faraday)\nStep 4: Third paragraph: War of the Currents and modern challenges\nStep 5: The passage traces electricity's full historical arc from ancient times to today\nStep 6: B captures this comprehensive historical scope. A, C, and D only cover parts of the passage"
+  },
+  {
+    id: 44, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "The Journey of Electricity: From Ancient Discovery to Modern Grid",
+    question: "According to the passage, what does the word \"electricity\" derive from?",
+    options: ["A) The Latin word for lightning", "B) The Greek word for amber", "C) The name of Alessandro Volta", "D) The title of William Gilbert's book"],
+    correct: 1,
+    explanation: "Step 1: Locate etymology in the first paragraph\nStep 2: Text states: \"The word 'electricity' itself derives from the Greek word 'elektron,' meaning amber\"\nStep 3: This directly matches option B\nStep 4: A, C, and D are not what the passage states"
+  },
+  {
+    id: 45, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "The Journey of Electricity: From Ancient Discovery to Modern Grid",
+    question: "What was the significance of Volta's voltaic pile, according to the passage?",
+    options: ["A) It proved that lightning was a form of electricity", "B) It provided the first reliable source of continuous electrical current", "C) It won the War of the Currents", "D) It powered the city of Buffalo, New York"],
+    correct: 1,
+    explanation: "Step 1: Find Volta in the second paragraph\nStep 2: Text states: \"Alessandro Volta created the first true battery, the voltaic pile, in 1800, providing scientists with a reliable source of continuous electrical current for the first time\"\nStep 3: B directly matches this description\nStep 4: Lightning discovery (A) was Franklin. War of the Currents (C) was Tesla vs Edison. Buffalo (D) was Westinghouse"
+  },
+  {
+    id: 46, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "The Journey of Electricity: From Ancient Discovery to Modern Grid",
+    question: "Which scientist discovered electromagnetic induction?",
+    options: ["A) Benjamin Franklin", "B) Hans Christian Orsted", "C) Michael Faraday", "D) Andre-Marie Ampere"],
+    correct: 2,
+    explanation: "Step 1: Locate the list of discoveries in the second paragraph\nStep 2: Text states: \"Michael Faraday discovered electromagnetic induction\"\nStep 3: C is the correct answer\nStep 4: Franklin discovered lightning was electrical. Orsted found current creates magnetic fields. Ampere formulated electromagnetic laws"
+  },
+  {
+    id: 47, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "The Journey of Electricity: From Ancient Discovery to Modern Grid",
+    question: "What was the main advantage of Tesla's AC system over Edison's DC system?",
+    options: ["A) It was simpler to understand", "B) It could be transmitted efficiently over long distances", "C) It was cheaper to produce than DC", "D) It used less copper wire"],
+    correct: 1,
+    explanation: "Step 1: Find the comparison in the third paragraph\nStep 2: Text states DC \"could not be transmitted efficiently over long distances\"\nStep 3: It then states AC \"proved far more practical for large-scale power distribution\" using transformers\nStep 4: The Niagara Falls to Buffalo example (26 miles) demonstrates long-distance capability\nStep 5: B captures this key advantage. The passage calls DC \"simpler\" (A is wrong). C and D are not stated"
+  },
+  {
+    id: 48, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "The Journey of Electricity: From Ancient Discovery to Modern Grid",
+    question: "What event does the passage cite as the \"decisive moment\" that established AC as the standard?",
+    options: ["A) Franklin's kite experiment", "B) The publication of \"De Magnete\"", "C) Tesla's invention of the induction motor", "D) Westinghouse powering Buffalo from Niagara Falls"],
+    correct: 3,
+    explanation: "Step 1: Find \"decisive moment\" in the third paragraph\nStep 2: Text states: \"The decisive moment came in 1896 when Westinghouse's AC system powered Buffalo, New York, from hydroelectric generators at Niagara Falls, 26 miles away\"\nStep 3: D directly matches. The distances for A, B, and C are all earlier events"
+  },
+  {
+    id: 49, section: "reading", type: "Inference", difficulty: "Basic",
+    passage: "The Journey of Electricity: From Ancient Discovery to Modern Grid",
+    question: "It can be inferred that the \"War of the Currents\" was primarily:",
+    options: ["A) A military conflict between nations", "B) A commercial and technological rivalry over electrical distribution standards", "C) A scientific debate about the nature of lightning", "D) An argument about who invented the battery"],
+    correct: 1,
+    explanation: "Step 1: Find \"War of the Currents\" in the third paragraph\nStep 2: Described as \"a fierce commercial battle between Thomas Edison's DC system and Nikola Tesla's AC system\"\nStep 3: This was a battle over which electrical distribution technology would become the standard\nStep 4: B correctly identifies it as a commercial/technological rivalry. A is literal misinterpretation. C and D refer to different events"
+  },
+  {
+    id: 50, section: "reading", type: "Vocabulary", difficulty: "Basic",
+    passage: "The Journey of Electricity: From Ancient Discovery to Modern Grid",
+    question: "The word \"cascade\" in the second paragraph most nearly means:",
+    options: ["A) Waterfall", "B) Sudden failure", "C) Rapid series of connected events", "D) Electrical short circuit"],
+    correct: 2,
+    explanation: "Step 1: Find \"cascade\" in context: \"This breakthrough enabled a cascade of discoveries\"\nStep 2: The sentence then lists multiple discoveries that followed Volta's battery\nStep 3: \"Cascade\" here means a rapid succession or series of connected events\nStep 4: While \"cascade\" can mean waterfall (A), that's the literal meaning, not the figurative one used here. C is the figurative meaning"
+  },
+  {
+    id: 51, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "The Journey of Electricity: From Ancient Discovery to Modern Grid",
+    question: "According to the passage, what is a defining technological challenge of the twenty-first century regarding electricity?",
+    options: ["A) Winning a new \"War of the Currents\"", "B) Generating electricity sustainably through renewable sources", "C) Discovering the true nature of lightning", "D) Building longer transmission lines than Niagara Falls"],
+    correct: 1,
+    explanation: "Step 1: Find the final sentence of the passage\nStep 2: Text states: \"the challenge of generating it sustainably through renewable sources like solar and wind power represents one of the defining technological transitions of the twenty-first century\"\nStep 3: B directly matches. A, C, and D are not the 21st-century challenge described"
+  },
+
+  // ===== READING: Passage C — Workplace Safety (Q52–Q60) =====
+  {
+    id: 52, section: "reading", type: "Main Idea", difficulty: "Basic",
+    passage: "Building a Culture of Safety in the Electrical Trades",
+    passageText: "Workplace safety in the electrical trades is not merely a regulatory requirement — it is a fundamental professional responsibility that protects workers from some of the most severe occupational hazards in any industry. Electricians face unique risks, including arc flash incidents that can generate temperatures exceeding 35,000 degrees Fahrenheit, electrocution from contact with energized conductors, falls from elevated work positions, and injuries from repetitive motion or improper lifting techniques. The Occupational Safety and Health Administration (OSHA) establishes baseline safety standards, but truly effective safety programs go far beyond compliance to create an organizational culture in which every worker feels personally responsible for their own safety and the safety of their colleagues.\n\nThe hierarchy of hazard controls provides a systematic framework for managing workplace risks. At the most effective level, hazard elimination involves physically removing the danger — for instance, de-energizing circuits before performing maintenance. Substitution replaces a hazardous condition with a safer alternative, such as using battery-powered tools instead of corded ones in wet environments. Engineering controls isolate workers from hazards through physical barriers, ventilation systems, or machine guarding. Administrative controls change how people work through procedures, training, and scheduling, such as implementing a lockout/tagout program that ensures equipment remains de-energized during servicing. Personal protective equipment (PPE), the last line of defense, includes insulated gloves, arc-rated clothing, hard hats, safety glasses, and steel-toed boots. Importantly, PPE protects only the individual worker and depends on proper use and maintenance, which is why higher-level controls are always preferred.\n\nElectrical safety specifically demands rigorous adherence to protocols that may seem tedious but are proven to save lives. A comprehensive lockout/tagout procedure requires workers to identify all energy sources, notify affected personnel, shut down equipment, isolate energy sources, apply locks and tags, verify isolation by testing, and only then begin work. The National Fire Protection Association's NFPA 70E standard provides detailed guidance on arc flash risk assessment, approach boundaries, and appropriate PPE categories. Regular safety meetings, job hazard analyses conducted before each shift, and a non-punitive near-miss reporting system all contribute to continuous improvement in safety outcomes. Ultimately, the most effective safety cultures are those in which workers feel empowered to stop work when they observe an unsafe condition — a principle known as \"stop-work authority\" — reinforcing that no deadline, budget, or productivity target is worth a preventable injury or fatality.",
+    question: "What is the main idea of the passage?",
+    options: ["A) OSHA regulations are too burdensome for electrical contractors", "B) Building a genuine safety culture requires going beyond minimum compliance", "C) PPE is the most important component of electrical safety", "D) Arc flash incidents are the only serious risk electricians face"],
+    correct: 1,
+    explanation: "Step 1: Read the passage as a whole\nStep 2: First paragraph states safety programs must \"go far beyond compliance\"\nStep 3: The passage describes multiple approaches: hazard controls, protocols, training, culture\nStep 4: The emphasis is on creating a culture, not just following rules\nStep 5: B captures this central theme. A contradicts the passage. C is wrong (PPE is \"last line\"). D is too narrow"
+  },
+  {
+    id: 53, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "Building a Culture of Safety in the Electrical Trades",
+    question: "According to the passage, what is the most effective level of hazard control?",
+    options: ["A) Personal protective equipment", "B) Administrative controls", "C) Hazard elimination", "D) Engineering controls"],
+    correct: 2,
+    explanation: "Step 1: Locate the hierarchy of controls in the second paragraph\nStep 2: Text states: \"At the most effective level, hazard elimination involves physically removing the danger\"\nStep 3: C is directly stated as the most effective\nStep 4: PPE (A) is described as \"the last line of defense.\" Administrative (B) and engineering (D) are below elimination in the hierarchy"
+  },
+  {
+    id: 54, section: "reading", type: "Vocabulary", difficulty: "Basic",
+    passage: "Building a Culture of Safety in the Electrical Trades",
+    question: "The word \"de-energizing\" in the second paragraph most nearly means:",
+    options: ["A) Increasing power levels", "B) Removing electrical power from a circuit", "C) Installing new energy sources", "D) Converting AC power to DC power"],
+    correct: 1,
+    explanation: "Step 1: Find \"de-energizing\" in context: \"de-energizing circuits before performing maintenance\"\nStep 2: The context is hazard elimination — removing danger so workers are safe\nStep 3: De-energizing means cutting off or removing electrical power\nStep 4: B correctly defines this. A is the opposite. C and D are unrelated"
+  },
+  {
+    id: 55, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "Building a Culture of Safety in the Electrical Trades",
+    question: "Why does the passage describe PPE as the \"last line of defense\"?",
+    options: ["A) Because PPE is ineffective and should not be used", "B) Because PPE only protects the individual and depends on proper use, so higher-level controls are preferred", "C) Because PPE is the most expensive type of safety equipment", "D) Because OSHA requires other controls to be tried first"],
+    correct: 1,
+    explanation: "Step 1: Find the PPE discussion in the second paragraph\nStep 2: Text states: \"PPE protects only the individual worker and depends on proper use and maintenance, which is why higher-level controls are always preferred\"\nStep 3: B directly matches this reasoning\nStep 4: The passage does not say PPE is ineffective (A) or discuss cost (C). OSHA requirements (D) are not given as the reason"
+  },
+  {
+    id: 56, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "Building a Culture of Safety in the Electrical Trades",
+    question: "According to the passage, arc flash incidents can generate temperatures above:",
+    options: ["A) 3,500 degrees Fahrenheit", "B) 35,000 degrees Fahrenheit", "C) 350 degrees Fahrenheit", "D) 350,000 degrees Fahrenheit"],
+    correct: 1,
+    explanation: "Step 1: Find arc flash in the first paragraph\nStep 2: Text states: \"arc flash incidents that can generate temperatures exceeding 35,000 degrees Fahrenheit\"\nStep 3: B is the correct number. Note the difference: 35,000, not 3,500 or 350,000"
+  },
+  {
+    id: 57, section: "reading", type: "Detail", difficulty: "Intermediate",
+    passage: "Building a Culture of Safety in the Electrical Trades",
+    question: "Which of the following is a step in the lockout/tagout procedure described in the passage?",
+    options: ["A) Increasing voltage for testing purposes", "B) Applying locks and tags after verifying isolation", "C) Verifying isolation after applying locks and tags", "D) Removing all PPE before beginning work"],
+    correct: 2,
+    explanation: "Step 1: Find the lockout/tagout sequence in the third paragraph\nStep 2: The steps are: identify energy sources, notify personnel, shut down equipment, isolate energy sources, apply locks and tags, VERIFY isolation by testing, then begin work\nStep 3: C matches \"verify isolation\" which happens AFTER applying locks and tags\nStep 4: Note: B reverses the order (apply after verify). A and D are not in the sequence"
+  },
+  {
+    id: 58, section: "reading", type: "Inference", difficulty: "Basic",
+    passage: "Building a Culture of Safety in the Electrical Trades",
+    question: "It can be inferred from the passage that \"stop-work authority\" means:",
+    options: ["A) Management alone has the right to stop dangerous work", "B) Workers are empowered to halt operations when they observe unsafe conditions", "C) All construction projects should be stopped permanently", "D) Safety inspectors can shut down any job site at any time"],
+    correct: 1,
+    explanation: "Step 1: Find \"stop-work authority\" in the final sentences\nStep 2: Text defines it: \"workers feel empowered to stop work when they observe an unsafe condition\"\nStep 3: This directly matches B\nStep 4: A contradicts the text (workers, not just management). C is extreme. D refers to inspectors, not workers"
+  },
+  {
+    id: 59, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "Building a Culture of Safety in the Electrical Trades",
+    question: "What standard does the passage reference for arc flash risk assessment?",
+    options: ["A) OSHA 1910", "B) NFPA 70E", "C) IEEE Standard 1584", "D) NEC Article 110"],
+    correct: 1,
+    explanation: "Step 1: Find standards referenced in the third paragraph\nStep 2: Text states: \"The National Fire Protection Association's NFPA 70E standard provides detailed guidance on arc flash risk assessment\"\nStep 3: B directly matches. A, C, and D are not mentioned in the passage"
+  },
+  {
+    id: 60, section: "reading", type: "Detail (NOT/EXCEPT)", difficulty: "Basic",
+    passage: "Building a Culture of Safety in the Electrical Trades",
+    question: "Which of the following is NOT mentioned as a component of an effective safety culture?",
+    options: ["A) Regular safety meetings", "B) Job hazard analyses", "C) Non-punitive near-miss reporting", "D) Productivity-based bonuses"],
+    correct: 3,
+    explanation: "Step 1: Find the list of safety culture components in the third paragraph\nStep 2: Text mentions: \"Regular safety meetings\" (A), \"job hazard analyses\" (B), and \"non-punitive near-miss reporting system\" (C)\nStep 3: \"Productivity-based bonuses\" (D) is not mentioned anywhere\nStep 4: In fact, the passage argues against prioritizing productivity over safety"
+  },
+
+  // ===== READING: Passage D — Environmental Conservation (Q61–Q66) =====
+  {
+    id: 61, section: "reading", type: "Main Idea", difficulty: "Basic",
+    passage: "Conservation and the Electrical Industry: Toward a Sustainable Future",
+    passageText: "Environmental conservation has evolved from a niche concern of naturalists in the nineteenth century to a central imperative of twenty-first-century industrial policy. The electrical industry, paradoxically, stands at both ends of the environmental spectrum: it is simultaneously a major consumer of natural resources and a crucial enabler of the transition to a sustainable, low-carbon economy. Understanding this dual role is essential for the next generation of electrical workers who will be called upon to design, install, and maintain the infrastructure of a greener world.\n\nThe environmental impact of traditional electricity generation is well documented. Coal-fired power plants — which as recently as 2010 supplied nearly half of America's electricity — emit carbon dioxide, sulfur dioxide, nitrogen oxides, and particulate matter that contribute to climate change, acid rain, and respiratory illness. The extraction of coal through mountaintop removal mining has devastated ecosystems across Appalachia, while the disposal of coal ash has contaminated groundwater in numerous communities. Natural gas, while burning cleaner than coal, releases methane during extraction, a greenhouse gas far more potent than carbon dioxide over shorter time horizons. Even hydroelectric dams, despite producing emission-free electricity, can disrupt river ecosystems, block fish migration, and displace human communities. This complex web of environmental costs has driven a fundamental rethinking of how we generate power.\n\nThe transition to renewable energy sources — primarily solar photovoltaics, wind turbines, and in some regions geothermal and tidal power — represents the most significant transformation of the electrical grid since its original construction. Solar capacity in the United States has grown more than a hundredfold since 2010, while wind power has become cost-competitive with fossil fuels in many markets. Electrical workers are at the forefront of this transition: installing rooftop solar arrays, wiring electric vehicle charging stations, retrofitting buildings with energy-efficient lighting and HVAC systems, and constructing the smart grid infrastructure that will manage a distributed, bidirectional flow of electricity. The concept of \"green building\" standards, such as LEED certification, has created new specialties within the electrical trades focused on energy auditing, sustainable design, and renewable integration. Far from being a threat to traditional electrical work, the conservation movement has created unprecedented demand for skilled electricians who understand both conventional systems and emerging green technologies.",
+    question: "What is the central theme of the passage?",
+    options: ["A) Coal power should be immediately banned worldwide", "B) The electrical industry has both negative environmental impacts and a crucial role in sustainability", "C) Solar energy is the only viable renewable source", "D) Environmental regulations harm the electrical industry"],
+    correct: 1,
+    explanation: "Step 1: The first paragraph introduces the \"paradoxical\" dual role of the electrical industry\nStep 2: Second paragraph details environmental harm from traditional power generation\nStep 3: Third paragraph shows how electrical workers are enabling the green transition\nStep 4: B captures this central tension between harm and hope\nStep 5: A is too extreme. C is narrowed to one source. D contradicts the passage's message"
+  },
+  {
+    id: 62, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "Conservation and the Electrical Industry: Toward a Sustainable Future",
+    question: "According to the passage, what percentage of America's electricity did coal supply as recently as 2010?",
+    options: ["A) Nearly 25%", "B) Nearly 50%", "C) Nearly 75%", "D) Nearly 90%"],
+    correct: 1,
+    explanation: "Step 1: Find the coal statistic in the second paragraph\nStep 2: Text states: \"Coal-fired power plants — which as recently as 2010 supplied nearly half of America's electricity\"\nStep 3: \"Nearly half\" equals nearly 50%, which is option B"
+  },
+  {
+    id: 63, section: "reading", type: "Vocabulary", difficulty: "Basic",
+    passage: "Conservation and the Electrical Industry: Toward a Sustainable Future",
+    question: "The word \"paradoxically\" in the first paragraph most nearly means:",
+    options: ["A) Predictably", "B) In a seemingly contradictory manner", "C) Accidentally", "D) Unimportantly"],
+    correct: 1,
+    explanation: "Step 1: Find \"paradoxically\" in context\nStep 2: It describes how the electrical industry is both a polluter and a solution\nStep 3: This is an apparent contradiction — two seemingly opposite things being true\nStep 4: \"Paradoxically\" means in a seemingly contradictory manner\nStep 5: B is correct. A, C, and D do not capture this meaning"
+  },
+  {
+    id: 64, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "Conservation and the Electrical Industry: Toward a Sustainable Future",
+    question: "What environmental issue does the passage associate with natural gas?",
+    options: ["A) Mountaintop removal", "B) Mercury contamination", "C) Methane release during extraction", "D) Blocking fish migration"],
+    correct: 2,
+    explanation: "Step 1: Find natural gas in the second paragraph\nStep 2: Text states: \"Natural gas, while burning cleaner than coal, releases methane during extraction\"\nStep 3: C directly matches. Mountaintop removal (A) is associated with coal. Fish migration (D) is associated with hydroelectric dams. Mercury (B) is not mentioned for natural gas"
+  },
+  {
+    id: 65, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "Conservation and the Electrical Industry: Toward a Sustainable Future",
+    question: "Which negative impact does the passage mention for hydroelectric dams?",
+    options: ["A) Carbon dioxide emissions", "B) Sulfur dioxide release", "C) Particulate matter pollution", "D) Blocking fish migration"],
+    correct: 3,
+    explanation: "Step 1: Find hydroelectric dams in the second paragraph\nStep 2: Text states: \"hydroelectric dams...can disrupt river ecosystems, block fish migration, and displace human communities\"\nStep 3: D is one of the listed impacts\nStep 4: CO2 (A), SO2 (B), and particulates (C) are associated with coal, not hydro dams (which are emission-free)"
+  },
+  {
+    id: 66, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "Conservation and the Electrical Industry: Toward a Sustainable Future",
+    question: "According to the passage, how much has US solar capacity grown since 2010?",
+    options: ["A) It has doubled", "B) It has grown tenfold", "C) It has grown more than a hundredfold", "D) It has only grown slightly"],
+    correct: 2,
+    explanation: "Step 1: Find solar capacity in the third paragraph\nStep 2: Text states: \"Solar capacity in the United States has grown more than a hundredfold since 2010\"\nStep 3: C directly matches this exact statistic"
+  },
+
+  // ===== READING: Passage E — Mayan New Year (Q67–Q69) =====
+  {
+    id: 67, section: "reading", type: "Main Idea", difficulty: "Basic",
+    passage: "How the Ancient Maya Celebrated the New Year",
+    passageText: "The ancient Maya civilization of Mesoamerica developed one of the most sophisticated calendar systems in human history. Unlike the modern Gregorian calendar that marks a single New Year's Day on January 1st, the Maya actually celebrated multiple \"New Year\" days throughout their ritual calendar cycle. The Maya used a complex interlocking system of calendars, the most important being the 260-day Tzolk'in ritual calendar and the 365-day Haab' solar calendar. Every 52 solar years, these two calendars would align, marking a complete Calendar Round — an event of tremendous religious significance that the Maya celebrated with elaborate ceremonies, offerings to the gods, and the ritual extinguishing and relighting of all fires.\n\nThe Maya New Year, known as Wayeb', was actually a five-day period at the end of the Haab' year that was considered a dangerous and unlucky time when the boundaries between the mortal world and the supernatural realm were thought to be thin. During Wayeb', the Maya would fast, abstain from normal activities, and perform purification rituals to ward off evil spirits before the New Year began. The New Year's Day itself varied depending on which of the four \"Year Bearer\" days — Ik', Manik', Eb', or Kaban — fell at the start of the new Haab' cycle, creating a four-year rotation of New Year celebrations each associated with a different cardinal direction, color, and set of patron deities. This rotating system ensured that the Maya maintained a rich and varied ceremonial calendar that bound their complex understanding of time to their spiritual and agricultural lives.",
+    question: "What is the main idea of the passage?",
+    options: ["A) The Maya calendar was inferior to the modern Gregorian calendar", "B) The Maya had a complex calendar system with multiple New Year celebrations tied to religious beliefs", "C) The Maya only celebrated New Year once every 52 years", "D) Mayan New Year celebrations were identical to modern New Year festivities"],
+    correct: 1,
+    explanation: "Step 1: Survey the passage\nStep 2: It describes two interlocking calendars (Tzolk'in and Haab'), the Calendar Round, Wayeb', and Year Bearer rotations\nStep 3: The passage emphasizes the complexity and the religious/spiritual significance of these celebrations\nStep 4: B captures both the complexity and the religious connection\nStep 5: A is judgmental (not in passage). C is wrong (multiple celebrations). D is contradicted"
+  },
+  {
+    id: 68, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "How the Ancient Maya Celebrated the New Year",
+    question: "According to the passage, what was Wayeb'?",
+    options: ["A) The 260-day ritual calendar", "B) The name for Mayan priests who conducted ceremonies", "C) A five-day period at the end of the year considered dangerous and unlucky", "D) The ceremony for extinguishing and relighting fires"],
+    correct: 2,
+    explanation: "Step 1: Find Wayeb' in the second paragraph\nStep 2: Text states: \"The Maya New Year, known as Wayeb', was actually a five-day period at the end of the Haab' year that was considered a dangerous and unlucky time\"\nStep 3: C directly matches. The 260-day calendar (A) is Tzolk'in. Priests (B) are not named. Fire ceremony (D) is part of Calendar Round"
+  },
+  {
+    id: 69, section: "reading", type: "Detail", difficulty: "Basic",
+    passage: "How the Ancient Maya Celebrated the New Year",
+    question: "According to the passage, how often did the Calendar Round occur?",
+    options: ["A) Every 52 solar years", "B) Every 260 days", "C) Every 365 days", "D) Every 4 years"],
+    correct: 0,
+    explanation: "Step 1: Find Calendar Round in the first paragraph\nStep 2: Text states: \"Every 52 solar years, these two calendars would align, marking a complete Calendar Round\"\nStep 3: A directly matches. 260 days (B) is the Tzolk'in cycle. 365 days (C) is the Haab' cycle. 4 years (D) is the Year Bearer rotation, not the Calendar Round"
+  }
+];
+
+// ============================================================
+// STATE MANAGEMENT
+// ============================================================
+const TOTAL_QUESTIONS = 69;
 const TOTAL_ALGEBRA = 33;
 const TOTAL_READING = 36;
-const TOTAL_QUESTIONS = 69;
-const answeredQuestions = {};
 
-// Algebra Q IDs: q1-q33
-const algebraIds = [];
-for (let i = 1; i <= 33; i++) algebraIds.push('q' + i);
-// Reading Q IDs: qa1-qa9, qb1-qb9, qc1-qc9, qd1-qd6, qe1-qe3
-const readingIds = [];
-for (let i = 1; i <= 9; i++) readingIds.push('qa' + i);
-for (let i = 1; i <= 9; i++) readingIds.push('qb' + i);
-for (let i = 1; i <= 9; i++) readingIds.push('qc' + i);
-for (let i = 1; i <= 6; i++) readingIds.push('qd' + i);
-for (let i = 1; i <= 3; i++) readingIds.push('qe' + i);
+// Current shuffled order of question indices
+let questionOrder = [];
+let currentIndex = 0;
 
-const allQuestionIds = [...algebraIds, ...readingIds];
+// Track user answers: { questionId: selectedOptionIndex }
+let userAnswers = {};
+// Track which questions have been checked (explanation shown)
+let checkedQuestions = {};
+// Track correctness: { questionId: true/false }
+let answerResults = {};
 
-// Build sidebar nav
+// Shuffle array using Fisher-Yates
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Initialize question order (shuffled)
+function initQuestionOrder() {
+  questionOrder = shuffleArray([...Array(TOTAL_QUESTIONS).keys()]); // 0-68 indices
+  currentIndex = 0;
+  userAnswers = {};
+  checkedQuestions = {};
+  answerResults = {};
+  updateNavHighlight();
+  renderQuestion();
+}
+
+// ============================================================
+// SIDEBAR NAVIGATOR
+// ============================================================
 function buildNav() {
   const navAlgebra = document.getElementById('navAlgebra');
   const navReading = document.getElementById('navReading');
+  navAlgebra.innerHTML = '';
+  navReading.innerHTML = '';
 
-  // Algebra Q1-Q33
-  for (let i = 1; i <= 33; i++) {
+  // Build all 69 nav buttons
+  for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+    const q = allQuestions[i];
     const btn = document.createElement('button');
-    btn.className = 'nav-btn algebra';
-    btn.textContent = i;
-    btn.title = 'Q' + i + ' — Algebra';
-    const qId = 'q' + i;
+    btn.className = 'nav-btn ' + (q.section === 'algebra' ? 'algebra' : 'reading');
+    btn.textContent = (i + 1);
+    btn.title = 'Q' + (i + 1) + ' — ' + (q.section === 'algebra' ? 'Algebra' : 'Reading');
+    btn.setAttribute('data-qindex', i);
     btn.onclick = function() {
-      document.getElementById(qId).scrollIntoView({ behavior: 'smooth', block: 'center' });
-      highlightNavBtn(qId);
+      // Find this question in the shuffled order
+      const posInOrder = questionOrder.indexOf(i);
+      if (posInOrder !== -1) {
+        currentIndex = posInOrder;
+        renderQuestion();
+      }
     };
-    btn.setAttribute('data-qid', qId);
-    navAlgebra.appendChild(btn);
-  }
 
-  // Reading Q34-Q69
-  for (let idx = 0; idx < readingIds.length; idx++) {
-    const qId = readingIds[idx];
-    const qNum = 34 + idx;
-    const btn = document.createElement('button');
-    btn.className = 'nav-btn reading';
-    btn.textContent = qNum;
-    btn.title = 'Q' + qNum + ' — Reading';
-    btn.onclick = function() {
-      document.getElementById(qId).scrollIntoView({ behavior: 'smooth', block: 'center' });
-      highlightNavBtn(qId);
-    };
-    btn.setAttribute('data-qid', qId);
-    navReading.appendChild(btn);
+    if (q.section === 'algebra') {
+      navAlgebra.appendChild(btn);
+    } else {
+      navReading.appendChild(btn);
+    }
   }
 }
 
-function highlightNavBtn(qId) {
+function updateNavStatus() {
+  // Update all nav buttons to reflect answered/unanswered/active/correct/wrong
+  document.querySelectorAll('.nav-btn').forEach(function(btn) {
+    const qIndex = parseInt(btn.getAttribute('data-qindex'));
+    const qId = allQuestions[qIndex].id;
+
+    btn.classList.remove('answered', 'wrong-answer', 'correct-answer');
+
+    if (checkedQuestions[qId]) {
+      btn.classList.add('answered');
+      if (answerResults[qId] === true) {
+        btn.classList.add('correct-answer');
+      } else if (answerResults[qId] === false) {
+        btn.classList.add('wrong-answer');
+        btn.classList.remove('answered');
+      }
+    }
+  });
+}
+
+function updateNavHighlight() {
   document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('active-q'); });
-  const btn = document.querySelector('.nav-btn[data-qid="' + qId + '"]');
-  if (btn) btn.classList.add('active-q');
+  if (questionOrder.length > 0 && currentIndex < questionOrder.length) {
+    const qIndex = questionOrder[currentIndex];
+    const btn = document.querySelector('.nav-btn[data-qindex="' + qIndex + '"]');
+    if (btn) btn.classList.add('active-q');
+  }
+  updateNavStatus();
 }
 
-function markAnswered(qId) {
-  answeredQuestions[qId] = true;
-  const btn = document.querySelector('.nav-btn[data-qid="' + qId + '"]');
-  if (btn) btn.classList.add('answered');
+// ============================================================
+// QUESTION RENDERING
+// ============================================================
+function renderQuestion() {
+  if (questionOrder.length === 0) initQuestionOrder();
+  if (currentIndex >= questionOrder.length) currentIndex = questionOrder.length - 1;
+  if (currentIndex < 0) currentIndex = 0;
+
+  const qIndex = questionOrder[currentIndex];
+  const q = allQuestions[qIndex];
+  const displayNum = currentIndex + 1;
+
+  // Update progress
+  document.getElementById('progressText').textContent = 'Question ' + displayNum + ' of ' + TOTAL_QUESTIONS;
+
+  // Update card header
+  document.getElementById('cardQNum').textContent = 'Question ' + displayNum;
+  const badge = document.getElementById('cardBadge');
+  badge.textContent = q.section === 'algebra' ? 'Algebra' : 'Reading Comprehension';
+  badge.className = 'card-badge ' + (q.section === 'algebra' ? 'badge-algebra' : 'badge-reading');
+
+  document.getElementById('cardDifficulty').textContent = q.difficulty;
+
+  // Passage label
+  const passageLabel = document.getElementById('cardPassageLabel');
+  if (q.passage) {
+    passageLabel.style.display = 'inline-block';
+    passageLabel.textContent = 'Passage: ' + q.passage;
+  } else {
+    passageLabel.style.display = 'none';
+  }
+
+  // Passage text
+  const passageDiv = document.getElementById('cardPassage');
+  if (q.passageText) {
+    passageDiv.style.display = 'block';
+    passageDiv.innerHTML = '<div class="passage-title">' + q.passage + '</div>' + q.passageText.replace(/\n/g, '<br>');
+  } else {
+    passageDiv.style.display = 'none';
+  }
+
+  // Question text
+  document.getElementById('cardQuestion').innerHTML = q.question;
+
+  // Options
+  const optionsDiv = document.getElementById('cardOptions');
+  const isAnswered = checkedQuestions[q.id];
+  optionsDiv.innerHTML = '';
+  const labels = ['A', 'B', 'C', 'D'];
+  for (let i = 0; i < q.options.length; i++) {
+    const label = document.createElement('label');
+    if (isAnswered) label.classList.add('disabled');
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = 'currentQuestion';
+    radio.value = i;
+    if (userAnswers[q.id] === i) radio.checked = true;
+    if (isAnswered) radio.disabled = true;
+    label.appendChild(radio);
+    label.appendChild(document.createTextNode(' ' + q.options[i]));
+
+    // Apply correct/wrong styling if checked
+    if (isAnswered && answerResults[q.id] === true && i === q.correct) {
+      label.classList.add('correct');
+    } else if (isAnswered && answerResults[q.id] === false) {
+      if (i === q.correct) label.classList.add('correct');
+      if (i === userAnswers[q.id]) label.classList.add('wrong');
+    }
+
+    optionsDiv.appendChild(label);
+  }
+
+  // Check button
+  const checkBtn = document.getElementById('checkBtn');
+  if (isAnswered) {
+    checkBtn.style.display = 'none';
+  } else {
+    checkBtn.style.display = 'inline-block';
+    checkBtn.disabled = false;
+  }
+
+  // Result indicator
+  const resultDiv = document.getElementById('resultIndicator');
+  if (isAnswered && answerResults[q.id] === true) {
+    resultDiv.className = 'result-indicator correct-result show';
+    resultDiv.innerHTML = '<span class="result-icon">&#10003;</span> Correct! The answer is ' + labels[q.correct] + ') ' + q.options[q.correct].replace(/^[A-D]\)\s*/, '');
+  } else if (isAnswered && answerResults[q.id] === false) {
+    resultDiv.className = 'result-indicator wrong-result show';
+    resultDiv.innerHTML = '<span class="result-icon">&#10007;</span> Incorrect. The correct answer is ' + labels[q.correct] + ') ' + q.options[q.correct].replace(/^[A-D]\)\s*/, '');
+  } else {
+    resultDiv.className = 'result-indicator';
+  }
+
+  // Explanation box
+  const expBox = document.getElementById('explanationBox');
+  if (isAnswered) {
+    expBox.className = 'explanation-box show';
+
+    // Build vertical step-by-step explanation
+    const expLines = q.explanation.split('\n');
+    let expHTML = '<div class="exp-header">Step-by-Step Solution:</div>';
+    expHTML += '<hr class="exp-divider">';
+    for (let i = 0; i < expLines.length; i++) {
+      expHTML += '<span class="exp-step">' + expLines[i] + '</span>';
+      if (i < expLines.length - 1) expHTML += '<br>';
+    }
+    expBox.innerHTML = expHTML;
+  } else {
+    expBox.className = 'explanation-box';
+    expBox.innerHTML = '';
+  }
+
+  // Update nav buttons
+  document.getElementById('prevBtn').disabled = (currentIndex === 0);
+  document.getElementById('nextBtn').disabled = (currentIndex >= TOTAL_QUESTIONS - 1);
+
+  // Scroll card into view
+  document.getElementById('questionCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  updateNavHighlight();
 }
 
-// ===== TIMER =====
+// ============================================================
+// CHECK ANSWER
+// ============================================================
+function checkCurrentAnswer() {
+  if (questionOrder.length === 0) return;
+  const qIndex = questionOrder[currentIndex];
+  const q = allQuestions[qIndex];
+
+  // Get selected radio
+  const radios = document.querySelectorAll('input[name="currentQuestion"]');
+  let selected = null;
+  radios.forEach(function(r) {
+    if (r.checked) selected = parseInt(r.value);
+  });
+
+  if (selected === null) {
+    alert('Please select an answer before checking.');
+    return;
+  }
+
+  // Record answer
+  userAnswers[q.id] = selected;
+  checkedQuestions[q.id] = true;
+  answerResults[q.id] = (selected === q.correct);
+
+  // Re-render to show results
+  renderQuestion();
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function navigateQuestion(direction) {
+  const newIndex = currentIndex + direction;
+  if (newIndex >= 0 && newIndex < TOTAL_QUESTIONS) {
+    currentIndex = newIndex;
+    renderQuestion();
+    document.getElementById('questionCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function shuffleQuestions() {
+  initQuestionOrder();
+  document.getElementById('questionCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ============================================================
+// TIMER
+// ============================================================
 let totalSeconds = 97 * 60;
 let algebraSeconds = 46 * 60;
 let readingSeconds = 51 * 60;
 let timerInterval = null;
 let isPaused = false;
-let currentSection = 'algebra'; // 'algebra', 'between', 'reading', 'done'
+let currentSection = 'algebra';
 let sectionTimeLeft = algebraSeconds;
 
 function updateTimerDisplay() {
@@ -1467,7 +1491,6 @@ function updateTimerDisplay() {
 
   timerEl.textContent = display;
 
-  // Update section label
   if (currentSection === 'algebra') {
     labelEl.textContent = 'Algebra Section: 46:00';
   } else if (currentSection === 'reading') {
@@ -1475,10 +1498,9 @@ function updateTimerDisplay() {
   } else if (currentSection === 'between') {
     labelEl.textContent = 'Section Break — Click Start for Reading';
   } else if (currentSection === 'done') {
-    labelEl.textContent = 'Time\'s Up!';
+    labelEl.textContent = "Time's Up!";
   }
 
-  // Color warnings
   timerEl.classList.remove('warning', 'danger');
   if (sectionTimeLeft <= 300) {
     timerEl.classList.add('danger');
@@ -1494,7 +1516,6 @@ function startTimer() {
   if (currentSection === 'between') {
     currentSection = 'reading';
     sectionTimeLeft = readingSeconds;
-    document.getElementById('readingSection').scrollIntoView({ behavior: 'smooth' });
   }
 
   document.getElementById('btnStart').style.display = 'none';
@@ -1508,23 +1529,22 @@ function startTimer() {
 
         if (sectionTimeLeft <= 0) {
           if (currentSection === 'algebra') {
-            // Auto-pause between sections
             currentSection = 'between';
             sectionTimeLeft = readingSeconds;
             updateTimerDisplay();
             isPaused = true;
             document.getElementById('btnPause').style.display = 'none';
             document.getElementById('btnStart').style.display = 'inline-block';
-            document.getElementById('btnStart').textContent = '▶ Start Reading Section';
+            document.getElementById('btnStart').textContent = 'Start Reading Section';
             document.getElementById('timerDisplay').classList.remove('warning', 'danger');
-            alert('⏰ Algebra section time is up! Take a short break, then start the Reading section when ready.');
+            alert('Algebra section time is up! Take a short break, then start the Reading section when ready.');
           } else if (currentSection === 'reading') {
             currentSection = 'done';
             clearInterval(timerInterval);
             timerInterval = null;
             document.getElementById('timerDisplay').textContent = '00:00';
             document.getElementById('timerDisplay').classList.add('danger');
-            document.getElementById('timerSectionLabel').textContent = 'Time\'s Up!';
+            document.getElementById('timerSectionLabel').textContent = "Time's Up!";
             document.getElementById('btnPause').style.display = 'none';
             document.getElementById('btnStart').style.display = 'none';
           }
@@ -1538,7 +1558,7 @@ function pauseTimer() {
   isPaused = true;
   document.getElementById('btnPause').style.display = 'none';
   document.getElementById('btnStart').style.display = 'inline-block';
-  document.getElementById('btnStart').textContent = '▶ Resume';
+  document.getElementById('btnStart').textContent = 'Resume';
 }
 
 function resetTimer() {
@@ -1554,100 +1574,28 @@ function resetTimer() {
   document.getElementById('timerDisplay').classList.remove('warning', 'danger');
   document.getElementById('timerSectionLabel').textContent = 'Algebra Section: 46:00';
   document.getElementById('btnStart').style.display = 'inline-block';
-  document.getElementById('btnStart').textContent = '▶ Start';
+  document.getElementById('btnStart').textContent = 'Start';
   document.getElementById('btnPause').style.display = 'none';
 }
 
-// Initialize timer display
 updateTimerDisplay();
 
-// ===== CHECK ANSWER =====
-function checkAnswer(qid, correct) {
-  const q = document.getElementById(qid);
-  if (!q) return;
-  const radios = q.querySelectorAll('input[type="radio"]');
-  const labels = q.querySelectorAll('.q-options label');
-  const exp = document.getElementById(qid + '-exp');
-
-  let selected = null;
-  radios.forEach(function(r) {
-    if (r.checked) selected = r.value;
-  });
-
-  // Reset all labels
-  labels.forEach(function(l) { l.classList.remove('correct', 'wrong'); });
-
-  // Show explanation
-  if (exp) { exp.classList.add('show'); }
-
-  // Mark correct answer
-  labels.forEach(function(l) {
-    const input = l.querySelector('input');
-    if (input && input.value === correct) {
-      l.classList.add('correct');
-    }
-  });
-
-  // Mark wrong if selected incorrectly
-  if (selected && selected !== correct) {
-    labels.forEach(function(l) {
-      const input = l.querySelector('input');
-      if (input && input.value === selected) {
-        l.classList.add('wrong');
-      }
-    });
-  }
-
-  // Track as answered
-  markAnswered(qid);
-}
-
-// ===== CALCULATE SCORE =====
-function calculateScore() {
-  const answers = {
-    'q1':'b','q2':'b','q3':'a','q4':'b','q5':'c',
-    'q6':'b','q7':'b','q8':'c','q9':'a','q10':'b',
-    'q11':'b','q12':'b','q13':'b','q14':'b','q15':'c',
-    'q16':'a','q17':'a','q18':'a','q19':'a','q20':'a',
-    'q21':'c','q22':'b','q23':'b','q24':'a','q25':'b',
-    'q26':'b','q27':'a','q28':'b','q29':'b','q30':'c',
-    'q31':'d','q32':'c','q33':'d',
-    'qa1':'b','qa2':'b','qa3':'b','qa4':'c','qa5':'b',
-    'qa6':'b','qa7':'b','qa8':'b','qa9':'b',
-    'qb1':'b','qb2':'b','qb3':'b','qb4':'c','qb5':'b',
-    'qb6':'d','qb7':'b','qb8':'c','qb9':'b',
-    'qc1':'b','qc2':'c','qc3':'b','qc4':'b','qc5':'b',
-    'qc6':'b','qc7':'b','qc8':'b','qc9':'d',
-    'qd1':'b','qd2':'b','qd3':'b','qd4':'c','qd5':'d',
-    'qd6':'c',
-    'qe1':'b','qe2':'c','qe3':'a'
-  };
-
+// ============================================================
+// VIEW SCORE
+// ============================================================
+function viewScore() {
   let totalCorrect = 0;
   let algebraCorrect = 0;
   let readingCorrect = 0;
 
-  for (const [qid, answer] of Object.entries(answers)) {
-    const q = document.getElementById(qid);
-    if (!q) continue;
-    const radios = q.querySelectorAll('input[type="radio"]');
-    let answeredCorrectly = false;
-    radios.forEach(function(r) {
-      if (r.checked && r.value === answer) {
-        totalCorrect++;
-        answeredCorrectly = true;
-      }
-    });
-
-    if (answeredCorrectly) {
-      if (algebraIds.indexOf(qid) !== -1) algebraCorrect++;
-      else if (readingIds.indexOf(qid) !== -1) readingCorrect++;
+  for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+    const q = allQuestions[i];
+    const qId = q.id;
+    if (answerResults[qId] === true) {
+      totalCorrect++;
+      if (q.section === 'algebra') algebraCorrect++;
+      else readingCorrect++;
     }
-
-    // Also mark as answered if any radio selected
-    let anySelected = false;
-    radios.forEach(function(r) { if (r.checked) anySelected = true; });
-    if (anySelected) markAnswered(qid);
   }
 
   const percent = Math.round((totalCorrect / TOTAL_QUESTIONS) * 100);
@@ -1671,10 +1619,10 @@ function calculateScore() {
 
   const passEl = document.getElementById('scorePass');
   if (passed) {
-    passEl.textContent = '✅ LIKELY PASS — Stanine ' + stanine + ' meets typical interview qualification';
+    passEl.textContent = 'LIKELY PASS — Stanine ' + stanine + ' meets typical interview qualification';
     passEl.className = 'score-pass pass';
   } else {
-    passEl.textContent = '❌ BELOW THRESHOLD — Stanine ' + stanine + ' is below typical qualification (4+)';
+    passEl.textContent = 'BELOW THRESHOLD — Stanine ' + stanine + ' is below typical qualification (4+)';
     passEl.className = 'score-pass fail';
   }
 
@@ -1682,33 +1630,29 @@ function calculateScore() {
   document.getElementById('algebraScore').textContent = algebraCorrect + ' / 33';
   document.getElementById('readingScore').textContent = readingCorrect + ' / 36';
 
-  document.getElementById('scoreContainer').classList.add('show');
-  document.getElementById('scoreContainer').scrollIntoView({ behavior: 'smooth' });
+  const scoreContainer = document.getElementById('scoreContainer');
+  scoreContainer.classList.add('show');
+  scoreContainer.scrollIntoView({ behavior: 'smooth' });
 }
 
-// ===== SCROLL SPY — highlight current question in nav =====
-let scrollTimeout;
-window.addEventListener('scroll', function() {
-  if (scrollTimeout) clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(function() {
-    let closestId = null;
-    let closestDist = Infinity;
-    allQuestionIds.forEach(function(qId) {
-      const el = document.getElementById(qId);
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const dist = Math.abs(rect.top - 200);
-      if (dist < closestDist) {
-        closestDist = dist;
-        closestId = qId;
-      }
-    });
-    if (closestId) highlightNavBtn(closestId);
-  }, 100);
+// ============================================================
+// KEYBOARD NAVIGATION
+// ============================================================
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft' && !e.target.closest('input')) {
+    e.preventDefault();
+    navigateQuestion(-1);
+  } else if (e.key === 'ArrowRight' && !e.target.closest('input')) {
+    e.preventDefault();
+    navigateQuestion(1);
+  }
 });
 
-// ===== INIT =====
+// ============================================================
+// INIT
+// ============================================================
 buildNav();
+initQuestionOrder();
 </script>
 
 </body>

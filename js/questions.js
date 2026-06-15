@@ -1618,7 +1618,7 @@ window.questionBank = [
     options: ["A) x = 60", "B) x = 15", "C) x = 12", "D) x = 30"],
     correct: 2,
     explanation: "Common denominator 12: 6x/12 \u2212 4x/12 + 3x/12 = 5. 5x/12 = 5. Multiply by 12: 5x = 60. x = 12."
-  }
+  },
   {
     id: 181,
     topic: "Systems of Equations",
@@ -3238,7 +3238,7 @@ window.questionBank = [
     options: ["A) \u22124x \u2212 26", "B) \u22124x \u2212 24", "C) \u22124x \u2212 20", "D) 4x + 24"],
     correct: 0,
     explanation: "(2x+5)(2x\u22125) = 4x\u00b2\u221225. (2x+1)\u00b2 = 4x\u00b2+4x+1. Subtract: 4x\u00b2\u221225\u22124x\u00b2\u22124x\u22121 = \u22124x\u221226."
-  }
+  },
   {
     id: 361,
     topic: "Functions & Graphs",
