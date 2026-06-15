@@ -394,8 +394,6 @@ function render() {
   document.getElementById('filterStats').textContent =
     filteredQuestions.length + ' of ' + allQuestions.length + ' questions';
 
-  document.getElementById('totalQ').textContent = filteredQuestions.length;
-
   if (filteredQuestions.length === 0) {
     container.innerHTML = '<div class="empty-state"><h3>No questions match these filters</h3><p>Try a different topic or difficulty level.</p></div>';
     nav.style.display = 'none';
