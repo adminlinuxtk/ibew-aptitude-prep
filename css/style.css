@@ -117,6 +117,20 @@ nav a:hover, nav a.active {
   transition: transform 0.2s, box-shadow 0.2s;
 }
 .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+.hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.hero-cta-secondary {
+  display: inline-block;
+  background: transparent;
+  color: var(--secondary);
+  padding: 13px 35px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  border: 2px solid var(--secondary);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.hero-cta-secondary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); background: var(--secondary); color: var(--primary); }
 .hero-stats {
   display: flex;
   justify-content: center;
@@ -176,6 +190,7 @@ nav a:hover, nav a.active {
 }
 .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
 .card-icon { font-size: 2rem; margin-bottom: 12px; }
+.card-icon svg { width: 32px; height: 32px; color: var(--secondary); }
 .card h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.15rem; }
 .card p { color: var(--text-light); font-size: 0.92rem; margin-bottom: 14px; }
 .card .btn {
