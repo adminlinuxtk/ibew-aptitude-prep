@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question Bank — IBEW Aptitude Test Prep</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .qb-header {
+      text-align: center;
+      padding: 30px 0 10px;
+    }
+    .qb-header h1 { font-size: 1.8rem; color: var(--primary); }
+    .qb-header p { color: var(--text-light); margin-top: 4px; font-size: 0.95rem; }
+
+    .qb-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin: 20px 0;
+      padding: 16px 20px;
+      background: var(--card-bg);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .qb-controls label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .qb-controls select, .qb-controls input {
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      background: white;
+    }
+    .qb-stats {
+      margin-left: auto;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .topic-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .topic-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: white;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text);
+    }
+    .topic-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .topic-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .topic-btn.all-btn.active {
+      background: var(--secondary);
+      border-color: var(--secondary);
+      color: var(--primary);
+    }
+
+    .qb-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 28px 30px;
+      margin: 16px 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+    }
+    .qb-card .q-num {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .qb-card .q-topic {
+      display: inline-block;
+      background: #eef7ff;
+      color: var(--info);
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .qb-card .q-diff {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+    .q-diff.easy { background: #d4edda; color: #155724; }
+    .q-diff.med { background: #fff3cd; color: #856404; }
+    .q-diff.hard { background: #f8d7da; color: #721c24; }
+
+    .qb-card .q-text {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .qb-card .options label {
+      display: block;
+      padding: 10px 14px;
+      margin-bottom: 6px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+    }
+    .qb-card .options label:hover { background: #f0f4f8; }
+    .qb-card .options input { margin-right: 10px; }
+    .qb-card .options .correct { background: #d4edda; border-color: var(--success); }
+    .qb-card .options .wrong { background: #f8d7da; border-color: var(--danger); }
+
+    .qb-card .explanation {
+      margin-top: 14px;
+      padding: 14px;
+      background: #f8f9fa;
+      border-radius: 6px;
+      display: none;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      border-left: 3px solid var(--info);
+    }
+    .qb-card .explanation.show { display: block; }
+
+    .qb-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 20px 0;
+      gap: 10px;
+    }
+    .qb-nav .btn {
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .qb-nav .btn-prev { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .qb-nav .btn-prev:hover { background: #f0f0f0; }
+    .qb-nav .btn-next { background: var(--primary); color: white; }
+    .qb-nav .btn-next:hover { background: var(--primary-light); }
+    .qb-nav .btn-check { background: var(--secondary); color: var(--primary); }
+    .qb-nav .btn-check:hover { transform: translateY(-1px); }
+    .qb-nav .btn-shuffle { background: var(--info); color: white; }
+    .qb-nav .btn-shuffle:hover { opacity: 0.9; }
+    .qb-nav .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .qb-progress {
+      margin: 16px 0;
+    }
+    .qb-progress-text {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-light);
+    }
+    .empty-state h3 { font-size: 1.3rem; margin-bottom: 10px; color: var(--text); }
+
+    .score-badge {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    input[type="radio"] { accent-color: var(--primary); }
+
+    @media (max-width: 768px) {
+      .qb-controls { flex-direction: column; align-items: stretch; }
+      .qb-stats { margin-left: 0; }
+      .qb-nav { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- === TOP BANNER === -->
+<div class="top-banner">
+  ⚡ <strong>FREE</strong> IBEW Aptitude Test Preparation — 520+ Practice Questions
+</div>
+
+<!-- === HEADER === -->
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      ⚡ IBEW<span>Prep</span>
+      <span class="sub">Aptitude Test Study Guide</span>
+    </a>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="algebra.html">Algebra</a>
+      <a href="reading.html">Reading</a>
+      <a href="practice-test.html">Practice Test</a>
+      <a href="question-bank.html" class="active">Question Bank</a>
+      <a href="study-guide.html">Study Guide</a>
+    </nav>
+  </div>
+</header>
+
+<!-- === MAIN === -->
+<div class="container lesson-page">
+
+  <div class="qb-header">
+    <h1>📚 Algebra Question Bank</h1>
+    <p><strong>520+ practice questions</strong> across 11 topics — filter by topic, difficulty, or shuffle randomly</p>
+  </div>
+
+  <!-- === FILTERS === -->
+  <div class="qb-controls">
+    <label>Show:</label>
+    <select id="topicFilter" onchange="applyFilters()">
+      <option value="all">All Topics</option>
+    </select>
+
+    <label>Difficulty:</label>
+    <select id="diffFilter" onchange="applyFilters()">
+      <option value="all">All Levels</option>
+      <option value="1">Easy</option>
+      <option value="2">Medium</option>
+      <option value="3">Hard</option>
+    </select>
+
+    <label>Order:</label>
+    <select id="orderFilter" onchange="applyFilters()">
+      <option value="sequential">Sequential</option>
+      <option value="random">Random</option>
+    </select>
+
+    <label>Per page:</label>
+    <select id="perPage" onchange="applyFilters()">
+      <option value="1">1</option>
+      <option value="5">5</option>
+      <option value="10" selected>10</option>
+      <option value="20">20</option>
+    </select>
+
+    <span class="qb-stats" id="filterStats">Loading questions...</span>
+  </div>
+
+  <!-- === TOPIC FILTER PILLS === -->
+  <div class="topic-filters" id="topicPills"></div>
+
+  <!-- === PROGRESS === -->
+  <div class="qb-progress" id="progressBar">
+    <div class="qb-progress-text" id="progressText">Question 1 of <span id="totalQ">0</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+
+  <!-- === QUESTIONS CONTAINER === -->
+  <div id="questionsContainer">
+    <div class="empty-state">
+      <h3>Select a topic to start practicing</h3>
+      <p>Choose a topic above or click a topic button to filter questions.</p>
+    </div>
+  </div>
+
+  <!-- === NAVIGATION === -->
+  <div class="qb-nav" id="qbNav" style="display:none;">
+    <button class="btn btn-prev" onclick="prevPage()">← Previous</button>
+    <span id="pageInfo" style="font-size:0.9rem;color:var(--text-light);"></span>
+    <button class="btn btn-check" onclick="checkAll()">✓ Check Answers</button>
+    <button class="btn btn-shuffle" onclick="shuffleCurrent()">🔀 Shuffle</button>
+    <button class="btn btn-next" onclick="nextPage()">Next →</button>
+  </div>
+
+</div>
+
+<!-- === FOOTER === -->
+<footer>
+  <p>⚡ IBEW Prep — Free study materials for the Electrical Training Alliance Aptitude Test</p>
+  <p style="margin-top:6px;">
+    <a href="../index.html">Home</a> ·
+    <a href="algebra.html">Algebra</a> ·
+    <a href="reading.html">Reading</a> ·
+    <a href="practice-test.html">Practice Test</a> ·
+    <a href="question-bank.html">Question Bank</a> ·
+    <a href="study-guide.html">Study Guide</a>
+  </p>
+  <p style="margin-top:6px; font-size:0.75rem;">Not affiliated with IBEW, NECA, or the Electrical Training Alliance.</p>
+</footer>
+
+<script src="../js/questions.js"></script>
+<script>
+// ============================
+// QUESTION BANK APP
+// ============================
+
+let allQuestions = window.questionBank || [];
+let filteredQuestions = [];
+let currentPage = 0;
+let questionsPerPage = 10;
+
+// ===== INIT =====
+function init() {
+  // Populate topic filter dropdown
+  const topics = [...new Set(allQuestions.map(q => q.topic))].sort();
+  const select = document.getElementById('topicFilter');
+  topics.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t;
+    opt.textContent = t;
+    select.appendChild(opt);
+  });
+
+  // Build topic pills
+  const pills = document.getElementById('topicPills');
+  const allPill = document.createElement('button');
+  allPill.className = 'topic-btn all-btn active';
+  allPill.textContent = '📋 All Topics';
+  allPill.onclick = function() { setActivePill(this); document.getElementById('topicFilter').value = 'all'; applyFilters(); };
+  pills.appendChild(allPill);
+
+  topics.forEach(t => {
+    const btn = document.createElement('button');
+    btn.className = 'topic-btn';
+    btn.textContent = t;
+    const count = allQuestions.filter(q => q.topic === t).length;
+    btn.title = count + ' questions';
+    btn.onclick = function() { setActivePill(this); document.getElementById('topicFilter').value = t; applyFilters(); };
+    pills.appendChild(btn);
+  });
+
+  applyFilters();
+}
+
+function setActivePill(el) {
+  document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ===== FILTERING =====
+function applyFilters() {
+  const topic = document.getElementById('topicFilter').value;
+  const diff = document.getElementById('diffFilter').value;
+  const order = document.getElementById('orderFilter').value;
+  questionsPerPage = parseInt(document.getElementById('perPage').value);
+
+  let filtered = [...allQuestions];
+
+  if (topic !== 'all') filtered = filtered.filter(q => q.topic === topic);
+  if (diff !== 'all') filtered = filtered.filter(q => q.difficulty === parseInt(diff));
+
+  if (order === 'random') {
+    for (let i = filtered.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+    }
+  }
+
+  filteredQuestions = filtered;
+  currentPage = 0;
+  render();
+}
+
+// ===== RENDER =====
+function render() {
+  const container = document.getElementById('questionsContainer');
+  const nav = document.getElementById('qbNav');
+  const totalPages = Math.ceil(filteredQuestions.length / questionsPerPage) || 1;
+
+  document.getElementById('filterStats').textContent =
+    filteredQuestions.length + ' of ' + allQuestions.length + ' questions';
+
+  document.getElementById('totalQ').textContent = filteredQuestions.length;
+
+  if (filteredQuestions.length === 0) {
+    container.innerHTML = '<div class="empty-state"><h3>No questions match these filters</h3><p>Try a different topic or difficulty level.</p></div>';
+    nav.style.display = 'none';
+    document.getElementById('progressBar').style.display = 'none';
+    return;
+  }
+
+  document.getElementById('progressBar').style.display = 'block';
+  nav.style.display = 'flex';
+
+  const start = currentPage * questionsPerPage;
+  const end = Math.min(start + questionsPerPage, filteredQuestions.length);
+  const pageQuestions = filteredQuestions.slice(start, end);
+
+  // Progress
+  document.getElementById('progressText').innerHTML =
+    'Showing <strong>' + (start+1) + '&ndash;' + end + '</strong> of <strong>' + filteredQuestions.length + '</strong> questions';
+  const pct = ((start + pageQuestions.length) / filteredQuestions.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+
+  // Page info
+  document.getElementById('pageInfo').textContent = 'Page ' + (currentPage + 1) + ' of ' + totalPages;
+
+  // Question HTML
+  let html = '';
+  pageQuestions.forEach((q, i) => {
+    const globalIdx = start + i + 1;
+    const diffLabel = q.difficulty === 1 ? 'Easy' : q.difficulty === 2 ? 'Medium' : 'Hard';
+    const diffClass = q.difficulty === 1 ? 'easy' : q.difficulty === 2 ? 'med' : 'hard';
+    const optLetters = ['A', 'B', 'C', 'D'];
+
+    html += '<div class="qb-card" id="qcard-' + q.id + '">';
+    html += '  <div class="q-num">Question #' + globalIdx + '</div>';
+    html += '  <span class="q-topic">' + q.topic + '</span>';
+    html += '  <span class="q-diff ' + diffClass + '">' + diffLabel + '</span>';
+    html += '  <div class="q-text">' + q.question + '</div>';
+    html += '  <div class="options">';
+
+    q.options.forEach((opt, oi) => {
+      html += '    <label id="qlabel-' + q.id + '-' + oi + '">';
+      html += '      <input type="radio" name="q-' + q.id + '" value="' + oi + '" onchange="selectOption(' + q.id + ',' + oi + ')"> ';
+      html += opt;
+      html += '    </label>';
+    });
+
+    html += '  </div>';
+    html += '  <button class="btn-check" onclick="checkQuestion(' + q.id + ')">Check Answer</button>';
+    html += '  <div class="explanation" id="explain-' + q.id + '">';
+    html += '    <strong>Answer: ' + optLetters[q.correct] + ') ' + q.options[q.correct].replace(/^[A-D]\)\s*/, '') + '</strong><br>';
+    html += '    ' + q.explanation;
+    html += '  </div>';
+    html += '</div>';
+  });
+
+  container.innerHTML = html;
+
+  // Scroll to top
+  window.scrollTo({ top: 300, behavior: 'smooth' });
+
+  // Update nav buttons
+  document.querySelector('.btn-prev').disabled = currentPage === 0;
+  document.querySelector('.btn-next').disabled = currentPage >= totalPages - 1;
+}
+
+// ===== NAVIGATION =====
+function nextPage() {
+  const totalPages = Math.ceil(filteredQuestions.length / questionsPerPage);
+  if (currentPage < totalPages - 1) { currentPage++; render(); }
+}
+
+function prevPage() {
+  if (currentPage > 0) { currentPage--; render(); }
+}
+
+function shuffleCurrent() {
+  for (let i = filteredQuestions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [filteredQuestions[i], filteredQuestions[j]] = [filteredQuestions[j], filteredQuestions[i]];
+  }
+  currentPage = 0;
+  render();
+}
+
+// ===== ANSWER CHECKING =====
+function selectOption(qId, optIdx) {
+  // Clear previous selection styling
+  document.querySelectorAll('#qcard-' + qId + ' .options label').forEach(l => {
+    l.classList.remove('correct', 'wrong');
+  });
+  // Hide explanation
+  document.getElementById('explain-' + qId).classList.remove('show');
+}
+
+function checkQuestion(qId) {
+  const selected = document.querySelector('input[name="q-' + qId + '"]:checked');
+  const q = allQuestions.find(q => q.id === qId);
+  if (!q) return;
+
+  if (!selected) {
+    document.getElementById('explain-' + qId).classList.add('show');
+    return;
+  }
+
+  const userIdx = parseInt(selected.value);
+  const labels = document.querySelectorAll('#qcard-' + qId + ' .options label');
+
+  labels.forEach(l => l.classList.remove('correct', 'wrong'));
+
+  // Mark correct answer
+  labels[q.correct].classList.add('correct');
+
+  // Mark user's wrong answer if different
+  if (userIdx !== q.correct) {
+    labels[userIdx].classList.add('wrong');
+  }
+
+  document.getElementById('explain-' + qId).classList.add('show');
+}
+
+function checkAll() {
+  const cards = document.querySelectorAll('.qb-card');
+  cards.forEach(card => {
+    const idMatch = card.id.match(/qcard-(\d+)/);
+    if (idMatch) checkQuestion(parseInt(idMatch[1]));
+  });
+}
+
+// ===== START =====
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
